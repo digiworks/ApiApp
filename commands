@@ -1,0 +1,2 @@
+
+..\vendor\bin\propel.bat model:build
