@@ -28,7 +28,7 @@ use models\Map\GroupPermissionsTableMap;
  * @method     ChildGroupPermissionsQuery orderByDeletedAt($order = Criteria::ASC) Order by the deleted_at column
  * @method     ChildGroupPermissionsQuery orderByCreatedBy($order = Criteria::ASC) Order by the created_by column
  * @method     ChildGroupPermissionsQuery orderByUpdatedBy($order = Criteria::ASC) Order by the updated_by column
- * @method     ChildGroupPermissionsQuery orderByDelatedBy($order = Criteria::ASC) Order by the delated_by column
+ * @method     ChildGroupPermissionsQuery orderByDeletedBy($order = Criteria::ASC) Order by the deleted_by column
  *
  * @method     ChildGroupPermissionsQuery groupByPid() Group by the pid column
  * @method     ChildGroupPermissionsQuery groupByPermissionName() Group by the permission_name column
@@ -39,7 +39,7 @@ use models\Map\GroupPermissionsTableMap;
  * @method     ChildGroupPermissionsQuery groupByDeletedAt() Group by the deleted_at column
  * @method     ChildGroupPermissionsQuery groupByCreatedBy() Group by the created_by column
  * @method     ChildGroupPermissionsQuery groupByUpdatedBy() Group by the updated_by column
- * @method     ChildGroupPermissionsQuery groupByDelatedBy() Group by the delated_by column
+ * @method     ChildGroupPermissionsQuery groupByDeletedBy() Group by the deleted_by column
  *
  * @method     ChildGroupPermissionsQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ChildGroupPermissionsQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -61,7 +61,7 @@ use models\Map\GroupPermissionsTableMap;
  * @method     ChildGroupPermissions|null findOneByDeletedAt(string $deleted_at) Return the first ChildGroupPermissions filtered by the deleted_at column
  * @method     ChildGroupPermissions|null findOneByCreatedBy(int $created_by) Return the first ChildGroupPermissions filtered by the created_by column
  * @method     ChildGroupPermissions|null findOneByUpdatedBy(int $updated_by) Return the first ChildGroupPermissions filtered by the updated_by column
- * @method     ChildGroupPermissions|null findOneByDelatedBy(int $delated_by) Return the first ChildGroupPermissions filtered by the delated_by column *
+ * @method     ChildGroupPermissions|null findOneByDeletedBy(int $deleted_by) Return the first ChildGroupPermissions filtered by the deleted_by column *
 
  * @method     ChildGroupPermissions requirePk($key, ConnectionInterface $con = null) Return the ChildGroupPermissions by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildGroupPermissions requireOne(ConnectionInterface $con = null) Return the first ChildGroupPermissions matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -75,7 +75,7 @@ use models\Map\GroupPermissionsTableMap;
  * @method     ChildGroupPermissions requireOneByDeletedAt(string $deleted_at) Return the first ChildGroupPermissions filtered by the deleted_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildGroupPermissions requireOneByCreatedBy(int $created_by) Return the first ChildGroupPermissions filtered by the created_by column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildGroupPermissions requireOneByUpdatedBy(int $updated_by) Return the first ChildGroupPermissions filtered by the updated_by column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildGroupPermissions requireOneByDelatedBy(int $delated_by) Return the first ChildGroupPermissions filtered by the delated_by column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildGroupPermissions requireOneByDeletedBy(int $deleted_by) Return the first ChildGroupPermissions filtered by the deleted_by column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildGroupPermissions[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildGroupPermissions objects based on current ModelCriteria
  * @psalm-method ObjectCollection&\Traversable<ChildGroupPermissions> find(ConnectionInterface $con = null) Return ChildGroupPermissions objects based on current ModelCriteria
@@ -97,8 +97,8 @@ use models\Map\GroupPermissionsTableMap;
  * @psalm-method ObjectCollection&\Traversable<ChildGroupPermissions> findByCreatedBy(int $created_by) Return ChildGroupPermissions objects filtered by the created_by column
  * @method     ChildGroupPermissions[]|ObjectCollection findByUpdatedBy(int $updated_by) Return ChildGroupPermissions objects filtered by the updated_by column
  * @psalm-method ObjectCollection&\Traversable<ChildGroupPermissions> findByUpdatedBy(int $updated_by) Return ChildGroupPermissions objects filtered by the updated_by column
- * @method     ChildGroupPermissions[]|ObjectCollection findByDelatedBy(int $delated_by) Return ChildGroupPermissions objects filtered by the delated_by column
- * @psalm-method ObjectCollection&\Traversable<ChildGroupPermissions> findByDelatedBy(int $delated_by) Return ChildGroupPermissions objects filtered by the delated_by column
+ * @method     ChildGroupPermissions[]|ObjectCollection findByDeletedBy(int $deleted_by) Return ChildGroupPermissions objects filtered by the deleted_by column
+ * @psalm-method ObjectCollection&\Traversable<ChildGroupPermissions> findByDeletedBy(int $deleted_by) Return ChildGroupPermissions objects filtered by the deleted_by column
  * @method     ChildGroupPermissions[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  * @psalm-method \Propel\Runtime\Util\PropelModelPager&\Traversable<ChildGroupPermissions> paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
@@ -198,7 +198,7 @@ abstract class GroupPermissionsQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT pid, permission_name, permission_type, userid, created_at, updated_at, deleted_at, created_by, updated_by, delated_by FROM public.group_permissions WHERE pid = :p0';
+        $sql = 'SELECT pid, permission_name, permission_type, userid, created_at, updated_at, deleted_at, created_by, updated_by, deleted_by FROM public.group_permissions WHERE pid = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -336,9 +336,10 @@ abstract class GroupPermissionsQuery extends ModelCriteria
      * <code>
      * $query->filterByPermissionName('fooValue');   // WHERE permission_name = 'fooValue'
      * $query->filterByPermissionName('%fooValue%', Criteria::LIKE); // WHERE permission_name LIKE '%fooValue%'
+     * $query->filterByPermissionName(['foo', 'bar']); // WHERE permission_name IN ('foo', 'bar')
      * </code>
      *
-     * @param     string $permissionName The value to use as filter.
+     * @param     string|string[] $permissionName The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildGroupPermissionsQuery The current query, for fluid interface
@@ -648,16 +649,16 @@ abstract class GroupPermissionsQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the delated_by column
+     * Filter the query on the deleted_by column
      *
      * Example usage:
      * <code>
-     * $query->filterByDelatedBy(1234); // WHERE delated_by = 1234
-     * $query->filterByDelatedBy(array(12, 34)); // WHERE delated_by IN (12, 34)
-     * $query->filterByDelatedBy(array('min' => 12)); // WHERE delated_by > 12
+     * $query->filterByDeletedBy(1234); // WHERE deleted_by = 1234
+     * $query->filterByDeletedBy(array(12, 34)); // WHERE deleted_by IN (12, 34)
+     * $query->filterByDeletedBy(array('min' => 12)); // WHERE deleted_by > 12
      * </code>
      *
-     * @param     mixed $delatedBy The value to use as filter.
+     * @param     mixed $deletedBy The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -665,16 +666,16 @@ abstract class GroupPermissionsQuery extends ModelCriteria
      *
      * @return $this|ChildGroupPermissionsQuery The current query, for fluid interface
      */
-    public function filterByDelatedBy($delatedBy = null, $comparison = null)
+    public function filterByDeletedBy($deletedBy = null, $comparison = null)
     {
-        if (is_array($delatedBy)) {
+        if (is_array($deletedBy)) {
             $useMinMax = false;
-            if (isset($delatedBy['min'])) {
-                $this->addUsingAlias(GroupPermissionsTableMap::COL_DELATED_BY, $delatedBy['min'], Criteria::GREATER_EQUAL);
+            if (isset($deletedBy['min'])) {
+                $this->addUsingAlias(GroupPermissionsTableMap::COL_DELETED_BY, $deletedBy['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($delatedBy['max'])) {
-                $this->addUsingAlias(GroupPermissionsTableMap::COL_DELATED_BY, $delatedBy['max'], Criteria::LESS_EQUAL);
+            if (isset($deletedBy['max'])) {
+                $this->addUsingAlias(GroupPermissionsTableMap::COL_DELETED_BY, $deletedBy['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -685,7 +686,7 @@ abstract class GroupPermissionsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(GroupPermissionsTableMap::COL_DELATED_BY, $delatedBy, $comparison);
+        return $this->addUsingAlias(GroupPermissionsTableMap::COL_DELETED_BY, $deletedBy, $comparison);
     }
 
     /**

@@ -132,11 +132,11 @@ abstract class Users implements ActiveRecordInterface
     protected $updated_by;
 
     /**
-     * The value for the delated_by field.
+     * The value for the deleted_by field.
      *
      * @var        int|null
      */
-    protected $delated_by;
+    protected $deleted_by;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -507,13 +507,13 @@ abstract class Users implements ActiveRecordInterface
     }
 
     /**
-     * Get the [delated_by] column value.
+     * Get the [deleted_by] column value.
      *
      * @return int|null
      */
-    public function getDelatedBy()
+    public function getDeletedBy()
     {
-        return $this->delated_by;
+        return $this->deleted_by;
     }
 
     /**
@@ -717,24 +717,24 @@ abstract class Users implements ActiveRecordInterface
     } // setUpdatedBy()
 
     /**
-     * Set the value of [delated_by] column.
+     * Set the value of [deleted_by] column.
      *
      * @param int|null $v New value
      * @return $this|\models\Users The current object (for fluent API support)
      */
-    public function setDelatedBy($v)
+    public function setDeletedBy($v)
     {
         if ($v !== null) {
             $v = (int) $v;
         }
 
-        if ($this->delated_by !== $v) {
-            $this->delated_by = $v;
-            $this->modifiedColumns[UsersTableMap::COL_DELATED_BY] = true;
+        if ($this->deleted_by !== $v) {
+            $this->deleted_by = $v;
+            $this->modifiedColumns[UsersTableMap::COL_DELETED_BY] = true;
         }
 
         return $this;
-    } // setDelatedBy()
+    } // setDeletedBy()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -802,8 +802,8 @@ abstract class Users implements ActiveRecordInterface
             $col = $row[TableMap::TYPE_NUM == $indexType ? 9 + $startcol : UsersTableMap::translateFieldName('UpdatedBy', TableMap::TYPE_PHPNAME, $indexType)];
             $this->updated_by = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 10 + $startcol : UsersTableMap::translateFieldName('DelatedBy', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->delated_by = (null !== $col) ? (int) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 10 + $startcol : UsersTableMap::translateFieldName('DeletedBy', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->deleted_by = (null !== $col) ? (int) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -1052,8 +1052,8 @@ abstract class Users implements ActiveRecordInterface
         if ($this->isColumnModified(UsersTableMap::COL_UPDATED_BY)) {
             $modifiedColumns[':p' . $index++]  = 'updated_by';
         }
-        if ($this->isColumnModified(UsersTableMap::COL_DELATED_BY)) {
-            $modifiedColumns[':p' . $index++]  = 'delated_by';
+        if ($this->isColumnModified(UsersTableMap::COL_DELETED_BY)) {
+            $modifiedColumns[':p' . $index++]  = 'deleted_by';
         }
 
         $sql = sprintf(
@@ -1096,8 +1096,8 @@ abstract class Users implements ActiveRecordInterface
                     case 'updated_by':
                         $stmt->bindValue($identifier, $this->updated_by, PDO::PARAM_INT);
                         break;
-                    case 'delated_by':
-                        $stmt->bindValue($identifier, $this->delated_by, PDO::PARAM_INT);
+                    case 'deleted_by':
+                        $stmt->bindValue($identifier, $this->deleted_by, PDO::PARAM_INT);
                         break;
                 }
             }
@@ -1185,7 +1185,7 @@ abstract class Users implements ActiveRecordInterface
                 return $this->getUpdatedBy();
                 break;
             case 10:
-                return $this->getDelatedBy();
+                return $this->getDeletedBy();
                 break;
             default:
                 return null;
@@ -1226,7 +1226,7 @@ abstract class Users implements ActiveRecordInterface
             $keys[7] => $this->getDeletedAt(),
             $keys[8] => $this->getCreatedBy(),
             $keys[9] => $this->getUpdatedBy(),
-            $keys[10] => $this->getDelatedBy(),
+            $keys[10] => $this->getDeletedBy(),
         );
         if ($result[$keys[5]] instanceof \DateTimeInterface) {
             $result[$keys[5]] = $result[$keys[5]]->format('Y-m-d H:i:s.u');
@@ -1309,7 +1309,7 @@ abstract class Users implements ActiveRecordInterface
                 $this->setUpdatedBy($value);
                 break;
             case 10:
-                $this->setDelatedBy($value);
+                $this->setDeletedBy($value);
                 break;
         } // switch()
 
@@ -1368,7 +1368,7 @@ abstract class Users implements ActiveRecordInterface
             $this->setUpdatedBy($arr[$keys[9]]);
         }
         if (array_key_exists($keys[10], $arr)) {
-            $this->setDelatedBy($arr[$keys[10]]);
+            $this->setDeletedBy($arr[$keys[10]]);
         }
 
         return $this;
@@ -1443,8 +1443,8 @@ abstract class Users implements ActiveRecordInterface
         if ($this->isColumnModified(UsersTableMap::COL_UPDATED_BY)) {
             $criteria->add(UsersTableMap::COL_UPDATED_BY, $this->updated_by);
         }
-        if ($this->isColumnModified(UsersTableMap::COL_DELATED_BY)) {
-            $criteria->add(UsersTableMap::COL_DELATED_BY, $this->delated_by);
+        if ($this->isColumnModified(UsersTableMap::COL_DELETED_BY)) {
+            $criteria->add(UsersTableMap::COL_DELETED_BY, $this->deleted_by);
         }
 
         return $criteria;
@@ -1541,7 +1541,7 @@ abstract class Users implements ActiveRecordInterface
         $copyObj->setDeletedAt($this->getDeletedAt());
         $copyObj->setCreatedBy($this->getCreatedBy());
         $copyObj->setUpdatedBy($this->getUpdatedBy());
-        $copyObj->setDelatedBy($this->getDelatedBy());
+        $copyObj->setDeletedBy($this->getDeletedBy());
         if ($makeNew) {
             $copyObj->setNew(true);
             $copyObj->setId(NULL); // this is a auto-increment column, so set to default value
@@ -1587,7 +1587,7 @@ abstract class Users implements ActiveRecordInterface
         $this->deleted_at = null;
         $this->created_by = null;
         $this->updated_by = null;
-        $this->delated_by = null;
+        $this->deleted_by = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->resetModified();

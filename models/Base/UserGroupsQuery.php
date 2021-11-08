@@ -26,7 +26,7 @@ use models\Map\UserGroupsTableMap;
  * @method     ChildUserGroupsQuery orderByDeletedAt($order = Criteria::ASC) Order by the deleted_at column
  * @method     ChildUserGroupsQuery orderByCreatedBy($order = Criteria::ASC) Order by the created_by column
  * @method     ChildUserGroupsQuery orderByUpdatedBy($order = Criteria::ASC) Order by the updated_by column
- * @method     ChildUserGroupsQuery orderByDelatedBy($order = Criteria::ASC) Order by the delated_by column
+ * @method     ChildUserGroupsQuery orderByDeletedBy($order = Criteria::ASC) Order by the deleted_by column
  *
  * @method     ChildUserGroupsQuery groupByGroupId() Group by the group_id column
  * @method     ChildUserGroupsQuery groupByGroupName() Group by the group_name column
@@ -35,7 +35,7 @@ use models\Map\UserGroupsTableMap;
  * @method     ChildUserGroupsQuery groupByDeletedAt() Group by the deleted_at column
  * @method     ChildUserGroupsQuery groupByCreatedBy() Group by the created_by column
  * @method     ChildUserGroupsQuery groupByUpdatedBy() Group by the updated_by column
- * @method     ChildUserGroupsQuery groupByDelatedBy() Group by the delated_by column
+ * @method     ChildUserGroupsQuery groupByDeletedBy() Group by the deleted_by column
  *
  * @method     ChildUserGroupsQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ChildUserGroupsQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -55,7 +55,7 @@ use models\Map\UserGroupsTableMap;
  * @method     ChildUserGroups|null findOneByDeletedAt(string $deleted_at) Return the first ChildUserGroups filtered by the deleted_at column
  * @method     ChildUserGroups|null findOneByCreatedBy(int $created_by) Return the first ChildUserGroups filtered by the created_by column
  * @method     ChildUserGroups|null findOneByUpdatedBy(int $updated_by) Return the first ChildUserGroups filtered by the updated_by column
- * @method     ChildUserGroups|null findOneByDelatedBy(int $delated_by) Return the first ChildUserGroups filtered by the delated_by column *
+ * @method     ChildUserGroups|null findOneByDeletedBy(int $deleted_by) Return the first ChildUserGroups filtered by the deleted_by column *
 
  * @method     ChildUserGroups requirePk($key, ConnectionInterface $con = null) Return the ChildUserGroups by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUserGroups requireOne(ConnectionInterface $con = null) Return the first ChildUserGroups matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -67,7 +67,7 @@ use models\Map\UserGroupsTableMap;
  * @method     ChildUserGroups requireOneByDeletedAt(string $deleted_at) Return the first ChildUserGroups filtered by the deleted_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUserGroups requireOneByCreatedBy(int $created_by) Return the first ChildUserGroups filtered by the created_by column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUserGroups requireOneByUpdatedBy(int $updated_by) Return the first ChildUserGroups filtered by the updated_by column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildUserGroups requireOneByDelatedBy(int $delated_by) Return the first ChildUserGroups filtered by the delated_by column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildUserGroups requireOneByDeletedBy(int $deleted_by) Return the first ChildUserGroups filtered by the deleted_by column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildUserGroups[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildUserGroups objects based on current ModelCriteria
  * @psalm-method ObjectCollection&\Traversable<ChildUserGroups> find(ConnectionInterface $con = null) Return ChildUserGroups objects based on current ModelCriteria
@@ -85,8 +85,8 @@ use models\Map\UserGroupsTableMap;
  * @psalm-method ObjectCollection&\Traversable<ChildUserGroups> findByCreatedBy(int $created_by) Return ChildUserGroups objects filtered by the created_by column
  * @method     ChildUserGroups[]|ObjectCollection findByUpdatedBy(int $updated_by) Return ChildUserGroups objects filtered by the updated_by column
  * @psalm-method ObjectCollection&\Traversable<ChildUserGroups> findByUpdatedBy(int $updated_by) Return ChildUserGroups objects filtered by the updated_by column
- * @method     ChildUserGroups[]|ObjectCollection findByDelatedBy(int $delated_by) Return ChildUserGroups objects filtered by the delated_by column
- * @psalm-method ObjectCollection&\Traversable<ChildUserGroups> findByDelatedBy(int $delated_by) Return ChildUserGroups objects filtered by the delated_by column
+ * @method     ChildUserGroups[]|ObjectCollection findByDeletedBy(int $deleted_by) Return ChildUserGroups objects filtered by the deleted_by column
+ * @psalm-method ObjectCollection&\Traversable<ChildUserGroups> findByDeletedBy(int $deleted_by) Return ChildUserGroups objects filtered by the deleted_by column
  * @method     ChildUserGroups[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  * @psalm-method \Propel\Runtime\Util\PropelModelPager&\Traversable<ChildUserGroups> paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
@@ -186,7 +186,7 @@ abstract class UserGroupsQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT group_id, group_name, created_at, updated_at, deleted_at, created_by, updated_by, delated_by FROM public.usergroups WHERE group_id = :p0';
+        $sql = 'SELECT group_id, group_name, created_at, updated_at, deleted_at, created_by, updated_by, deleted_by FROM public.usergroups WHERE group_id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -324,9 +324,10 @@ abstract class UserGroupsQuery extends ModelCriteria
      * <code>
      * $query->filterByGroupName('fooValue');   // WHERE group_name = 'fooValue'
      * $query->filterByGroupName('%fooValue%', Criteria::LIKE); // WHERE group_name LIKE '%fooValue%'
+     * $query->filterByGroupName(['foo', 'bar']); // WHERE group_name IN ('foo', 'bar')
      * </code>
      *
-     * @param     string $groupName The value to use as filter.
+     * @param     string|string[] $groupName The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildUserGroupsQuery The current query, for fluid interface
@@ -554,16 +555,16 @@ abstract class UserGroupsQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the delated_by column
+     * Filter the query on the deleted_by column
      *
      * Example usage:
      * <code>
-     * $query->filterByDelatedBy(1234); // WHERE delated_by = 1234
-     * $query->filterByDelatedBy(array(12, 34)); // WHERE delated_by IN (12, 34)
-     * $query->filterByDelatedBy(array('min' => 12)); // WHERE delated_by > 12
+     * $query->filterByDeletedBy(1234); // WHERE deleted_by = 1234
+     * $query->filterByDeletedBy(array(12, 34)); // WHERE deleted_by IN (12, 34)
+     * $query->filterByDeletedBy(array('min' => 12)); // WHERE deleted_by > 12
      * </code>
      *
-     * @param     mixed $delatedBy The value to use as filter.
+     * @param     mixed $deletedBy The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -571,16 +572,16 @@ abstract class UserGroupsQuery extends ModelCriteria
      *
      * @return $this|ChildUserGroupsQuery The current query, for fluid interface
      */
-    public function filterByDelatedBy($delatedBy = null, $comparison = null)
+    public function filterByDeletedBy($deletedBy = null, $comparison = null)
     {
-        if (is_array($delatedBy)) {
+        if (is_array($deletedBy)) {
             $useMinMax = false;
-            if (isset($delatedBy['min'])) {
-                $this->addUsingAlias(UserGroupsTableMap::COL_DELATED_BY, $delatedBy['min'], Criteria::GREATER_EQUAL);
+            if (isset($deletedBy['min'])) {
+                $this->addUsingAlias(UserGroupsTableMap::COL_DELETED_BY, $deletedBy['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($delatedBy['max'])) {
-                $this->addUsingAlias(UserGroupsTableMap::COL_DELATED_BY, $delatedBy['max'], Criteria::LESS_EQUAL);
+            if (isset($deletedBy['max'])) {
+                $this->addUsingAlias(UserGroupsTableMap::COL_DELETED_BY, $deletedBy['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -591,7 +592,7 @@ abstract class UserGroupsQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(UserGroupsTableMap::COL_DELATED_BY, $delatedBy, $comparison);
+        return $this->addUsingAlias(UserGroupsTableMap::COL_DELETED_BY, $deletedBy, $comparison);
     }
 
     /**

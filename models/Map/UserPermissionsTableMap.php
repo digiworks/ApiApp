@@ -116,9 +116,9 @@ class UserPermissionsTableMap extends TableMap
     const COL_UPDATED_BY = 'public.user_permissions.updated_by';
 
     /**
-     * the column name for the delated_by field
+     * the column name for the deleted_by field
      */
-    const COL_DELATED_BY = 'public.user_permissions.delated_by';
+    const COL_DELETED_BY = 'public.user_permissions.deleted_by';
 
     /**
      * The default string format for model objects of the related table
@@ -132,10 +132,10 @@ class UserPermissionsTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Pid', 'PermissionName', 'PermissionType', 'Userid', 'CreatedAt', 'UpdatedAt', 'DeletedAt', 'CreatedBy', 'UpdatedBy', 'DelatedBy', ),
-        self::TYPE_CAMELNAME     => array('pid', 'permissionName', 'permissionType', 'userid', 'createdAt', 'updatedAt', 'deletedAt', 'createdBy', 'updatedBy', 'delatedBy', ),
-        self::TYPE_COLNAME       => array(UserPermissionsTableMap::COL_PID, UserPermissionsTableMap::COL_PERMISSION_NAME, UserPermissionsTableMap::COL_PERMISSION_TYPE, UserPermissionsTableMap::COL_USERID, UserPermissionsTableMap::COL_CREATED_AT, UserPermissionsTableMap::COL_UPDATED_AT, UserPermissionsTableMap::COL_DELETED_AT, UserPermissionsTableMap::COL_CREATED_BY, UserPermissionsTableMap::COL_UPDATED_BY, UserPermissionsTableMap::COL_DELATED_BY, ),
-        self::TYPE_FIELDNAME     => array('pid', 'permission_name', 'permission_type', 'userid', 'created_at', 'updated_at', 'deleted_at', 'created_by', 'updated_by', 'delated_by', ),
+        self::TYPE_PHPNAME       => array('Pid', 'PermissionName', 'PermissionType', 'Userid', 'CreatedAt', 'UpdatedAt', 'DeletedAt', 'CreatedBy', 'UpdatedBy', 'DeletedBy', ),
+        self::TYPE_CAMELNAME     => array('pid', 'permissionName', 'permissionType', 'userid', 'createdAt', 'updatedAt', 'deletedAt', 'createdBy', 'updatedBy', 'deletedBy', ),
+        self::TYPE_COLNAME       => array(UserPermissionsTableMap::COL_PID, UserPermissionsTableMap::COL_PERMISSION_NAME, UserPermissionsTableMap::COL_PERMISSION_TYPE, UserPermissionsTableMap::COL_USERID, UserPermissionsTableMap::COL_CREATED_AT, UserPermissionsTableMap::COL_UPDATED_AT, UserPermissionsTableMap::COL_DELETED_AT, UserPermissionsTableMap::COL_CREATED_BY, UserPermissionsTableMap::COL_UPDATED_BY, UserPermissionsTableMap::COL_DELETED_BY, ),
+        self::TYPE_FIELDNAME     => array('pid', 'permission_name', 'permission_type', 'userid', 'created_at', 'updated_at', 'deleted_at', 'created_by', 'updated_by', 'deleted_by', ),
         self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
     );
 
@@ -146,10 +146,10 @@ class UserPermissionsTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Pid' => 0, 'PermissionName' => 1, 'PermissionType' => 2, 'Userid' => 3, 'CreatedAt' => 4, 'UpdatedAt' => 5, 'DeletedAt' => 6, 'CreatedBy' => 7, 'UpdatedBy' => 8, 'DelatedBy' => 9, ),
-        self::TYPE_CAMELNAME     => array('pid' => 0, 'permissionName' => 1, 'permissionType' => 2, 'userid' => 3, 'createdAt' => 4, 'updatedAt' => 5, 'deletedAt' => 6, 'createdBy' => 7, 'updatedBy' => 8, 'delatedBy' => 9, ),
-        self::TYPE_COLNAME       => array(UserPermissionsTableMap::COL_PID => 0, UserPermissionsTableMap::COL_PERMISSION_NAME => 1, UserPermissionsTableMap::COL_PERMISSION_TYPE => 2, UserPermissionsTableMap::COL_USERID => 3, UserPermissionsTableMap::COL_CREATED_AT => 4, UserPermissionsTableMap::COL_UPDATED_AT => 5, UserPermissionsTableMap::COL_DELETED_AT => 6, UserPermissionsTableMap::COL_CREATED_BY => 7, UserPermissionsTableMap::COL_UPDATED_BY => 8, UserPermissionsTableMap::COL_DELATED_BY => 9, ),
-        self::TYPE_FIELDNAME     => array('pid' => 0, 'permission_name' => 1, 'permission_type' => 2, 'userid' => 3, 'created_at' => 4, 'updated_at' => 5, 'deleted_at' => 6, 'created_by' => 7, 'updated_by' => 8, 'delated_by' => 9, ),
+        self::TYPE_PHPNAME       => array('Pid' => 0, 'PermissionName' => 1, 'PermissionType' => 2, 'Userid' => 3, 'CreatedAt' => 4, 'UpdatedAt' => 5, 'DeletedAt' => 6, 'CreatedBy' => 7, 'UpdatedBy' => 8, 'DeletedBy' => 9, ),
+        self::TYPE_CAMELNAME     => array('pid' => 0, 'permissionName' => 1, 'permissionType' => 2, 'userid' => 3, 'createdAt' => 4, 'updatedAt' => 5, 'deletedAt' => 6, 'createdBy' => 7, 'updatedBy' => 8, 'deletedBy' => 9, ),
+        self::TYPE_COLNAME       => array(UserPermissionsTableMap::COL_PID => 0, UserPermissionsTableMap::COL_PERMISSION_NAME => 1, UserPermissionsTableMap::COL_PERMISSION_TYPE => 2, UserPermissionsTableMap::COL_USERID => 3, UserPermissionsTableMap::COL_CREATED_AT => 4, UserPermissionsTableMap::COL_UPDATED_AT => 5, UserPermissionsTableMap::COL_DELETED_AT => 6, UserPermissionsTableMap::COL_CREATED_BY => 7, UserPermissionsTableMap::COL_UPDATED_BY => 8, UserPermissionsTableMap::COL_DELETED_BY => 9, ),
+        self::TYPE_FIELDNAME     => array('pid' => 0, 'permission_name' => 1, 'permission_type' => 2, 'userid' => 3, 'created_at' => 4, 'updated_at' => 5, 'deleted_at' => 6, 'created_by' => 7, 'updated_by' => 8, 'deleted_by' => 9, ),
         self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
     );
 
@@ -229,14 +229,14 @@ class UserPermissionsTableMap extends TableMap
         'COL_UPDATED_BY' => 'UPDATED_BY',
         'updated_by' => 'UPDATED_BY',
         'public.user_permissions.updated_by' => 'UPDATED_BY',
-        'DelatedBy' => 'DELATED_BY',
-        'UserPermissions.DelatedBy' => 'DELATED_BY',
-        'delatedBy' => 'DELATED_BY',
-        'userPermissions.delatedBy' => 'DELATED_BY',
-        'UserPermissionsTableMap::COL_DELATED_BY' => 'DELATED_BY',
-        'COL_DELATED_BY' => 'DELATED_BY',
-        'delated_by' => 'DELATED_BY',
-        'public.user_permissions.delated_by' => 'DELATED_BY',
+        'DeletedBy' => 'DELETED_BY',
+        'UserPermissions.DeletedBy' => 'DELETED_BY',
+        'deletedBy' => 'DELETED_BY',
+        'userPermissions.deletedBy' => 'DELETED_BY',
+        'UserPermissionsTableMap::COL_DELETED_BY' => 'DELETED_BY',
+        'COL_DELETED_BY' => 'DELETED_BY',
+        'deleted_by' => 'DELETED_BY',
+        'public.user_permissions.deleted_by' => 'DELETED_BY',
     ];
 
     /**
@@ -266,7 +266,7 @@ class UserPermissionsTableMap extends TableMap
         $this->addColumn('deleted_at', 'DeletedAt', 'TIMESTAMP', false, null, null);
         $this->addColumn('created_by', 'CreatedBy', 'INTEGER', false, null, null);
         $this->addColumn('updated_by', 'UpdatedBy', 'INTEGER', false, null, null);
-        $this->addColumn('delated_by', 'DelatedBy', 'INTEGER', false, null, null);
+        $this->addColumn('deleted_by', 'DeletedBy', 'INTEGER', false, null, null);
     } // initialize()
 
     /**
@@ -426,7 +426,7 @@ class UserPermissionsTableMap extends TableMap
             $criteria->addSelectColumn(UserPermissionsTableMap::COL_DELETED_AT);
             $criteria->addSelectColumn(UserPermissionsTableMap::COL_CREATED_BY);
             $criteria->addSelectColumn(UserPermissionsTableMap::COL_UPDATED_BY);
-            $criteria->addSelectColumn(UserPermissionsTableMap::COL_DELATED_BY);
+            $criteria->addSelectColumn(UserPermissionsTableMap::COL_DELETED_BY);
         } else {
             $criteria->addSelectColumn($alias . '.pid');
             $criteria->addSelectColumn($alias . '.permission_name');
@@ -437,7 +437,7 @@ class UserPermissionsTableMap extends TableMap
             $criteria->addSelectColumn($alias . '.deleted_at');
             $criteria->addSelectColumn($alias . '.created_by');
             $criteria->addSelectColumn($alias . '.updated_by');
-            $criteria->addSelectColumn($alias . '.delated_by');
+            $criteria->addSelectColumn($alias . '.deleted_by');
         }
     }
 
@@ -464,7 +464,7 @@ class UserPermissionsTableMap extends TableMap
             $criteria->removeSelectColumn(UserPermissionsTableMap::COL_DELETED_AT);
             $criteria->removeSelectColumn(UserPermissionsTableMap::COL_CREATED_BY);
             $criteria->removeSelectColumn(UserPermissionsTableMap::COL_UPDATED_BY);
-            $criteria->removeSelectColumn(UserPermissionsTableMap::COL_DELATED_BY);
+            $criteria->removeSelectColumn(UserPermissionsTableMap::COL_DELETED_BY);
         } else {
             $criteria->removeSelectColumn($alias . '.pid');
             $criteria->removeSelectColumn($alias . '.permission_name');
@@ -475,7 +475,7 @@ class UserPermissionsTableMap extends TableMap
             $criteria->removeSelectColumn($alias . '.deleted_at');
             $criteria->removeSelectColumn($alias . '.created_by');
             $criteria->removeSelectColumn($alias . '.updated_by');
-            $criteria->removeSelectColumn($alias . '.delated_by');
+            $criteria->removeSelectColumn($alias . '.deleted_by');
         }
     }
 

@@ -29,7 +29,7 @@ use models\Map\UsersTableMap;
  * @method     ChildUsersQuery orderByDeletedAt($order = Criteria::ASC) Order by the deleted_at column
  * @method     ChildUsersQuery orderByCreatedBy($order = Criteria::ASC) Order by the created_by column
  * @method     ChildUsersQuery orderByUpdatedBy($order = Criteria::ASC) Order by the updated_by column
- * @method     ChildUsersQuery orderByDelatedBy($order = Criteria::ASC) Order by the delated_by column
+ * @method     ChildUsersQuery orderByDeletedBy($order = Criteria::ASC) Order by the deleted_by column
  *
  * @method     ChildUsersQuery groupById() Group by the id column
  * @method     ChildUsersQuery groupByName() Group by the name column
@@ -41,7 +41,7 @@ use models\Map\UsersTableMap;
  * @method     ChildUsersQuery groupByDeletedAt() Group by the deleted_at column
  * @method     ChildUsersQuery groupByCreatedBy() Group by the created_by column
  * @method     ChildUsersQuery groupByUpdatedBy() Group by the updated_by column
- * @method     ChildUsersQuery groupByDelatedBy() Group by the delated_by column
+ * @method     ChildUsersQuery groupByDeletedBy() Group by the deleted_by column
  *
  * @method     ChildUsersQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ChildUsersQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -64,7 +64,7 @@ use models\Map\UsersTableMap;
  * @method     ChildUsers|null findOneByDeletedAt(string $deleted_at) Return the first ChildUsers filtered by the deleted_at column
  * @method     ChildUsers|null findOneByCreatedBy(int $created_by) Return the first ChildUsers filtered by the created_by column
  * @method     ChildUsers|null findOneByUpdatedBy(int $updated_by) Return the first ChildUsers filtered by the updated_by column
- * @method     ChildUsers|null findOneByDelatedBy(int $delated_by) Return the first ChildUsers filtered by the delated_by column *
+ * @method     ChildUsers|null findOneByDeletedBy(int $deleted_by) Return the first ChildUsers filtered by the deleted_by column *
 
  * @method     ChildUsers requirePk($key, ConnectionInterface $con = null) Return the ChildUsers by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOne(ConnectionInterface $con = null) Return the first ChildUsers matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -79,7 +79,7 @@ use models\Map\UsersTableMap;
  * @method     ChildUsers requireOneByDeletedAt(string $deleted_at) Return the first ChildUsers filtered by the deleted_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByCreatedBy(int $created_by) Return the first ChildUsers filtered by the created_by column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByUpdatedBy(int $updated_by) Return the first ChildUsers filtered by the updated_by column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildUsers requireOneByDelatedBy(int $delated_by) Return the first ChildUsers filtered by the delated_by column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildUsers requireOneByDeletedBy(int $deleted_by) Return the first ChildUsers filtered by the deleted_by column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildUsers[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildUsers objects based on current ModelCriteria
  * @psalm-method ObjectCollection&\Traversable<ChildUsers> find(ConnectionInterface $con = null) Return ChildUsers objects based on current ModelCriteria
@@ -103,8 +103,8 @@ use models\Map\UsersTableMap;
  * @psalm-method ObjectCollection&\Traversable<ChildUsers> findByCreatedBy(int $created_by) Return ChildUsers objects filtered by the created_by column
  * @method     ChildUsers[]|ObjectCollection findByUpdatedBy(int $updated_by) Return ChildUsers objects filtered by the updated_by column
  * @psalm-method ObjectCollection&\Traversable<ChildUsers> findByUpdatedBy(int $updated_by) Return ChildUsers objects filtered by the updated_by column
- * @method     ChildUsers[]|ObjectCollection findByDelatedBy(int $delated_by) Return ChildUsers objects filtered by the delated_by column
- * @psalm-method ObjectCollection&\Traversable<ChildUsers> findByDelatedBy(int $delated_by) Return ChildUsers objects filtered by the delated_by column
+ * @method     ChildUsers[]|ObjectCollection findByDeletedBy(int $deleted_by) Return ChildUsers objects filtered by the deleted_by column
+ * @psalm-method ObjectCollection&\Traversable<ChildUsers> findByDeletedBy(int $deleted_by) Return ChildUsers objects filtered by the deleted_by column
  * @method     ChildUsers[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  * @psalm-method \Propel\Runtime\Util\PropelModelPager&\Traversable<ChildUsers> paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
@@ -204,7 +204,7 @@ abstract class UsersQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, name, surname, hash, status, created_at, updated_at, deleted_at, created_by, updated_by, delated_by FROM public.users WHERE id = :p0';
+        $sql = 'SELECT id, name, surname, hash, status, created_at, updated_at, deleted_at, created_by, updated_by, deleted_by FROM public.users WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -342,9 +342,10 @@ abstract class UsersQuery extends ModelCriteria
      * <code>
      * $query->filterByName('fooValue');   // WHERE name = 'fooValue'
      * $query->filterByName('%fooValue%', Criteria::LIKE); // WHERE name LIKE '%fooValue%'
+     * $query->filterByName(['foo', 'bar']); // WHERE name IN ('foo', 'bar')
      * </code>
      *
-     * @param     string $name The value to use as filter.
+     * @param     string|string[] $name The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildUsersQuery The current query, for fluid interface
@@ -367,9 +368,10 @@ abstract class UsersQuery extends ModelCriteria
      * <code>
      * $query->filterBysurname('fooValue');   // WHERE surname = 'fooValue'
      * $query->filterBysurname('%fooValue%', Criteria::LIKE); // WHERE surname LIKE '%fooValue%'
+     * $query->filterBysurname(['foo', 'bar']); // WHERE surname IN ('foo', 'bar')
      * </code>
      *
-     * @param     string $surname The value to use as filter.
+     * @param     string|string[] $surname The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildUsersQuery The current query, for fluid interface
@@ -392,9 +394,10 @@ abstract class UsersQuery extends ModelCriteria
      * <code>
      * $query->filterByhash('fooValue');   // WHERE hash = 'fooValue'
      * $query->filterByhash('%fooValue%', Criteria::LIKE); // WHERE hash LIKE '%fooValue%'
+     * $query->filterByhash(['foo', 'bar']); // WHERE hash IN ('foo', 'bar')
      * </code>
      *
-     * @param     string $hash The value to use as filter.
+     * @param     string|string[] $hash The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildUsersQuery The current query, for fluid interface
@@ -663,16 +666,16 @@ abstract class UsersQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the delated_by column
+     * Filter the query on the deleted_by column
      *
      * Example usage:
      * <code>
-     * $query->filterByDelatedBy(1234); // WHERE delated_by = 1234
-     * $query->filterByDelatedBy(array(12, 34)); // WHERE delated_by IN (12, 34)
-     * $query->filterByDelatedBy(array('min' => 12)); // WHERE delated_by > 12
+     * $query->filterByDeletedBy(1234); // WHERE deleted_by = 1234
+     * $query->filterByDeletedBy(array(12, 34)); // WHERE deleted_by IN (12, 34)
+     * $query->filterByDeletedBy(array('min' => 12)); // WHERE deleted_by > 12
      * </code>
      *
-     * @param     mixed $delatedBy The value to use as filter.
+     * @param     mixed $deletedBy The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -680,16 +683,16 @@ abstract class UsersQuery extends ModelCriteria
      *
      * @return $this|ChildUsersQuery The current query, for fluid interface
      */
-    public function filterByDelatedBy($delatedBy = null, $comparison = null)
+    public function filterByDeletedBy($deletedBy = null, $comparison = null)
     {
-        if (is_array($delatedBy)) {
+        if (is_array($deletedBy)) {
             $useMinMax = false;
-            if (isset($delatedBy['min'])) {
-                $this->addUsingAlias(UsersTableMap::COL_DELATED_BY, $delatedBy['min'], Criteria::GREATER_EQUAL);
+            if (isset($deletedBy['min'])) {
+                $this->addUsingAlias(UsersTableMap::COL_DELETED_BY, $deletedBy['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($delatedBy['max'])) {
-                $this->addUsingAlias(UsersTableMap::COL_DELATED_BY, $delatedBy['max'], Criteria::LESS_EQUAL);
+            if (isset($deletedBy['max'])) {
+                $this->addUsingAlias(UsersTableMap::COL_DELETED_BY, $deletedBy['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -700,7 +703,7 @@ abstract class UsersQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(UsersTableMap::COL_DELATED_BY, $delatedBy, $comparison);
+        return $this->addUsingAlias(UsersTableMap::COL_DELETED_BY, $deletedBy, $comparison);
     }
 
     /**

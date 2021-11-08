@@ -4,7 +4,13 @@ function IndexPage() {
     var hd = [
         {text: "Nome"},
         {text: "Cognome"},
-        {text: "Stato"},
+        {text: "Stato"}
+    ];
+    
+    var columns = [
+        {field: "Name"},
+        {field: "surname"},
+        {field: "Status"}
     ];
     
     const createuser = (e) => {
@@ -27,8 +33,10 @@ function IndexPage() {
                 <Button sx={{ border: "1px dashed grey" }} id = "id_button_1" onClick={createuser}>Add</Button>
             </Box>
             <DataGridRest
-                restUrl = "/listuser"
+                restUrl = "/api/user/paginate"
                 headers = {hd}
+                keyColumn = "Id"
+                columns = {columns}
             />
         </div>
             );

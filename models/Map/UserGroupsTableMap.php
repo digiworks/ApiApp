@@ -106,9 +106,9 @@ class UserGroupsTableMap extends TableMap
     const COL_UPDATED_BY = 'public.usergroups.updated_by';
 
     /**
-     * the column name for the delated_by field
+     * the column name for the deleted_by field
      */
-    const COL_DELATED_BY = 'public.usergroups.delated_by';
+    const COL_DELETED_BY = 'public.usergroups.deleted_by';
 
     /**
      * The default string format for model objects of the related table
@@ -122,10 +122,10 @@ class UserGroupsTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('GroupId', 'GroupName', 'CreatedAt', 'UpdatedAt', 'DeletedAt', 'CreatedBy', 'UpdatedBy', 'DelatedBy', ),
-        self::TYPE_CAMELNAME     => array('groupId', 'groupName', 'createdAt', 'updatedAt', 'deletedAt', 'createdBy', 'updatedBy', 'delatedBy', ),
-        self::TYPE_COLNAME       => array(UserGroupsTableMap::COL_GROUP_ID, UserGroupsTableMap::COL_GROUP_NAME, UserGroupsTableMap::COL_CREATED_AT, UserGroupsTableMap::COL_UPDATED_AT, UserGroupsTableMap::COL_DELETED_AT, UserGroupsTableMap::COL_CREATED_BY, UserGroupsTableMap::COL_UPDATED_BY, UserGroupsTableMap::COL_DELATED_BY, ),
-        self::TYPE_FIELDNAME     => array('group_id', 'group_name', 'created_at', 'updated_at', 'deleted_at', 'created_by', 'updated_by', 'delated_by', ),
+        self::TYPE_PHPNAME       => array('GroupId', 'GroupName', 'CreatedAt', 'UpdatedAt', 'DeletedAt', 'CreatedBy', 'UpdatedBy', 'DeletedBy', ),
+        self::TYPE_CAMELNAME     => array('groupId', 'groupName', 'createdAt', 'updatedAt', 'deletedAt', 'createdBy', 'updatedBy', 'deletedBy', ),
+        self::TYPE_COLNAME       => array(UserGroupsTableMap::COL_GROUP_ID, UserGroupsTableMap::COL_GROUP_NAME, UserGroupsTableMap::COL_CREATED_AT, UserGroupsTableMap::COL_UPDATED_AT, UserGroupsTableMap::COL_DELETED_AT, UserGroupsTableMap::COL_CREATED_BY, UserGroupsTableMap::COL_UPDATED_BY, UserGroupsTableMap::COL_DELETED_BY, ),
+        self::TYPE_FIELDNAME     => array('group_id', 'group_name', 'created_at', 'updated_at', 'deleted_at', 'created_by', 'updated_by', 'deleted_by', ),
         self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, )
     );
 
@@ -136,10 +136,10 @@ class UserGroupsTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('GroupId' => 0, 'GroupName' => 1, 'CreatedAt' => 2, 'UpdatedAt' => 3, 'DeletedAt' => 4, 'CreatedBy' => 5, 'UpdatedBy' => 6, 'DelatedBy' => 7, ),
-        self::TYPE_CAMELNAME     => array('groupId' => 0, 'groupName' => 1, 'createdAt' => 2, 'updatedAt' => 3, 'deletedAt' => 4, 'createdBy' => 5, 'updatedBy' => 6, 'delatedBy' => 7, ),
-        self::TYPE_COLNAME       => array(UserGroupsTableMap::COL_GROUP_ID => 0, UserGroupsTableMap::COL_GROUP_NAME => 1, UserGroupsTableMap::COL_CREATED_AT => 2, UserGroupsTableMap::COL_UPDATED_AT => 3, UserGroupsTableMap::COL_DELETED_AT => 4, UserGroupsTableMap::COL_CREATED_BY => 5, UserGroupsTableMap::COL_UPDATED_BY => 6, UserGroupsTableMap::COL_DELATED_BY => 7, ),
-        self::TYPE_FIELDNAME     => array('group_id' => 0, 'group_name' => 1, 'created_at' => 2, 'updated_at' => 3, 'deleted_at' => 4, 'created_by' => 5, 'updated_by' => 6, 'delated_by' => 7, ),
+        self::TYPE_PHPNAME       => array('GroupId' => 0, 'GroupName' => 1, 'CreatedAt' => 2, 'UpdatedAt' => 3, 'DeletedAt' => 4, 'CreatedBy' => 5, 'UpdatedBy' => 6, 'DeletedBy' => 7, ),
+        self::TYPE_CAMELNAME     => array('groupId' => 0, 'groupName' => 1, 'createdAt' => 2, 'updatedAt' => 3, 'deletedAt' => 4, 'createdBy' => 5, 'updatedBy' => 6, 'deletedBy' => 7, ),
+        self::TYPE_COLNAME       => array(UserGroupsTableMap::COL_GROUP_ID => 0, UserGroupsTableMap::COL_GROUP_NAME => 1, UserGroupsTableMap::COL_CREATED_AT => 2, UserGroupsTableMap::COL_UPDATED_AT => 3, UserGroupsTableMap::COL_DELETED_AT => 4, UserGroupsTableMap::COL_CREATED_BY => 5, UserGroupsTableMap::COL_UPDATED_BY => 6, UserGroupsTableMap::COL_DELETED_BY => 7, ),
+        self::TYPE_FIELDNAME     => array('group_id' => 0, 'group_name' => 1, 'created_at' => 2, 'updated_at' => 3, 'deleted_at' => 4, 'created_by' => 5, 'updated_by' => 6, 'deleted_by' => 7, ),
         self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, )
     );
 
@@ -205,14 +205,14 @@ class UserGroupsTableMap extends TableMap
         'COL_UPDATED_BY' => 'UPDATED_BY',
         'updated_by' => 'UPDATED_BY',
         'public.usergroups.updated_by' => 'UPDATED_BY',
-        'DelatedBy' => 'DELATED_BY',
-        'UserGroups.DelatedBy' => 'DELATED_BY',
-        'delatedBy' => 'DELATED_BY',
-        'userGroups.delatedBy' => 'DELATED_BY',
-        'UserGroupsTableMap::COL_DELATED_BY' => 'DELATED_BY',
-        'COL_DELATED_BY' => 'DELATED_BY',
-        'delated_by' => 'DELATED_BY',
-        'public.usergroups.delated_by' => 'DELATED_BY',
+        'DeletedBy' => 'DELETED_BY',
+        'UserGroups.DeletedBy' => 'DELETED_BY',
+        'deletedBy' => 'DELETED_BY',
+        'userGroups.deletedBy' => 'DELETED_BY',
+        'UserGroupsTableMap::COL_DELETED_BY' => 'DELETED_BY',
+        'COL_DELETED_BY' => 'DELETED_BY',
+        'deleted_by' => 'DELETED_BY',
+        'public.usergroups.deleted_by' => 'DELETED_BY',
     ];
 
     /**
@@ -240,7 +240,7 @@ class UserGroupsTableMap extends TableMap
         $this->addColumn('deleted_at', 'DeletedAt', 'TIMESTAMP', false, null, null);
         $this->addColumn('created_by', 'CreatedBy', 'INTEGER', false, null, null);
         $this->addColumn('updated_by', 'UpdatedBy', 'INTEGER', false, null, null);
-        $this->addColumn('delated_by', 'DelatedBy', 'INTEGER', false, null, null);
+        $this->addColumn('deleted_by', 'DeletedBy', 'INTEGER', false, null, null);
     } // initialize()
 
     /**
@@ -398,7 +398,7 @@ class UserGroupsTableMap extends TableMap
             $criteria->addSelectColumn(UserGroupsTableMap::COL_DELETED_AT);
             $criteria->addSelectColumn(UserGroupsTableMap::COL_CREATED_BY);
             $criteria->addSelectColumn(UserGroupsTableMap::COL_UPDATED_BY);
-            $criteria->addSelectColumn(UserGroupsTableMap::COL_DELATED_BY);
+            $criteria->addSelectColumn(UserGroupsTableMap::COL_DELETED_BY);
         } else {
             $criteria->addSelectColumn($alias . '.group_id');
             $criteria->addSelectColumn($alias . '.group_name');
@@ -407,7 +407,7 @@ class UserGroupsTableMap extends TableMap
             $criteria->addSelectColumn($alias . '.deleted_at');
             $criteria->addSelectColumn($alias . '.created_by');
             $criteria->addSelectColumn($alias . '.updated_by');
-            $criteria->addSelectColumn($alias . '.delated_by');
+            $criteria->addSelectColumn($alias . '.deleted_by');
         }
     }
 
@@ -432,7 +432,7 @@ class UserGroupsTableMap extends TableMap
             $criteria->removeSelectColumn(UserGroupsTableMap::COL_DELETED_AT);
             $criteria->removeSelectColumn(UserGroupsTableMap::COL_CREATED_BY);
             $criteria->removeSelectColumn(UserGroupsTableMap::COL_UPDATED_BY);
-            $criteria->removeSelectColumn(UserGroupsTableMap::COL_DELATED_BY);
+            $criteria->removeSelectColumn(UserGroupsTableMap::COL_DELETED_BY);
         } else {
             $criteria->removeSelectColumn($alias . '.group_id');
             $criteria->removeSelectColumn($alias . '.group_name');
@@ -441,7 +441,7 @@ class UserGroupsTableMap extends TableMap
             $criteria->removeSelectColumn($alias . '.deleted_at');
             $criteria->removeSelectColumn($alias . '.created_by');
             $criteria->removeSelectColumn($alias . '.updated_by');
-            $criteria->removeSelectColumn($alias . '.delated_by');
+            $criteria->removeSelectColumn($alias . '.deleted_by');
         }
     }
 

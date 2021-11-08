@@ -6,6 +6,7 @@ use code\service\ServiceTypes;
 use DateTime;
 use Firebase\JWT\JWT;
 use models\Users;
+use models\UsersQuery;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Tuupola\Base62;
@@ -47,6 +48,26 @@ class UserApiController extends AppController
         $this->request = $request;
         
         
+        return $this->response;
+    }
+    
+    
+    public function pager(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
+        
+        $this->response = $response;
+        $this->request = $request;
+        $params = $this->request->getQueryParams();
+        $page = $params['page'];
+        $per_page = $params['per_page'];
+        $query = new UsersQuery();
+        $data = $query->listPaginate($page, $per_page);
+        $totalCount = $query->getCount();
+        $result = [
+            'data'=> $data,
+            'page' => $page,
+            'totalCount' => $totalCount
+        ];
+        $this->response->withHeader("Content-Type", "application/json")->getBody()->write(json_encode($result, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
         return $this->response;
     }
     

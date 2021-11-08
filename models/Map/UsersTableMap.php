@@ -121,9 +121,9 @@ class UsersTableMap extends TableMap
     const COL_UPDATED_BY = 'public.users.updated_by';
 
     /**
-     * the column name for the delated_by field
+     * the column name for the deleted_by field
      */
-    const COL_DELATED_BY = 'public.users.delated_by';
+    const COL_DELETED_BY = 'public.users.deleted_by';
 
     /**
      * The default string format for model objects of the related table
@@ -137,10 +137,10 @@ class UsersTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'Name', 'surname', 'hash', 'Status', 'CreatedAt', 'UpdatedAt', 'DeletedAt', 'CreatedBy', 'UpdatedBy', 'DelatedBy', ),
-        self::TYPE_CAMELNAME     => array('id', 'name', 'surname', 'hash', 'status', 'createdAt', 'updatedAt', 'deletedAt', 'createdBy', 'updatedBy', 'delatedBy', ),
-        self::TYPE_COLNAME       => array(UsersTableMap::COL_ID, UsersTableMap::COL_NAME, UsersTableMap::COL_SURNAME, UsersTableMap::COL_HASH, UsersTableMap::COL_STATUS, UsersTableMap::COL_CREATED_AT, UsersTableMap::COL_UPDATED_AT, UsersTableMap::COL_DELETED_AT, UsersTableMap::COL_CREATED_BY, UsersTableMap::COL_UPDATED_BY, UsersTableMap::COL_DELATED_BY, ),
-        self::TYPE_FIELDNAME     => array('id', 'name', 'surname', 'hash', 'status', 'created_at', 'updated_at', 'deleted_at', 'created_by', 'updated_by', 'delated_by', ),
+        self::TYPE_PHPNAME       => array('Id', 'Name', 'surname', 'hash', 'Status', 'CreatedAt', 'UpdatedAt', 'DeletedAt', 'CreatedBy', 'UpdatedBy', 'DeletedBy', ),
+        self::TYPE_CAMELNAME     => array('id', 'name', 'surname', 'hash', 'status', 'createdAt', 'updatedAt', 'deletedAt', 'createdBy', 'updatedBy', 'deletedBy', ),
+        self::TYPE_COLNAME       => array(UsersTableMap::COL_ID, UsersTableMap::COL_NAME, UsersTableMap::COL_SURNAME, UsersTableMap::COL_HASH, UsersTableMap::COL_STATUS, UsersTableMap::COL_CREATED_AT, UsersTableMap::COL_UPDATED_AT, UsersTableMap::COL_DELETED_AT, UsersTableMap::COL_CREATED_BY, UsersTableMap::COL_UPDATED_BY, UsersTableMap::COL_DELETED_BY, ),
+        self::TYPE_FIELDNAME     => array('id', 'name', 'surname', 'hash', 'status', 'created_at', 'updated_at', 'deleted_at', 'created_by', 'updated_by', 'deleted_by', ),
         self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, )
     );
 
@@ -151,10 +151,10 @@ class UsersTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'Name' => 1, 'surname' => 2, 'hash' => 3, 'Status' => 4, 'CreatedAt' => 5, 'UpdatedAt' => 6, 'DeletedAt' => 7, 'CreatedBy' => 8, 'UpdatedBy' => 9, 'DelatedBy' => 10, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'name' => 1, 'surname' => 2, 'hash' => 3, 'status' => 4, 'createdAt' => 5, 'updatedAt' => 6, 'deletedAt' => 7, 'createdBy' => 8, 'updatedBy' => 9, 'delatedBy' => 10, ),
-        self::TYPE_COLNAME       => array(UsersTableMap::COL_ID => 0, UsersTableMap::COL_NAME => 1, UsersTableMap::COL_SURNAME => 2, UsersTableMap::COL_HASH => 3, UsersTableMap::COL_STATUS => 4, UsersTableMap::COL_CREATED_AT => 5, UsersTableMap::COL_UPDATED_AT => 6, UsersTableMap::COL_DELETED_AT => 7, UsersTableMap::COL_CREATED_BY => 8, UsersTableMap::COL_UPDATED_BY => 9, UsersTableMap::COL_DELATED_BY => 10, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'name' => 1, 'surname' => 2, 'hash' => 3, 'status' => 4, 'created_at' => 5, 'updated_at' => 6, 'deleted_at' => 7, 'created_by' => 8, 'updated_by' => 9, 'delated_by' => 10, ),
+        self::TYPE_PHPNAME       => array('Id' => 0, 'Name' => 1, 'surname' => 2, 'hash' => 3, 'Status' => 4, 'CreatedAt' => 5, 'UpdatedAt' => 6, 'DeletedAt' => 7, 'CreatedBy' => 8, 'UpdatedBy' => 9, 'DeletedBy' => 10, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'name' => 1, 'surname' => 2, 'hash' => 3, 'status' => 4, 'createdAt' => 5, 'updatedAt' => 6, 'deletedAt' => 7, 'createdBy' => 8, 'updatedBy' => 9, 'deletedBy' => 10, ),
+        self::TYPE_COLNAME       => array(UsersTableMap::COL_ID => 0, UsersTableMap::COL_NAME => 1, UsersTableMap::COL_SURNAME => 2, UsersTableMap::COL_HASH => 3, UsersTableMap::COL_STATUS => 4, UsersTableMap::COL_CREATED_AT => 5, UsersTableMap::COL_UPDATED_AT => 6, UsersTableMap::COL_DELETED_AT => 7, UsersTableMap::COL_CREATED_BY => 8, UsersTableMap::COL_UPDATED_BY => 9, UsersTableMap::COL_DELETED_BY => 10, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'name' => 1, 'surname' => 2, 'hash' => 3, 'status' => 4, 'created_at' => 5, 'updated_at' => 6, 'deleted_at' => 7, 'created_by' => 8, 'updated_by' => 9, 'deleted_by' => 10, ),
         self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, )
     );
 
@@ -237,14 +237,14 @@ class UsersTableMap extends TableMap
         'COL_UPDATED_BY' => 'UPDATED_BY',
         'updated_by' => 'UPDATED_BY',
         'public.users.updated_by' => 'UPDATED_BY',
-        'DelatedBy' => 'DELATED_BY',
-        'Users.DelatedBy' => 'DELATED_BY',
-        'delatedBy' => 'DELATED_BY',
-        'users.delatedBy' => 'DELATED_BY',
-        'UsersTableMap::COL_DELATED_BY' => 'DELATED_BY',
-        'COL_DELATED_BY' => 'DELATED_BY',
-        'delated_by' => 'DELATED_BY',
-        'public.users.delated_by' => 'DELATED_BY',
+        'DeletedBy' => 'DELETED_BY',
+        'Users.DeletedBy' => 'DELETED_BY',
+        'deletedBy' => 'DELETED_BY',
+        'users.deletedBy' => 'DELETED_BY',
+        'UsersTableMap::COL_DELETED_BY' => 'DELETED_BY',
+        'COL_DELETED_BY' => 'DELETED_BY',
+        'deleted_by' => 'DELETED_BY',
+        'public.users.deleted_by' => 'DELETED_BY',
     ];
 
     /**
@@ -275,7 +275,7 @@ class UsersTableMap extends TableMap
         $this->addColumn('deleted_at', 'DeletedAt', 'TIMESTAMP', false, null, null);
         $this->addColumn('created_by', 'CreatedBy', 'INTEGER', false, null, null);
         $this->addColumn('updated_by', 'UpdatedBy', 'INTEGER', false, null, null);
-        $this->addColumn('delated_by', 'DelatedBy', 'INTEGER', false, null, null);
+        $this->addColumn('deleted_by', 'DeletedBy', 'INTEGER', false, null, null);
     } // initialize()
 
     /**
@@ -436,7 +436,7 @@ class UsersTableMap extends TableMap
             $criteria->addSelectColumn(UsersTableMap::COL_DELETED_AT);
             $criteria->addSelectColumn(UsersTableMap::COL_CREATED_BY);
             $criteria->addSelectColumn(UsersTableMap::COL_UPDATED_BY);
-            $criteria->addSelectColumn(UsersTableMap::COL_DELATED_BY);
+            $criteria->addSelectColumn(UsersTableMap::COL_DELETED_BY);
         } else {
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.name');
@@ -448,7 +448,7 @@ class UsersTableMap extends TableMap
             $criteria->addSelectColumn($alias . '.deleted_at');
             $criteria->addSelectColumn($alias . '.created_by');
             $criteria->addSelectColumn($alias . '.updated_by');
-            $criteria->addSelectColumn($alias . '.delated_by');
+            $criteria->addSelectColumn($alias . '.deleted_by');
         }
     }
 
@@ -476,7 +476,7 @@ class UsersTableMap extends TableMap
             $criteria->removeSelectColumn(UsersTableMap::COL_DELETED_AT);
             $criteria->removeSelectColumn(UsersTableMap::COL_CREATED_BY);
             $criteria->removeSelectColumn(UsersTableMap::COL_UPDATED_BY);
-            $criteria->removeSelectColumn(UsersTableMap::COL_DELATED_BY);
+            $criteria->removeSelectColumn(UsersTableMap::COL_DELETED_BY);
         } else {
             $criteria->removeSelectColumn($alias . '.id');
             $criteria->removeSelectColumn($alias . '.name');
@@ -488,7 +488,7 @@ class UsersTableMap extends TableMap
             $criteria->removeSelectColumn($alias . '.deleted_at');
             $criteria->removeSelectColumn($alias . '.created_by');
             $criteria->removeSelectColumn($alias . '.updated_by');
-            $criteria->removeSelectColumn($alias . '.delated_by');
+            $criteria->removeSelectColumn($alias . '.deleted_by');
         }
     }
 

@@ -10,11 +10,12 @@ function DatePickerInput({ openCalendar, value, handleValueChange }) {
 }
 
 
-function DataGridRest({restUrl, headers}){
+function DataGridRest({restUrl, headers, keyColumn , columns}){
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rows, setRows] = React.useState([]);
+  const [totalElements, setTotalElements] = React.useState(0);
   
-  var rows = [];
 
   /* Avoid a layout jump when reaching the last page with empty rows.*/
   const emptyRows =
@@ -29,6 +30,25 @@ function DataGridRest({restUrl, headers}){
     setPage(0);
   };
   
+ let getData = async (page:number, size: number) => {
+    
+    let url = restUrl +
+        `?per_page=`+ size +
+        `&page=` + (page + 1);
+    const response = await fetch(url);
+    const result = await response.json();
+    setTotalElements(result.totalCount);
+    setRows(result.data);
+  };
+        
+  React.useEffect(() => {
+        getData(page, rowsPerPage);
+  }, [page, rowsPerPage]);
+  
+  if(baseApp.isSsr()){
+       getData(0, rowsPerPage);
+  }
+  
   return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -42,21 +62,20 @@ function DataGridRest({restUrl, headers}){
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                         {(rowsPerPage > 0
-                            ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            : rows
+                         {(
+                           rows
                           ).map((row) => (
                           <TableRow
-                            key={row.id}
+                            key={row["keyColumn"]}
                             sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                           >
-                            <TableCell component="th" scope="row">
-                              {row.name}
-                            </TableCell>
-                            <TableCell align="right">{row.calories}</TableCell>
-                            <TableCell align="right">{row.fat}</TableCell>
-                            <TableCell align="right">{row.carbs}</TableCell>
-                            <TableCell align="right">{row.protein}</TableCell>
+                            {( 
+                              columns
+                            ).map((column) => (
+                                <TableCell component="th" scope="row">
+                                  {row[column.field]}
+                                </TableCell>
+                            ))}
                         </TableRow>
                     ))}
                 </TableBody>
@@ -64,7 +83,7 @@ function DataGridRest({restUrl, headers}){
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
-                    count={rows.length}
+                    count={totalElements}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}
