@@ -10,9 +10,9 @@ function DatePickerInput({ openCalendar, value, handleValueChange }) {
 }
 
 
-function DataGridRest({restUrl, headers, keyColumn , columns}){
+function DataGridRest({restUrl, headers, keyColumn , columns, rowsPerPageInit = 5, rowsPerPageOptions = [5, 10, 25]}){
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(rowsPerPageInit);
   const [rows, setRows] = React.useState([]);
   const [totalElements, setTotalElements] = React.useState(0);
   
@@ -81,7 +81,7 @@ function DataGridRest({restUrl, headers, keyColumn , columns}){
                 </TableBody>
             </Table>
                 <TablePagination
-                    rowsPerPageOptions={[5, 10, 25]}
+                    rowsPerPageOptions={rowsPerPageOptions}
                     component="div"
                     count={totalElements}
                     rowsPerPage={rowsPerPage}
