@@ -9,7 +9,7 @@ const handleSubmit = async (event) => {
     var result = await baseApp.fetch("/api/user/token", baseApp.formDataToObject(data));
         if(result.status == "Success"){
             if(baseApp.isWeb()){
-                baseApp.storeJWT(result.message);
+                baseApp.login(result.message);
             }
             let path = "/userslist";
             baseApp.redirect(path);

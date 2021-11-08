@@ -65,6 +65,12 @@ function App() {
       setOpen(!open);
     };
     
+    const toogleLogout = (e) => {
+      baseApp.logout();
+      let path = "/";
+      baseApp.redirect(path);
+    };
+    
     const mainListItems = (
       <div>
         <ListItem button onClick={toogleLogin}>
@@ -102,24 +108,12 @@ function App() {
 
     const secondaryListItems = (
       <div>
-        <ListSubheader inset>Saved reports</ListSubheader>
-        <ListItem button>
+        <ListSubheader inset>{baseApp.translations().t("Tools", "app")}</ListSubheader>
+        <ListItem button onClick={toogleLogout}>
           <ListItemIcon>
-            <Icon >assignment</Icon>
+            <Icon >logout</Icon>
           </ListItemIcon>
-          <ListItemText primary="Current month" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-           <Icon >assignment</Icon>
-          </ListItemIcon>
-          <ListItemText primary="Last quarter" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-           <Icon >assignment</Icon>
-          </ListItemIcon>
-          <ListItemText primary="Year-end sale" />
+          <ListItemText primary="Log out" />
         </ListItem>
       </div>
     );

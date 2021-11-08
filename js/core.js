@@ -138,11 +138,24 @@ function BaseApp() {
         return this.i18n;
     }
     
+    this.login = function(jwt){
+        this.storeJWT(jwt);
+    }
+    
+    this.logout = function (){
+        this.removeJWT();
+    }
+    
     this.storeJWT = function (jwt){
         this.sessionStore().setItem("jwt", JSON.stringify(jwt));
         this.createJWTCookie();
     }
     
+    this.removeJWT = function (){
+        this.sessionStore().removeItem("jwt");
+        this.eraseJWTCookie();
+    }
+     
     this.readJWT = function (){
         return JSON.parse(this.sessionStore().jwt);
     }
@@ -151,6 +164,12 @@ function BaseApp() {
         if(this.getCookie("token") == ""){
             this.createCookie("token", this.readJWT().token);
         }
+    }
+    
+    this.eraseJWTCookie = function (){
+         if(this.getCookie("token") != ""){
+             this.eraseCookie("token");
+         }
     }
     
     this.createCookie = function (name, value, days){
@@ -178,6 +197,10 @@ function BaseApp() {
             }
           }
           return "";
+    }
+    
+    this.eraseCookie = function (name){
+        this.createCookie(name,"",-1);
     }
 }
 
