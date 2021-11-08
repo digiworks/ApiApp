@@ -74,7 +74,7 @@ class BabelTranslator
     private function comporess($script)
     {
        $script = str_replace("\\", "\\\\", $script);
-       $script = str_replace("'", "\x27", $script);
+       $script = str_replace("'", "\'", $script);
        //$this->sinlgeLineComments($script);
        $script = trim(preg_replace('/[\t\n\r\s]+/', ' ', $script));
        return $script;
