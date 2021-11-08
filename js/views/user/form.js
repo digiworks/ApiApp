@@ -11,7 +11,7 @@ function IndexPage() {
  const [waiting, setWaiting] = React.useState(false);
  const [emailerror, setEmailError] = React.useState(false);
  
- baseApp.translations().loadResourceBundle("en", "userform", {
+ baseApp.translations().loadResourceBundle("en", 'userform', {
                                         name: "Nome del soggetto",
                                       }, true, true);
  
