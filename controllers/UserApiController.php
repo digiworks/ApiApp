@@ -62,14 +62,15 @@ class UserApiController extends AppController
         $this->response = $response;
         $this->request = $request;
         $data = $request->getParsedBody();
-        if(isset($data['id'])){
-            $id = $data['id'];
+        if(isset($data['Id'])){
+            $id = $data['Id'];
             $query = new UsersQuery();
             $user = $query->create()->findById($id);
             if(!is_null($user)){
                 $user->delete();
             }
         }
+        $response->getBody()->write(json_encode(['succesful']));
         return $this->response;
     }
     

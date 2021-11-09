@@ -16,6 +16,7 @@ return [
                 // API Routes
         
                 ["route" => "/api/user/save", "method" => "POST", "controller" => "\controllers\UserApiController:save"],
+                ["route" => "/api/user/delete", "method" => "POST", "controller" => "\controllers\UserApiController:delete"],
                 ["route" => "/api/user/paginate", "method" => "GET", "controller" => "\controllers\UserApiController:pager"],
                 ["route" => "/api/user/token", "method" => "POST", "controller" => "\controllers\UserApiController:token"],
             ]

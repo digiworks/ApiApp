@@ -1,5 +1,8 @@
 function IndexPage() {
     const [waiting, setWaiting] = React.useState(false);
+    const [open, setOpen] = React.useState(false);
+    const [data, setData] = React.useState([]);
+    const [refresh, setRefresh] = React.useState(false);
     
     var hd = [
         {text: "Nome"},
@@ -12,6 +15,31 @@ function IndexPage() {
         {field: "surname"},
         {field: "Status"}
     ];
+    
+    const handleClose = () => {
+        setOpen(false);
+    };
+    
+    const handleAgree = async () => {
+      setOpen(false);
+      if(baseApp.isWeb()){
+            setWaiting(true);
+            var result = await baseApp.fetch("/api/user/delete",data);
+            
+            if(result.status == "Success"){
+                 setWaiting(false);
+                 setRefresh(!refresh);
+             }else{
+                 if(result.status == "Error")
+                 {
+                     setWaiting(false);
+                 }
+             }
+             
+      }
+      setData([]);
+    };
+  
     const actions = [
        {
            icon: 'edit',
@@ -19,7 +47,11 @@ function IndexPage() {
            text: '',
            onClick: (event, rowData) => {
                if(baseApp.isWeb()){
-                   alert("Edit");
+                   event.preventDefault();
+                   console.log(rowData);
+                   /*setWaiting(true);
+                   let path = "/createuser";
+                   baseApp.redirect(path);*/
                }
            }
        },
@@ -28,9 +60,8 @@ function IndexPage() {
            tooltip: 'Delete Index',
            text: '',
            onClick: (event, rowData) => {
-              if(baseApp.isWeb()){
-                   alert("Delete");
-               }
+              setData(rowData);
+              setOpen(true);
            }
        }
    ];
@@ -60,7 +91,30 @@ function IndexPage() {
                 keyColumn = "Id"
                 columns = {columns}
                 actions = {actions}
+                refresh = {refresh}
             />
+            <Dialog
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">
+                {baseApp.translations().t("Delete", "userlist")}
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                 {baseApp.translations().t("Sei sicuro di volere eliminare l'e'emento?", "userlist")}
+                   
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose}>{baseApp.translations().t("No", "userlist")}</Button>
+                <Button onClick={handleAgree} autoFocus>
+                  {baseApp.translations().t("Yes", "userlist")}
+                </Button>
+              </DialogActions>
+            </Dialog>
         </div>
             );
 }

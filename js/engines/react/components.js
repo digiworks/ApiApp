@@ -15,6 +15,7 @@ function DataGridRest({restUrl,
                         keyColumn , 
                         columns,
                         actions = [],
+                        refresh = false,
                         rowsPerPageInit = 5, 
                         rowsPerPageOptions = [5, 10, 25]
         }){
@@ -23,23 +24,23 @@ function DataGridRest({restUrl,
   const [rows, setRows] = React.useState([]);
   const [totalElements, setTotalElements] = React.useState(0);
   
-  const addAction = (action, indexRow, indexAction) => {
+  const addAction = (action, indexRow, indexAction, rowData) => {
         return (
-            <Button label={action.tooltip} onClick={action.onClick} key={"bt" + indexRow.toString() + "_" + indexAction.toString()}>
+            <Button label={action.tooltip} onClick={(event) => {action.onClick(event,rowData);}} key={"bt" + indexRow.toString() + "_" + indexAction.toString()}>
                 <Icon>{action.icon}</Icon>
                 {action.text}
             </Button>
         );
   };
   
-  const renderActions = (actions, indexRow) =>{
+  const renderActions = (actions, indexRow, rowData) =>{
       if(actions.length){
         return (
             <TableCell align="right" key={"actions" + indexRow.toString()}>
                 {( 
                   actions
                  ).map((action, index) => (
-                   addAction(action, indexRow, index)
+                   addAction(action, indexRow, index, rowData)
                   ))}
             </TableCell>
             );
@@ -71,6 +72,11 @@ function DataGridRest({restUrl,
         getData(page, rowsPerPage);
   }, [page, rowsPerPage]);
   
+  React.useEffect(() => {
+      if(refresh){
+        getData(page, rowsPerPage);
+    }
+  }, [refresh]);
   
   return (
         <TableContainer component={Paper}>
@@ -100,7 +106,7 @@ function DataGridRest({restUrl,
                                   {row[column.field]}
                                 </TableCell>
                             ))}
-                            {renderActions(actions, row[keyColumn])}
+                            {renderActions(actions, row[keyColumn], row)}
                         </TableRow>
                     ))}
                 </TableBody>
