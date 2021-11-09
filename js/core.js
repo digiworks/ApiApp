@@ -162,7 +162,7 @@ function BaseApp() {
     
     this.createJWTCookie = function (){
         if(this.getCookie("token") == ""){
-            this.createCookie("token", this.readJWT().token);
+            this.createCookie("token", this.readJWT().token, this.readJWT().expires);
         }
     }
     
@@ -172,11 +172,11 @@ function BaseApp() {
          }
     }
     
-    this.createCookie = function (name, value, days){
+    this.createCookie = function (name, value, expiresDate){
         let expires;
-        if (days) {
+        if (expiresDate) {
           let date = new Date();
-          date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+          date.setTime(expiresDate * 1000);
           expires = "; expires=" + date.toUTCString();
         } else {
           expires = "";

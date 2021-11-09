@@ -51,7 +51,35 @@ class UserApiController extends AppController
         return $this->response;
     }
     
+    /**
+     * 
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param array $args
+     * @return ResponseInterface
+     */
+    public function delete(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
+        $this->response = $response;
+        $this->request = $request;
+        $data = $request->getParsedBody();
+        if(isset($data['id'])){
+            $id = $data['id'];
+            $query = new UsersQuery();
+            $user = $query->create()->findById($id);
+            if(!is_null($user)){
+                $user->delete();
+            }
+        }
+        return $this->response;
+    }
     
+    /**
+     * 
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param array $args
+     * @return ResponseInterface
+     */
     public function pager(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
         
         $this->response = $response;
@@ -71,7 +99,13 @@ class UserApiController extends AppController
         return $this->response;
     }
     
-    
+    /**
+     * 
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param array $args
+     * @return ResponseInterface
+     */
     public function register(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
         $this->response = $response;
         $this->request = $request;
