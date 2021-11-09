@@ -17,7 +17,7 @@ function DataGridRest({restUrl,
                         actions = [],
                         refresh = false,
                         rowsPerPageInit = 5, 
-                        rowsPerPageOptions = [5, 10, 25]
+                        rowsPerPageOptions = [5, 10, 25, 50, 100, 150, 200, 300]
         }){
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(rowsPerPageInit);
@@ -73,7 +73,7 @@ function DataGridRest({restUrl,
   }, [page, rowsPerPage]);
   
   React.useEffect(() => {
-      if(refresh){
+     if(refresh){
         getData(page, rowsPerPage);
     }
   }, [refresh]);
