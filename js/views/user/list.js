@@ -28,14 +28,14 @@ function IndexPage() {
             
             if(result.status == "Success"){
                  setWaiting(false);
-                 setRefresh(!refresh);
+                 setRefresh(true);
              }else{
                  if(result.status == "Error")
                  {
                      setWaiting(false);
                  }
              }
-             
+              setRefresh(false);
       }
       setData([]);
     };
