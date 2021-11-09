@@ -7,11 +7,33 @@ function IndexPage() {
         {text: "Stato"}
     ];
     
-    var columns = [
+    const columns = [
         {field: "Name"},
         {field: "surname"},
         {field: "Status"}
     ];
+    const actions = [
+       {
+           icon: 'edit',
+           tooltip: 'Edit Index',
+           text: '',
+           onClick: (event, rowData) => {
+               if(baseApp.isWeb()){
+                   alert("Edit");
+               }
+           }
+       },
+       {
+           icon: 'delete',
+           tooltip: 'Delete Index',
+           text: '',
+           onClick: (event, rowData) => {
+              if(baseApp.isWeb()){
+                   alert("Delete");
+               }
+           }
+       }
+   ];
     
     const createuser = (e) => {
       e.preventDefault();
@@ -37,6 +59,7 @@ function IndexPage() {
                 headers = {hd}
                 keyColumn = "Id"
                 columns = {columns}
+                actions = {actions}
             />
         </div>
             );

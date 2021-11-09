@@ -10,17 +10,43 @@ function DatePickerInput({ openCalendar, value, handleValueChange }) {
 }
 
 
-function DataGridRest({restUrl, headers, keyColumn , columns, rowsPerPageInit = 5, rowsPerPageOptions = [5, 10, 25]}){
+function DataGridRest({restUrl, 
+                        headers, 
+                        keyColumn , 
+                        columns,
+                        actions = [],
+                        rowsPerPageInit = 5, 
+                        rowsPerPageOptions = [5, 10, 25]
+        }){
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(rowsPerPageInit);
   const [rows, setRows] = React.useState([]);
   const [totalElements, setTotalElements] = React.useState(0);
   
-
-  /* Avoid a layout jump when reaching the last page with empty rows.*/
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
+  const addAction = (action, indexRow, indexAction) => {
+        return (
+            <Button label={action.tooltip} onClick={action.onClick} key={"bt" + indexRow.toString() + "_" + indexAction.toString()}>
+                <Icon>{action.icon}</Icon>
+                {action.text}
+            </Button>
+        );
+  };
+  
+  const renderActions = (actions, indexRow) =>{
+      if(actions.length){
+        return (
+            <TableCell align="right" key={"actions" + indexRow.toString()}>
+                {( 
+                  actions
+                 ).map((action, index) => (
+                   addAction(action, indexRow, index)
+                  ))}
+            </TableCell>
+            );
+      }
+      return "";
+  };
+  
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -45,9 +71,6 @@ function DataGridRest({restUrl, headers, keyColumn , columns, rowsPerPageInit = 
         getData(page, rowsPerPage);
   }, [page, rowsPerPage]);
   
-  if(baseApp.isSsr()){
-       getData(0, rowsPerPage);
-  }
   
   return (
         <TableContainer component={Paper}>
@@ -56,9 +79,10 @@ function DataGridRest({restUrl, headers, keyColumn , columns, rowsPerPageInit = 
                     <TableRow>
                         {( 
                            headers
-                          ).map((row) => (
-                        <TableCell>{row.text}</TableCell>
+                          ).map((row, index) => (
+                        <TableCell component="th"  key={"th" + index.toString()}>{row.text}</TableCell>
                         ))}
+                        {actions.length ? <TableCell component="th" align="right" key="thactions"></TableCell>: ""}
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -66,16 +90,17 @@ function DataGridRest({restUrl, headers, keyColumn , columns, rowsPerPageInit = 
                            rows
                           ).map((row) => (
                           <TableRow
-                            key={row["keyColumn"]}
+                            key={row[keyColumn]}
                             sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                           >
                             {( 
                               columns
-                            ).map((column) => (
-                                <TableCell component="th" scope="row">
+                            ).map((column, index) => (
+                                <TableCell component="td" scope="row" key={row[keyColumn] + index.toString()}>
                                   {row[column.field]}
                                 </TableCell>
                             ))}
+                            {renderActions(actions, row[keyColumn])}
                         </TableRow>
                     ))}
                 </TableBody>
