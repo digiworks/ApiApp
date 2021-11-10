@@ -6,4 +6,5 @@ class ServiceTypes {
     const DATABASE = "database";
     const LOGGER = "logger";
     const RENDER = "render";
+    const MAILER = "mailer";
 }

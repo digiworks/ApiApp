@@ -36,7 +36,17 @@ return Arr::mergeRecursive(
         [
             "env" => [
                 "jwt_secret" => "AASDGFggsya12!23LklkjlljiIIlkjll@@l",
-                "version" => "0.1.0"
+                "version" => "0.1.0",
+                "admin_mail" => "",
+                "support_mail" => "",
+                "smtp" => [
+                    'type' => 'smtp',
+                    'host' => 'smtp.mailtrap.io',
+                    'port' => '25',
+                    'username' => 'my-username',
+                    'password' => 'my-secret-password',
+                    'priority' => Symfony\Component\Mime\Email::PRIORITY_NORMAL
+                ]
             ],
             "services" =>[
               ServiceTypes::DATABASE => DataBase::class,
