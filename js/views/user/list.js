@@ -26,11 +26,11 @@ function IndexPage() {
             setWaiting(true);
             var result = await baseApp.fetch("/api/user/delete",data);
             
-            if(result.status == "Success"){
+            if(result.status == "success"){
                  setWaiting(false);
                  setRefresh(true);
              }else{
-                 if(result.status == "Error")
+                 if(result.status == "error")
                  {
                      setWaiting(false);
                  }

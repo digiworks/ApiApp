@@ -71,11 +71,11 @@ function BaseApp() {
                 .then(response => response.json())
                 .then(data => {
                     result.message = data;
-                    result.status = "Success";
+                    result.status = "success";
                 })
                 .catch((error) => {
                     result.message = error;
-                    result.status = "Error";
+                    result.status = "error";
                     console.error("Error:", error);
                 });
         return result;

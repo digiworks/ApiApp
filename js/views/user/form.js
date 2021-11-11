@@ -29,12 +29,12 @@ const getModel = async (id) => {
     };
     var model = [];
     var result = await baseApp.fetch("/api/user/get", data);
-    if(result.status == "Success"){
+    if(result.status == "success"){
         if(result.message['message'] == "found"){
             model = result.message['model'];
         }
     }else{
-        if(result.status == "Error")
+        if(result.status == "error")
         {
             
         }
@@ -52,11 +52,11 @@ const submit = async (e) => {
         setWaiting(true);
         const data = new FormData(e.currentTarget);
         var result = await baseApp.fetch("/api/user/save", baseApp.formDataToObject(data));
-        if(result.status == "Success"){
+        if(result.status == "success"){
             let path = "/userslist";
             baseApp.redirect(path);
         }else{
-            if(result.status == "Error")
+            if(result.status == "error")
             {
                 setError(true);
                 setWaiting(false);
