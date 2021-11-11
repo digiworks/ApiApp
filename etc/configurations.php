@@ -2,6 +2,7 @@
 
 use code\applications\ApiAppFactory;
 use code\logger\Logger;
+use code\mailer\Mailer;
 use code\middlewares\JsonBodyParserMiddleware;
 use code\renders\engines\BabelTranslator;
 use code\renders\engines\V8;
@@ -11,6 +12,7 @@ use code\renders\theme\JsTheme;
 use code\service\ServiceTypes;
 use code\storage\database\DataBase;
 use code\utility\Arr;
+use Symfony\Component\Mime\Email;
 use Tuupola\Middleware\JwtAuthentication;
 use Tuupola\Middleware\JwtAuthentication\RequestPathRule;
 
@@ -45,13 +47,14 @@ return Arr::mergeRecursive(
                     'port' => '25',
                     'username' => 'my-username',
                     'password' => 'my-secret-password',
-                    'priority' => Symfony\Component\Mime\Email::PRIORITY_NORMAL
+                    'priority' => Email::PRIORITY_NORMAL
                 ]
             ],
             "services" =>[
               ServiceTypes::DATABASE => DataBase::class,
               ServiceTypes::LOGGER => Logger::class,
-              ServiceTypes::RENDER => RenderManager::class
+              ServiceTypes::RENDER => RenderManager::class,
+              ServiceTypes::MAILER => Mailer::class
             ],
             "middlewares" =>[
                 "JsonBodyParserMiddleware" => [

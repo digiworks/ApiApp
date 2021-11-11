@@ -14,7 +14,25 @@ function IndexPage() {
  baseApp.translations().loadResourceBundle("en", 'userform', {
                                         name: "Nome del soggetto",
                                       }, true, true);
- 
+const getModel = async (id) => {
+    var data = [
+        Id = id
+    ];
+    var model = [];
+    var result = await baseApp.fetch("/api/user/get", data);
+    if(result.status == "Success"){
+        if(result.message['message']){
+            model = result.message['model'];
+        }
+    }else{
+        if(result.status == "Error")
+        {
+            
+        }
+    }
+    return model;
+};
+    
 const submit = async (e) => {
     e.preventDefault();
     const formValid = validator.allValid();
@@ -42,9 +60,11 @@ const submit = async (e) => {
     var id_value = null;
     if(baseApp.isWeb()){
         const qparams = baseApp.queryString();
-        if(!qparams.get(id_field))
+        if(qparams.get(id_field))
         {
-            id_value = qparams.get(id_field)
+            id_value = qparams.get(id_field);
+            getModel(id_value);
+            /*setValues();*/
         }
     }else
     {

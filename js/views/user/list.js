@@ -48,10 +48,10 @@ function IndexPage() {
            onClick: (event, rowData) => {
                if(baseApp.isWeb()){
                    event.preventDefault();
-                   console.log(rowData);
-                   /*setWaiting(true);
-                   let path = "/createuser";
-                   baseApp.redirect(path);*/
+                   /*setData(rowData);*/
+                   setWaiting(true);
+                   let path = "/formuser?id=" + rowData.Id;
+                   baseApp.redirect(path);
                }
            }
        },
@@ -69,7 +69,7 @@ function IndexPage() {
     const createuser = (e) => {
       e.preventDefault();
       setWaiting(true);
-      let path = "/createuser";
+      let path = "/formuser";
       baseApp.redirect(path);
     };
     

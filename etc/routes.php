@@ -11,11 +11,12 @@ return [
                 ["route" => "/listuser", "method" => "GET", "controller" => "\controllers\UserController:listuser"],
                 ["route" => "/table", "method" => "GET", "controller" => "\controllers\UserController:table"],
                 ["route" => "/userslist", "method" => "GET", "controller" => "\controllers\UserController:userslist"],
-                ["route" => "/createuser", "method" => "GET", "controller" => "\controllers\UserController:createuser"],
+                ["route" => "/formuser", "method" => "GET", "controller" => "\controllers\UserController:formuser"],
         
                 // API Routes
         
                 ["route" => "/api/user/save", "method" => "POST", "controller" => "\controllers\UserApiController:save"],
+                ["route" => "/api/user/get", "method" => "POST", "controller" => "\controllers\UserApiController:get"],
                 ["route" => "/api/user/delete", "method" => "POST", "controller" => "\controllers\UserApiController:delete"],
                 ["route" => "/api/user/paginate", "method" => "GET", "controller" => "\controllers\UserApiController:pager"],
                 ["route" => "/api/user/token", "method" => "POST", "controller" => "\controllers\UserApiController:token"],

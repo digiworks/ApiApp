@@ -5,7 +5,7 @@ namespace code\mailer;
 use code\applications\ApiAppFactory;
 use code\service\ServiceInterface;
 use code\service\ServiceTypes;
-use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\Mailer as SymfonyMailer;
 use Symfony\Component\Mailer\Transport;
 
 class Mailer implements ServiceInterface, MailerInterface {
@@ -29,7 +29,7 @@ class Mailer implements ServiceInterface, MailerInterface {
                 $this->settings['host'],
                 $this->settings['port']
         );
-        $this->mailer = new Mailer(Transport::fromDsn($dsn));
+        $this->mailer = new SymfonyMailer(Transport::fromDsn($dsn));
     }
 
 }

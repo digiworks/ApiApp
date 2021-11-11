@@ -46,7 +46,23 @@ class UserApiController extends AppController
     public function get(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
         $this->response = $response;
         $this->request = $request;
-        
+        $message = "not found";
+        $model = [];
+        $data = $request->getParsedBody();
+        if(isset($data['Id'])){
+            $id = $data['Id'];
+            $query = new UsersQuery();
+            $user = $query->create()->findById($id);
+            if(!is_null($user)){
+                $model = $user->toArray();
+                $message = "found";
+            }
+        }
+         $result = [
+            'model'=> $model,
+            'message' => $message
+        ];
+        $this->response->withHeader("Content-Type", "application/json")->getBody()->write(json_encode($result, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
         
         return $this->response;
     }

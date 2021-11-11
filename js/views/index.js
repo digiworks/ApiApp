@@ -46,7 +46,7 @@ class IndexPage extends React.Component {
             const qparams = new URLSearchParams(windowUrl);
             if(!!qparams.get("age"))
             {
-                defa = qparams.get("age")
+                defa = qparams.get("age");
             }
         }else
         {

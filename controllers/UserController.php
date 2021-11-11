@@ -68,7 +68,7 @@ class UserController extends AppController
         return $response;
     }
     
-    public function createuser(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
+    public function formuser(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
 
         $currentView = 'js/views/user/form.js';
         $renderManager = ApiAppFactory::getApp()->getService(ServiceTypes::RENDER);
@@ -76,7 +76,6 @@ class UserController extends AppController
 
         return $response;
     }
-    
     
     public function signup(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
 
