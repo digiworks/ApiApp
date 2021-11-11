@@ -7,4 +7,5 @@ class ServiceTypes {
     const LOGGER = "logger";
     const RENDER = "render";
     const MAILER = "mailer";
+    const SESSION = "session";
 }
