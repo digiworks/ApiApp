@@ -57,7 +57,7 @@ function DataGridRest({restUrl,
     setPage(0);
   };
   
- let getData = async (page:number, size: number) => {
+ let getData = async (page: number, size: number) => {
     
     let url = restUrl +
         `?per_page=`+ size +
@@ -111,16 +111,16 @@ function DataGridRest({restUrl,
                     ))}
                 </TableBody>
             </Table>
-                <TablePagination
-                    rowsPerPageOptions={rowsPerPageOptions}
-                    component="div"
-                    count={totalElements}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                  />
-                  </TableContainer>
+            <TablePagination
+                rowsPerPageOptions={rowsPerPageOptions}
+                component="div"
+                count={totalElements}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
+        </TableContainer>
             );
 }
 
