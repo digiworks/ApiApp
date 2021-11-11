@@ -2,7 +2,12 @@
 
 namespace code\middlewares;
 
+use code\session\Cookie;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
+use SessionHandlerInterface;
 
 class SessionMiddleware implements MiddlewareInterface {
 
@@ -46,7 +51,7 @@ class SessionMiddleware implements MiddlewareInterface {
     }
 
     //put your code here
-    public function process(\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http\Server\RequestHandlerInterface $handler): \Psr\Http\Message\ResponseInterface {
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface {
         $this->startSession();
         return $handler->handle($request);
     }
@@ -79,7 +84,7 @@ class SessionMiddleware implements MiddlewareInterface {
 
         $handler = $settings['handler'];
         if ($handler) {
-            if (!($handler instanceof \SessionHandlerInterface)) {
+            if (!($handler instanceof SessionHandlerInterface)) {
                 $handler = new $handler();
             }
             session_set_save_handler($handler, true);

@@ -4,12 +4,14 @@ use code\applications\ApiAppFactory;
 use code\logger\Logger;
 use code\mailer\Mailer;
 use code\middlewares\JsonBodyParserMiddleware;
+use code\middlewares\SessionMiddleware;
 use code\renders\engines\BabelTranslator;
 use code\renders\engines\V8;
 use code\renders\JsRender;
 use code\renders\RenderManager;
 use code\renders\theme\JsTheme;
 use code\service\ServiceTypes;
+use code\session\Session;
 use code\storage\database\DataBase;
 use code\utility\Arr;
 use Symfony\Component\Mime\Email;
@@ -54,11 +56,15 @@ return Arr::mergeRecursive(
               ServiceTypes::DATABASE => DataBase::class,
               ServiceTypes::LOGGER => Logger::class,
               ServiceTypes::RENDER => RenderManager::class,
-              ServiceTypes::MAILER => Mailer::class
+              ServiceTypes::MAILER => Mailer::class,
+              ServiceTypes::SESSION => Session::class
             ],
             "middlewares" =>[
                 "JsonBodyParserMiddleware" => [
                     "class" => JsonBodyParserMiddleware::class
+                ],
+                "SessionMiddleware" =>[
+                    "class" => SessionMiddleware::class
                 ],
                 "JwtAuthentication" => function () {
                     $app = ApiAppFactory::getApp();
