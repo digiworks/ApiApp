@@ -28,7 +28,14 @@ class UserApiController extends AppController
 //        error_log(ob_get_clean(), 4);
         $data = $request->getParsedBody();
         $user = new Users();
-        $user->setName($data["name"]);
+        if(!empty($data["Id"])){
+            $query = new UsersQuery();
+            $model = $query->create()->findPK($data["Id"]);
+            if(!is_null($model)){
+                $user = $model;
+            }
+        }
+        $user->setName($data["Name"]);
         $user->setsurname($data["surname"]);
         $user->setStatus($data["status"] == "on" ? 1:0);
         $user->save();
@@ -52,7 +59,7 @@ class UserApiController extends AppController
         if(isset($data['Id'])){
             $id = $data['Id'];
             $query = new UsersQuery();
-            $user = $query->create()->findById($id);
+            $user = $query->create()->findPK($id);
             if(!is_null($user)){
                 $model = $user->toArray();
                 $message = "found";

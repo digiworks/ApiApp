@@ -187,7 +187,7 @@ function App() {
           sx={{
             flexGrow: 1,
             height: "100vh",
-            overflow: "auto",
+            overflow: "auto"
           }}
         >
          <Toolbar />

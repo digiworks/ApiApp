@@ -52,7 +52,7 @@
 
 <script  type="text/babel">
     window.onload = function (){
-                ReactDOM.hydrate(
+        ReactDOM.hydrate(
           <App />,
           document.getElementById("root")
         );

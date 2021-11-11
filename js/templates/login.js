@@ -18,7 +18,7 @@ function App() {
     
     
     return (
-    <div>
+
         <ThemeProvider theme={mdTheme}>        
             <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -27,7 +27,7 @@ function App() {
                 marginTop: 8,
                 display: "flex",
                 flexDirection: "column",
-                alignItems: "center",
+                alignItems: "center"
               }}
             >
                 <IndexPage />
@@ -35,7 +35,7 @@ function App() {
             <Copyright sx={{ mt: 5 }} />
             </Container>
         </ThemeProvider>
-    </div>
+
       );
 }
 

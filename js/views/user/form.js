@@ -2,9 +2,18 @@ function IndexPage() {
  var id_field = "id";   
  
  const [values, setValues] = React.useState({
-     name:"",
-     surname:"",
-     email:""
+    Id: null,
+    Name:"",
+    surname:"",
+    email:"",
+    CreatedAt: null,
+    CreatedBy: null,
+    DeletedAt: null,
+    DeletedBy: null,
+    Status: 0,
+    UpdatedAt: null,
+    UpdatedBy: null,
+    hash: null
  });
  const validator = baseApp.formValidator();   
  const [error, setError] = React.useState(false);
@@ -15,13 +24,13 @@ function IndexPage() {
                                         name: "Nome del soggetto",
                                       }, true, true);
 const getModel = async (id) => {
-    var data = [
-        Id = id
-    ];
+    var data = {
+        "Id": id
+    };
     var model = [];
     var result = await baseApp.fetch("/api/user/get", data);
     if(result.status == "Success"){
-        if(result.message['message']){
+        if(result.message['message'] == "found"){
             model = result.message['model'];
         }
     }else{
@@ -57,21 +66,26 @@ const submit = async (e) => {
         validator.showMessages();
     }
   };
+  React.useEffect(() => {
     var id_value = null;
     if(baseApp.isWeb()){
-        const qparams = baseApp.queryString();
-        if(qparams.get(id_field))
-        {
-            id_value = qparams.get(id_field);
-            getModel(id_value);
-            /*setValues();*/
-        }
-    }else
-    {
-        if(typeof queryStringValues[id_field] !== "undefined"){
-            id_value = queryStringValues[id_field];
-        }
-    }
+          const qparams = baseApp.queryString();
+          if(qparams.get(id_field))
+          {
+              id_value = qparams.get(id_field);
+              getModel(id_value).then(function (model) {
+                  model["email"] = "digiw@gmail.com"; /*for prevent all values need */
+                  setValues(model);
+              });
+          }
+      }else
+      {
+          if(typeof queryStringValues[id_field] !== "undefined"){
+              id_value = queryStringValues[id_field];
+          }
+      }
+  }, []);
+  
   const acordion_icon = <Icon>expand_more</Icon>;
   
   const handleChange = name => event => {
@@ -123,25 +137,30 @@ const submit = async (e) => {
                     autoComplete="off"
                     sx={{ bgcolor: "#cfe8fc", height: "50vh" }}
                     >
+                        <TextField
+                            name="Id"
+                            type="hidden"
+                            value={values.Id}
+                            variant="standard"
+                        />
                         <Stack direction="row" spacing={2}>
                             <div>
-                                <TextField id="name" name="name" 
-                                    label = {baseApp.translations().t("name", "userform")}
+                                <TextField id="Name" name="Name" 
+                                    label = {baseApp.translations().t("Name", "userform")}
                                     required 
-                                    
                                     variant="outlined" 
-                                    value={values.name}  
-                                    onChange={handleChange("name")}
-                                    onBlur={handleBlur("name")}
-                                    error={!validator.fieldValid("name")}
-                                    helperText={validator.getFieldErrorMessages("name")}
+                                    value={values.Name}  
+                                    onChange={handleChange("Name")}
+                                    onBlur={handleBlur("Name")}
+                                    error={!validator.fieldValid("Name")}
+                                    helperText={validator.getFieldErrorMessages("Name")}
                                     />
-                                {validator.addFieldRules("name", "required")}
+                                {validator.addFieldRules("Name", "required")}
                             </div>
                             <div>
                                  <TextField id="surname" name="surname" 
                                     required 
-                                    label="Cognome" 
+                                    label={baseApp.translations().t("Surname", "userform")} 
                                     variant="outlined" 
                                     value={values.surname}  
                                     onChange={handleChange("surname")}
