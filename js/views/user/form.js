@@ -2,7 +2,7 @@ function IndexPage() {
  var id_field = "id";   
  
  const [values, setValues] = React.useState({
-    Id: null,
+    Id: "",
     Name:"",
     surname:"",
     email:"",
