@@ -2,8 +2,8 @@
 
 namespace code\applications;
 
+use code\configuration\Configurations;
 use code\service\ServiceTypes;
-use code\tools\Configurations;
 use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;

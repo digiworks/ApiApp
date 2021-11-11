@@ -1,11 +1,11 @@
 <?php
 
-namespace code\tools;
+namespace code\configuration;
 
 use code\service\ServiceInterface;
 use code\structure\Structure;
 
-class Configurations implements ServiceInterface {
+class Configurations implements ServiceInterface, ConfigurationsInterface {
 
     private static $filepath = '';
 

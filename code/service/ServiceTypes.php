@@ -8,4 +8,5 @@ class ServiceTypes {
     const RENDER = "render";
     const MAILER = "mailer";
     const SESSION = "session";
+    const FILESYSTEM = "filesystem";
 }

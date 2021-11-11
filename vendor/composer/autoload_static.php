@@ -91,6 +91,10 @@ class ComposerStaticInitbce370cc8c6c72eb3fe88fc7d83f9fd7
         array (
             'Monolog\\' => 8,
         ),
+        'L' => 
+        array (
+            'Laminas\\Escaper\\' => 16,
+        ),
         'I' => 
         array (
             'Invoker\\' => 8,
@@ -292,6 +296,10 @@ class ComposerStaticInitbce370cc8c6c72eb3fe88fc7d83f9fd7
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'Laminas\\Escaper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laminas/laminas-escaper/src',
         ),
         'Invoker\\' => 
         array (
