@@ -56,8 +56,8 @@ return Arr::mergeRecursive(
               ServiceTypes::DATABASE => DataBase::class,
               ServiceTypes::LOGGER => Logger::class,
               ServiceTypes::RENDER => RenderManager::class,
-              ServiceTypes::MAILER => Mailer::class,
-              ServiceTypes::SESSION => Session::class
+              ServiceTypes::MAILER => Mailer::class, //Optional service
+              ServiceTypes::SESSION => Session::class //Optional service
             ],
             "middlewares" =>[
                 "JsonBodyParserMiddleware" => [
