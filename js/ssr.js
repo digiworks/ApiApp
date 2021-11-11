@@ -7,10 +7,10 @@
     <!--  <link rel="stylesheet" href="https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/css/semi.css"/> -->
     
     <script src="/js/boot.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+    <script src="/js/engines/react/date-fns/1.30.1/date_fns.js"></script>
+    <script src="/js/engines/react/17.0.2/umd/react.development.js"></script>
+    <script src="/js/engines/react/react-dom/17.0.2/umd/react-dom.development.min.js"></script>
+    <script src="/js/engines/react/babel/6.26.0/babel.js"></script>
     
     <script src="/js/engines/react/lib/validator@1.0.0/form-validator.js"></script>
     <script src="/js/engines/react/lib/validator@1.0.0/locale/it.js"></script>
