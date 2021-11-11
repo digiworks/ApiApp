@@ -49,16 +49,14 @@
 <script  type="text/babel">
     %s
 </script>
-
+</body>
 <script  type="text/babel">
-    window.onload = function (){
+    function init(){
         ReactDOM.hydrate(
           <App />,
           document.getElementById("root")
         );
     }
+    init();
 </script>
-</body>
-
-
 </html>

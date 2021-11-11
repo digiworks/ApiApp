@@ -18,12 +18,15 @@ class Cookie {
         }
 
         $args = [
-            $expires => $params[$expires],
             'path' => $params['path'],
             'domain' => $params['domain'],
             'secure' => $params['secure'],
             'httponly' => $params['httponly'],
         ];
+        
+        if(!empty($params[$expires])){
+            $args[$expires] = $params[$expires];
+        }
 
         $new = PHP_VERSION_ID >= 70300;
         $samesite = @$params['samesite'];

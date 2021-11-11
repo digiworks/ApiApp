@@ -23,7 +23,7 @@ class SessionMiddleware implements MiddlewareInterface {
      */
     public function __construct($settings = []) {
         $defaults = [
-            'lifetime' => '20 minutes',
+            'lifetime' => '',
             'path' => '/',
             'domain' => '',
             'secure' => false,

@@ -7,19 +7,19 @@ const handleSubmit = async (event) => {
     const data = new FormData(event.currentTarget);
     /*setWaiting(true);*/
     var result = await baseApp.fetch("/api/user/token", baseApp.formDataToObject(data));
-        if(result.status == "Success"){
-            if(baseApp.isWeb()){
-                baseApp.login(result.message);
-            }
-            let path = "/userslist";
-            baseApp.redirect(path);
-        }else{
-            if(result.status == "Error")
-            {
-                setError(true);
-                setWaiting(false);
-            }
+    if(result.status == "Success"){
+        if(baseApp.isWeb()){
+            baseApp.login(result.message);
         }
+        let path = "/userslist";
+        baseApp.redirect(path);
+    }else{
+        if(result.status == "Error")
+        {
+            setError(true);
+            setWaiting(false);
+        }
+    }
     /*console.log({
       email: data.get("email"),
       password: data.get("password"),
