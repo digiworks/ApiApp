@@ -3,7 +3,7 @@
 use code\applications\ApiAppFactory;
 use code\logger\Logger;
 use code\mailer\Mailer;
-use code\middlewares\EscaperMiddleware;
+use code\middlewares\FilterMiddleware;
 use code\middlewares\JsonBodyParserMiddleware;
 use code\middlewares\SessionMiddleware;
 use code\renders\engines\BabelTranslator;
@@ -88,7 +88,7 @@ return Arr::mergeRecursive(
                    
                 },
                 "EscaperMiddleware" => [
-                    "class" => EscaperMiddleware::class
+                    "class" => FilterMiddleware::class
                 ]
                 
             ],

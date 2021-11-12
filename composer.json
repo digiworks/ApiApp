@@ -21,7 +21,8 @@
         "psr/cache": "~1.0",
         "psr/container": "^1.0",
         "composer/ca-bundle": "^1.1",
-        "laminas/laminas-escaper": "^2.9"
+        "laminas/laminas-escaper": "^2.9",
+        "laminas/laminas-filter": "^2.12"
     },
     "autoload": {
         "psr-4": {
