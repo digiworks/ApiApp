@@ -2,14 +2,14 @@
 
 namespace code\utility;
 
-use Laminas\Escaper\Escaper;
+use Laminas\Escaper\Escaper as LaminasEscaper;
 
 class Escaper {
 
     private $escaper;
 
     public function __construct() {
-        $this->escaper = new Escaper('utf-8');
+        $this->escaper = new LaminasEscaper('utf-8');
     }
 
     /**

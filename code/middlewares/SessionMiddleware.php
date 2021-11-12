@@ -36,7 +36,7 @@ class SessionMiddleware implements MiddlewareInterface {
         ];
         $settings = array_merge($defaults, $settings);
 
-        if (is_string($lifetime = $settings['lifetime'])) {
+        if (!empty($settings['lifetime']) && is_string($lifetime = $settings['lifetime'])) {
             $settings['lifetime'] = strtotime($lifetime) - time();
         }
         $this->settings = $settings;
