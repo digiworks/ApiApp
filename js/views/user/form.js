@@ -111,13 +111,12 @@ function IndexPage() {
                         <Collapse in={error}>
                             <Alert variant="filled" severity="error"
                                    action={
-                        <IconButton
-                        aria-label="close"
-                        color="inherit"
-                        size="small"
-                        onClick={() => {
-                                                       setError(false);
-                                                   }}
+                                    <IconButton
+                                    aria-label="close"
+                                    color="inherit"
+                                    size="small"
+                                    onClick={() => {setError(false);}
+                                    }
                         >
                      <Icon fontSize="inherit">close</Icon>
                      </IconButton>
@@ -143,35 +142,40 @@ function IndexPage() {
                                     value={values.Id}
                                     variant="standard"
                                     />
-                                <Stack direction="row" spacing={2}>
-                                    <div>
-                                        <TextField id="Name" name="Name" 
-                                                   label = {baseApp.translations().t("Name", "userform")}
-                                                   required 
-                                                   variant="outlined" 
-                                                   value={values.Name}  
-                                                   onChange={handleChange("Name")}
-                                                   onBlur={handleBlur("Name")}
-                                                   error={!validator.fieldValid("Name")}
-                                                   helperText={validator.getFieldErrorMessages("Name")}
-                                                   />
-                                        {validator.addFieldRules("Name", "required")}
-                                    </div>
-                                    <div>
-                                        <TextField id="surname" name="surname" 
-                                                   required 
-                                                   label={baseApp.translations().t("Surname", "userform")} 
-                                                   variant="outlined" 
-                                                   value={values.surname}  
-                                                   onChange={handleChange("surname")}
-                                                   onBlur={handleBlur("surname")}
-                                                   error={!validator.fieldValid("surname")}
-                                                   helperText={validator.getFieldErrorMessages("surname")}
-                                                   />
-                                        {validator.addFieldRules("surname", "required")}
-                                    </div>
-            
-                                </Stack>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={4}>
+                                        <Box width={350}>
+                                            <TextField id="Name" name="Name" 
+                                                       label = {baseApp.translations().t("Name", "userform")}
+                                                       required 
+                                                       variant="outlined" 
+                                                       value={values.Name}  
+                                                       onChange={handleChange("Name")}
+                                                       onBlur={handleBlur("Name")}
+                                                       error={!validator.fieldValid("Name")}
+                                                       helperText={validator.getFieldErrorMessages("Name")}
+                                                       fullWidth
+                                                       />
+                                            {validator.addFieldRules("Name", "required")}
+                                            </Box>
+                                    </Grid>
+                                    <Grid item xs={4}>
+                                        <Box width={350}>
+                                            <TextField id="surname" name="surname" 
+                                                       required 
+                                                       label={baseApp.translations().t("Surname", "userform")} 
+                                                       variant="outlined" 
+                                                       value={values.surname}  
+                                                       onChange={handleChange("surname")}
+                                                       onBlur={handleBlur("surname")}
+                                                       error={!validator.fieldValid("surname")}
+                                                       helperText={validator.getFieldErrorMessages("surname")}
+                                                       fullWidth
+                                                       />
+                                            {validator.addFieldRules("surname", "required")}
+                                        </Box>
+                                    </Grid>
+                                </Grid>
                                 <Box sx={{mt: 3}} pr={3}>
                                     <Accordion >
                                         <AccordionSummary 

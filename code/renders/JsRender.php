@@ -11,6 +11,7 @@ class JsRender {
 
     protected $engine;
     protected $imports = [];
+    protected $stylesheets = [];
 
     /** @var bool */
     protected $enabled = true;
@@ -30,10 +31,10 @@ class JsRender {
 
     /** @var JsTheme */
     private $themes = null;
-    
+
     /** @var string */
     private $themeName = null;
-    
+
     /** @var string */
     private $defualtThemeName = null;
 
@@ -42,9 +43,9 @@ class JsRender {
 
     public function __construct(RenderEngineInterface $engine) {
         $this->engine = $engine;
-        $this->ssrView = new SsrView('js/ssr.js');
+        $this->ssrView = new SsrView('js/lib/ssr.js');
     }
-    
+
     /**
      * 
      * @return type
@@ -83,8 +84,7 @@ class JsRender {
      */
     public function getTheme($name): ?JsThemeInterface {
         $theme = null;
-        if(isset($this->themes[$name]))
-        {
+        if (isset($this->themes[$name])) {
             $theme = $this->themes[$name];
         }
         return $theme;
@@ -144,9 +144,17 @@ class JsRender {
      * @return $this
      */
     public function addImports(array $imports) {
-        foreach ($imports as $import) {
-            $this->imports[] = $import;
-        }
+        $this->imports = $imports;
+        return $this;
+    }
+
+    /**
+     * 
+     * @param array $stylesheets
+     * @return $this
+     */
+    public function addStylesheets(array $stylesheets) {
+        $this->stylesheets = $stylesheets;
         return $this;
     }
 
@@ -157,7 +165,6 @@ class JsRender {
      */
     public function fallback(string $fallback) {
         $this->fallback = $fallback;
-
         return $this;
     }
 
@@ -254,7 +261,11 @@ class JsRender {
         } else {
             $clientScript = $this->view->setRenderType(RenderTypes::CLIENT)->render();
         }
-        return $this->ssrView->setScriptServer($ssrScript)->setScriptClient($clientScript)->render();
+        $scriptLibs = $this->imports;
+        if (!is_null($this->transformer)) {
+            array_unshift($scriptLibs, ['lib' => $this->transformer->getLib(), "tranlsator" => ""]);
+        }
+        return $this->ssrView->addStylesheets($this->stylesheets)->addImports($scriptLibs)->setScriptServer($ssrScript)->setScriptClient($clientScript)->render();
     }
 
     /**
@@ -265,10 +276,13 @@ class JsRender {
         $import_scripts = "";
         foreach ($this->imports as $import) {
             $script = Curl::get($import['lib']);
-            if (!is_null($this->transformer) && $this->transformer->isType($import['tranlsator'])) {
-                $script = $this->transformer->transform($script);
+            if (!isset($import['use']) || (isset($import['use']) && $import['use'] == "server")) {
+                if (!is_null($this->transformer) && $this->transformer->isType($import['tranlsator'])) {
+                    $script = $this->transformer->transform($script);
+                }
+
+                $import_scripts .= $script . "\n;";
             }
-            $import_scripts .= $script . "\n;";
         }
 
         return $import_scripts;
@@ -278,16 +292,16 @@ class JsRender {
      * 
      * @return type
      */
-    public function getCurrentTheme()
-    {
+    public function getCurrentTheme() {
         $theme = null;
         if (!is_null($this->themeName)) {
             $theme = $this->getTheme($this->themeName);
-        }else{
+        } else {
             if (!is_null($this->defualtThemeName)) {
                 $theme = $this->getTheme($this->defualtThemeName);
             }
         }
         return $theme;
     }
+
 }

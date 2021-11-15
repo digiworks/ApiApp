@@ -18,7 +18,7 @@ class View extends RenderTypes {
         if ($this->getRenderType() == RenderTypes::SERVER) {
             $script = $this->serverView();
         } else {
-            $script = $this->comporess($script);
+            $script = $this->clientView();
         }
         return $script;
     }
@@ -32,6 +32,14 @@ class View extends RenderTypes {
                 "%s;ReactDOMServer.renderToString(React.createElement(IndexPage, null));",
                 $this->buffered);
         return ($command);
+    }
+
+    /**
+     * 
+     * @return type
+     */
+    private function clientView() {
+        return ($this->comporess($this->buffered));
     }
 
 }

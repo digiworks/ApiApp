@@ -112,6 +112,7 @@ class UserApiController extends AppController
         $page = $params['page'];
         $per_page = $params['per_page'];
         $query = new UsersQuery();
+        $query->orderBysurname();
         $data = $query->listPaginate($page, $per_page);
         $totalCount = $query->getCount();
         $result = [
