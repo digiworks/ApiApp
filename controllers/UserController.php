@@ -2,10 +2,11 @@
 namespace controllers;
 
 use code\applications\ApiAppFactory;
+use code\controllers\AppController;
 use code\service\ServiceTypes;
-use models\Users;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+
 
 
 class UserController extends AppController

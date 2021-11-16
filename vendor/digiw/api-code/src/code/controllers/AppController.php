@@ -1,6 +1,6 @@
 <?php
 
-namespace controllers;
+namespace code\controllers;
 
 use code\applications\ApiAppFactory;
 use code\service\ServiceTypes;

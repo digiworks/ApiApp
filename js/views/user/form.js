@@ -6,6 +6,7 @@ function IndexPage() {
         Name: "",
         surname: "",
         email: "",
+        description: "",
         CreatedAt: null,
         CreatedBy: null,
         DeletedAt: null,
@@ -130,11 +131,12 @@ function IndexPage() {
                             <Box 
                                 pt={3}
                                 pl={1}
+                                pb={3}
                                 method="post"
                                 onSubmit={submit}
                                 component="form"
                                 autoComplete="off"
-                                sx={{bgcolor: "#cfe8fc", height: "50vh"}}
+                                sx={{bgcolor: "#cfe8fc"}}
                                 >
                                 <TextField
                                     name="Id"
@@ -175,6 +177,47 @@ function IndexPage() {
                                             {validator.addFieldRules("surname", "required")}
                                         </Box>
                                     </Grid>
+                                    <Grid item xs={2}>
+                                        <div>
+                                            <FormControlLabel control={ < Checkbox name = "status" checked={Boolean(values.Status)} / > } label={baseApp.translations().t("Active", "userform")}/>  
+                                        </div>
+                                    </Grid>
+                                    <Grid item xs={4}>
+                                        <div>
+                                            <TextField
+                                                required
+                                                fullWidth
+                                                id="email"
+                                                label={baseApp.translations().t("Email Address", "userform")}
+                                                name="email"
+                                                value={values.email}
+                                                autoComplete="email" 
+                                                error={!validator.fieldValid("email")}
+                                                helperText={validator.getFieldErrorMessages("email")}
+                                                onChange={handleChange("email")}
+                                                onBlur={handleBlur("email")}
+                                                />
+                                            {validator.addFieldRules("email", "required|email")} 
+                                        </div>
+                                    </Grid>
+                                    <Grid item xs={8} pr={3}>
+                                        <div>
+                                            <TextField
+                                                multiline
+                                                maxRows={4}
+                                                id="description"
+                                                label={baseApp.translations().t("Description", "userform")}
+                                                name="description"
+                                                value={values.description}
+                                                autoComplete="description" 
+                                                error={!validator.fieldValid("description")}
+                                                helperText={validator.getFieldErrorMessages("description")}
+                                                onChange={handleChange("description")}
+                                                onBlur={handleBlur("description")}
+                                                fullWidth
+                                                />
+                                        </div>
+                                    </Grid>
                                 </Grid>
                                 <Box sx={{mt: 3}} pr={3}>
                                     <Accordion >
@@ -186,28 +229,11 @@ function IndexPage() {
                                             <Typography>Dati</Typography>
                                         </AccordionSummary>
                                         <AccordionDetails>
-                                            <TextField
-                                                required
-                                                fullWidth
-                                                id="email"
-                                                label="Email Address"
-                                                name="email"
-                                                value={values.email}
-                                                autoComplete="email" 
-                                                error={!validator.fieldValid("email")}
-                                                helperText={validator.getFieldErrorMessages("email")}
-                                                onChange={handleChange("email")}
-                                                onBlur={handleBlur("email")}
-                                                />
-                                            {validator.addFieldRules("email", "required|email")}
+                                            
                                         </AccordionDetails>
                                     </Accordion>
                                 </Box>
-                                <Stack direction="row" spacing={2}>
-                                    <div>
-                                        <FormControlLabel control={ < Checkbox defaultChecked name = "status" / > } label="Attivo" />  
-                                    </div>
-                                </Stack>
+                                
                                 <Stack pt={3} pr={1} direction="row" spacing={2} style={{display: "flex", justifyContent: "flex-end"}}>
                                     <Button sx={{border: "1px dashed grey"}} id = "id_button_1" type="submit">Save</Button>
                                 </Stack>

@@ -11,7 +11,7 @@ const handleSubmit = async (event) => {
         if(baseApp.isWeb()){
             baseApp.login(result.message);
         }
-        let path = "/userslist";
+        let path = "/dashboard";
         baseApp.redirect(path);
     }else{
         if(result.status == "error")

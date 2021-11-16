@@ -54,6 +54,13 @@ function App() {
       baseApp.redirect(path);
     };
     
+    const toogleDashboard = (e) => {
+      e.preventDefault();
+      setWaiting(true);
+      let path = "/dashboard";
+      baseApp.redirect(path);
+    };
+    
     const toogleUser = (e) => {
       e.preventDefault();
       setWaiting(true);
@@ -73,7 +80,7 @@ function App() {
     
     const mainListItems = (
       <div>
-        <ListItem button onClick={toogleLogin}>
+        <ListItem button onClick={toogleDashboard}>
           <ListItemIcon>
              <Icon >dashboard</Icon>
           </ListItemIcon>

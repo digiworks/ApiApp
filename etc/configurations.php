@@ -116,6 +116,8 @@ return Arr::mergeRecursive(
                     ['lib' => 'js/engines/react/i18next@21.4.0/dist/umd/i18next.js','tranlsator'=> ''],
                     ['lib' => 'js/engines/react/react-i18next@11.13.0/react-i18next.js','tranlsator'=> ''],
                     
+                    ['lib' => 'js/engines/react/react-dnd@14.0.4/dist/umd/ReactDnD.js','tranlsator'=> ''],
+                    
                     ['lib' => 'js/lib/core.js','tranlsator'=> ''],
                     
                     //['lib' => 'https://unpkg.com/@mui/material@5.0.4/umd/material-ui.development.js','tranlsator'=> ''],

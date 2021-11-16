@@ -13,6 +13,9 @@ return [
                 ["route" => "/userslist", "method" => "GET", "controller" => "\controllers\UserController:userslist"],
                 ["route" => "/formuser", "method" => "GET", "controller" => "\controllers\UserController:formuser"],
         
+        
+                ["route" => "/dashboard", "method" => "GET", "controller" => "\controllers\DashboardController:dashboard"],
+        
                 // API Routes
         
                 ["route" => "/api/user/save", "method" => "POST", "controller" => "\controllers\UserApiController:save"],

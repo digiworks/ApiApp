@@ -34,7 +34,7 @@
             'type' => 'component',
             'install_path' => __DIR__ . '/../digiw/api-code',
             'aliases' => array(),
-            'reference' => 'e31e1013075acfeda30f253059a3d1f43dc10178',
+            'reference' => '9cef4be92ce77b799ca1fd337f63bca90d8a4c88',
             'dev_requirement' => false,
         ),
         'digiworks/platform' => array(

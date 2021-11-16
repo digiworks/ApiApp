@@ -2,6 +2,7 @@
 namespace controllers;
 
 use code\applications\ApiAppFactory;
+use code\controllers\AppController;
 use code\service\ServiceTypes;
 use DateTime;
 use Firebase\JWT\JWT;
@@ -10,6 +11,7 @@ use models\UsersQuery;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Tuupola\Base62;
+
 
 
 class UserApiController extends AppController
