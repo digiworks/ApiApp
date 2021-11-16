@@ -37,7 +37,7 @@ class PhpFileLoader extends FileLoader
      *
      * @return array
      */
-    public function load($resource, $type = null): array
+    public function load($resource, $type = null)
     {
         $path = $this->getPath($resource);
 
@@ -51,7 +51,9 @@ class PhpFileLoader extends FileLoader
             throw new InvalidArgumentException("The configuration file '$resource' has invalid content.");
         }
 
-        return $this->resolveParams($content); //Resolve parameter placeholders (%name%)
+        $content = $this->resolveParams($content); //Resolve parameter placeholders (%name%)
+
+        return $content;
     }
 
     /**
@@ -63,8 +65,8 @@ class PhpFileLoader extends FileLoader
      *
      * @return bool true if this class supports the given resource, false otherwise
      */
-    public function supports($resource, $type = null): bool
+    public function supports($resource, $type = null)
     {
-        return static::checkSupports(['php', 'inc'], $resource);
+        return $this->checkSupports(['php', 'inc'], $resource);
     }
 }

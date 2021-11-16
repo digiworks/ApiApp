@@ -27,8 +27,12 @@ class XmlToArrayConverter
      *
      * @return array
      */
-    public static function convert(string $xmlToParse): array
+    public static function convert($xmlToParse)
     {
+        if (!is_string($xmlToParse)) {
+            throw new InvalidArgumentException('XmlToArrayConverter::convert method expects an xml file to parse, or a string containing valid xml');
+        }
+
         $isFile = file_exists($xmlToParse);
 
         if ($isFile) {
@@ -66,7 +70,7 @@ class XmlToArrayConverter
             throw new XmlParseException($errors);
         }
 
-        return static::simpleXmlToArray($xml);
+        return self::simpleXmlToArray($xml);
     }
 
     /**
@@ -78,16 +82,16 @@ class XmlToArrayConverter
      *
      * @return array Array representation of SimpleXML object.
      */
-    protected static function simpleXmlToArray(SimpleXMLElement $xml): array
+    protected static function simpleXmlToArray($xml)
     {
         $ar = [];
         foreach ($xml->children() as $k => $v) {
             // recurse the child
-            $child = static::simpleXmlToArray($v);
+            $child = self::simpleXmlToArray($v);
 
             // if it's not an array, then it was empty, thus a value/string
-            if ($child === []) {
-                $child = static::getConvertedXmlValue($v);
+            if (count($child) == 0) {
+                $child = self::getConvertedXmlValue($v);
             }
 
             // add the children attributes as if they where children
@@ -104,13 +108,13 @@ class XmlToArrayConverter
                     if (is_string($child)) {
                         $child = [];
                     }
-                    $child[$ak] = static::getConvertedXmlValue($av);
+                    $child[$ak] = self::getConvertedXmlValue($av);
                 }
             }
 
             // if the $k is already in our children list, we need to transform
             // it into an array, else we add it as a value
-            if (!array_key_exists($k, $ar)) {
+            if (!in_array($k, array_keys($ar))) {
                 $ar[$k] = $child;
             } else {
                 // (This only applies to nested nodes that do not have an @id attribute)

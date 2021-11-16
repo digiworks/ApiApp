@@ -136,7 +136,7 @@ class ComposerStaticInitbce370cc8c6c72eb3fe88fc7d83f9fd7
         ),
         'code\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/code',
+            0 => __DIR__ . '/..' . '/digiw/api-code/src/code',
         ),
         'Tuupola\\Middleware\\' => 
         array (
@@ -357,6 +357,7 @@ class ComposerStaticInitbce370cc8c6c72eb3fe88fc7d83f9fd7
 
     public static $classMap = array (
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
         'ReturnTypeWillChange' => __DIR__ . '/..' . '/symfony/polyfill-php81/Resources/stubs/ReturnTypeWillChange.php',

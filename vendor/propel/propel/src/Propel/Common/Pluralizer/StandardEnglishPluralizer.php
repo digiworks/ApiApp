@@ -121,10 +121,10 @@ class StandardEnglishPluralizer implements PluralizerInterface
      *
      * @return string The plural form of $root (e.g. Authors).
      */
-    public function getPluralForm(string $root): string
+    public function getPluralForm($root)
     {
         // save some time in the case that singular and plural are the same
-        if (in_array(strtolower($root), $this->uncountable, true)) {
+        if (in_array(strtolower($root), $this->uncountable)) {
             return $root;
         }
 
@@ -135,7 +135,7 @@ class StandardEnglishPluralizer implements PluralizerInterface
                 $replacement = preg_replace($searchPattern, $result, $root);
                 // look at the first char and see if it's upper case
                 // I know it won't handle more than one upper case char here (but I'm OK with that)
-                if (ctype_upper($root[0])) {
+                if (preg_match('/^[A-Z]/', $root)) {
                     $replacement = ucfirst($replacement);
                 }
 

@@ -25,7 +25,7 @@ class XmlToArrayConverterTest extends TestCase
      *
      * @return void
      */
-    public function testConvertFromString(string $xml, $expected)
+    public function testConvertFromString($xml, $expected)
     {
         $actual = XmlToArrayConverter::convert($xml);
 
@@ -61,6 +61,17 @@ class XmlToArrayConverterTest extends TestCase
     /**
      * @return void
      */
+    public function testInvalidFileNameThrowsException()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('XmlToArrayConverter::convert method expects an xml file to parse, or a string containing valid xml');
+
+        XmlToArrayConverter::convert(1);
+    }
+
+    /**
+     * @return void
+     */
     public function testInexistentFileThrowsException()
     {
         $this->expectException(InvalidArgumentException::class);
@@ -77,11 +88,11 @@ class XmlToArrayConverterTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid xml content');
 
-        $invalidXml = <<< INVALID_XML
+        $invalidXml = <<< XML
 No xml
 only plain text
 ---------
-INVALID_XML;
+XML;
         XmlToArrayConverter::convert($invalidXml);
     }
 

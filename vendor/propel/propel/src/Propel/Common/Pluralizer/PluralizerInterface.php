@@ -22,5 +22,5 @@ interface PluralizerInterface
      *
      * @return string The plural form of $root.
      */
-    public function getPluralForm(string $root): string;
+    public function getPluralForm($root);
 }

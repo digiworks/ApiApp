@@ -8,7 +8,6 @@
 
 namespace Propel\Common\Config\Loader;
 
-use Generator;
 use Propel\Common\Config\Exception\InputOutputException;
 use Propel\Common\Config\Exception\InvalidArgumentException;
 use Propel\Common\Config\Exception\RuntimeException;
@@ -49,7 +48,11 @@ abstract class FileLoader extends BaseFileLoader
      */
     public function __construct(?FileLocatorInterface $locator = null)
     {
-        parent::__construct($locator ?? new FileLocator());
+        if ($locator === null) {
+            $locator = new FileLocator();
+        }
+
+        parent::__construct($locator);
     }
 
     /**
@@ -59,7 +62,7 @@ abstract class FileLoader extends BaseFileLoader
      *
      * @return array
      */
-    public function resolveParams(array $configuration): array
+    public function resolveParams(array $configuration)
     {
         if ($this->resolved) {
             return [];
@@ -87,7 +90,7 @@ abstract class FileLoader extends BaseFileLoader
      *
      * @return string
      */
-    protected function getPath(string $file): string
+    protected function getPath($file)
     {
         $path = $this->locator->locate($file);
         if (!is_string($path)) {
@@ -105,22 +108,23 @@ abstract class FileLoader extends BaseFileLoader
      * Check if a resource has a given extension
      *
      * @param string|string[] $ext An extension or an array of extensions
-     * @param mixed $resource A resource
+     * @param string|false $resource A resource
      *
      * @throws \Propel\Common\Config\Exception\InvalidArgumentException
      *
      * @return bool
      */
-    protected static function checkSupports($ext, $resource): bool
+    protected function checkSupports($ext, $resource)
     {
         if (!is_string($resource)) {
             return false;
         }
 
-        ['extension' => $extension, 'filename' => $filename] = pathinfo($resource);
+        $info = pathinfo($resource);
+        $extension = $info['extension'];
 
         if ($extension === 'dist') {
-            $extension = pathinfo($filename, PATHINFO_EXTENSION);
+            $extension = pathinfo($info['filename'], PATHINFO_EXTENSION);
         }
 
         if (is_string($ext)) {
@@ -131,7 +135,25 @@ abstract class FileLoader extends BaseFileLoader
             throw new InvalidArgumentException('$ext must be string or string[]');
         }
 
-        return in_array($extension, $ext, true);
+        $supported = false;
+
+        foreach ($ext as $value) {
+            if ($value === $extension) {
+                $supported = true;
+
+                break;
+            }
+        }
+
+        return $supported;
+    }
+
+    /**
+     * @return bool
+     */
+    private function isResolved()
+    {
+        return $this->resolved;
     }
 
     /**
@@ -166,59 +188,56 @@ abstract class FileLoader extends BaseFileLoader
      * @param string $value The string to resolve
      * @param array $resolving An array of keys that are being resolved (used internally to detect circular references)
      *
-     * @return mixed The resolved value
+     * @throws \Propel\Common\Config\Exception\RuntimeException if a problem occurs
+     *
+     * @return string The resolved string
      */
-    private function resolveString(string $value, array $resolving = [])
+    private function resolveString($value, array $resolving = [])
     {
-        /*
-         * %%: to be unescaped
-         * %[^%\s]++%: a parameter
-         *         ^ backtracking is turned off
-         * when it matches the entire $value, it can resolve to any value.
-         * otherwise, it is replaced with the resolved string or number.
-         */
-        $onlyKey = null;
-        $replaced = preg_replace_callback('/%([^%\s]*+)%/', function ($match) use ($resolving, $value, &$onlyKey) {
+        if (preg_match('/^%([^%\s]+)%$/', $value, $match)) {
+            if (null !== $ret = $this->parseEnvironmentParams($match[1])) {
+                return $ret;
+            }
+
             $key = $match[1];
+
+            if (isset($resolving[$key])) {
+                throw new RuntimeException("Circular reference detected for parameter '$key'.");
+            }
+
+            $resolving[$key] = true;
+
+            return $this->resolved ? $this->get($key) : $this->resolveValue($this->get($key), $resolving);
+        }
+
+        $self = $this;
+
+        return preg_replace_callback('/%%|%([^%\s]+)%/', function ($match) use ($self, $resolving, $value) {
             // skip %%
-            if ($key === '') {
+            if (!isset($match[1])) {
                 return '%%';
             }
 
-            $env = $this->parseEnvironmentParams($key);
-            if (null !== $env) {
-                return $env;
+            if (null !== $ret = $this->parseEnvironmentParams($match[1])) {
+                return $ret;
             }
 
+            $key = $match[1];
             if (isset($resolving[$key])) {
-                throw new RuntimeException(sprintf("Circular reference detected for parameter '%s'.", $key));
-            }
-
-            if ($value === $match[0]) {
-                $onlyKey = $key;
-
-                return $match[0];
+                throw new RuntimeException(sprintf("Circular reference detected for parameter '$key'."));
             }
 
             $resolved = $this->get($key);
 
-            if (!is_string($resolved) && !is_int($resolved) && !is_float($resolved)) {
+            if (!is_string($resolved) && !is_numeric($resolved)) {
                 throw new RuntimeException(sprintf('A string value must be composed of strings and/or numbers, but found parameter "%s" of type %s inside string value "%s".', $key, gettype($resolved), $value));
             }
 
-            $resolving[$key] = true;
             $resolved = (string)$resolved;
+            $resolving[$key] = true;
 
-            return $this->resolveString($resolved, $resolving);
+            return $self->isResolved() ? $resolved : $self->resolveString($resolved, $resolving);
         }, $value);
-
-        if (!isset($onlyKey)) {
-            return $replaced;
-        }
-
-        $resolving[$onlyKey] = true;
-
-        return $this->resolveValue($this->get($onlyKey), $resolving);
     }
 
     /**
@@ -257,31 +276,44 @@ abstract class FileLoader extends BaseFileLoader
      */
     private function get($propertyKey)
     {
-        $value = $this->findValue($propertyKey, $this->config);
+        $found = false;
 
-        if (!$value->valid()) {
+        $ret = $this->getValue($propertyKey, null, $found);
+
+        if ($found === false) {
             throw new InvalidArgumentException("Parameter '$propertyKey' not found in configuration file.");
         }
 
-        return $value->current();
+        return $ret;
     }
 
     /**
      * Scan recursively an array to find a value of a given key.
      *
      * @param string $propertyKey The array key
-     * @param array $config The array to scan
+     * @param array|null $config The array to scan
+     * @param bool $found if the key was found
      *
-     * @return \Generator The value or null if not found
+     * @return mixed The value or null if not found
      */
-    private function findValue(string $propertyKey, array $config): Generator
+    private function getValue($propertyKey, $config, &$found)
     {
+        if ($config === null) {
+            $config = $this->config;
+        }
+
         foreach ($config as $key => $value) {
             if ($key === $propertyKey) {
-                yield $value;
+                $found = true;
+
+                return $value;
             }
             if (is_array($value)) {
-                yield from $this->findValue($propertyKey, $value);
+                $ret = $this->getValue($propertyKey, $value, $found);
+
+                if ($ret !== null) {
+                    return $ret;
+                }
             }
         }
     }
@@ -295,19 +327,19 @@ abstract class FileLoader extends BaseFileLoader
      *
      * @return string|null
      */
-    private function parseEnvironmentParams(string $value): ?string
+    private function parseEnvironmentParams($value)
     {
         // env.variable is an environment variable
-        if (strpos($value, 'env.') !== 0) {
-            return null;
-        }
-        $env = substr($value, 4);
+        $env = explode('.', $value);
+        if ($env[0] === 'env') {
+            $envParam = getenv($env[1]);
+            if ($envParam === false) {
+                throw new InvalidArgumentException("Environment variable '$env[1]' is not defined.");
+            }
 
-        $envParam = getenv($env);
-        if ($envParam === false) {
-            throw new InvalidArgumentException("Environment variable '$env' is not defined.");
+            return $envParam;
         }
 
-        return $envParam;
+        return null;
     }
 }

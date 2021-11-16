@@ -24,11 +24,11 @@ interface AdapterInterface
     /**
      * Build database connection
      *
-     * @param array $params connection parameters
+     * @param array $conparams connection parameters
      *
      * @return \Propel\Runtime\Connection\ConnectionInterface
      */
-    public function getConnection($params);
+    public function getConnection($conparams);
 
     /**
      * Sets the character encoding using SQL standard SET NAMES statement.

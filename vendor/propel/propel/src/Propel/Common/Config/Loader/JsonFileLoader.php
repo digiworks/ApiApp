@@ -27,7 +27,7 @@ class JsonFileLoader extends FileLoader
      *
      * @return array
      */
-    public function load($resource, $type = null): array
+    public function load($resource, $type = null)
     {
         $json = file_get_contents($this->getPath($resource));
 
@@ -42,7 +42,9 @@ class JsonFileLoader extends FileLoader
             }
         }
 
-        return $this->resolveParams($content); //Resolve parameter placeholders (%name%)
+        $content = $this->resolveParams($content); //Resolve parameter placeholders (%name%)
+
+        return $content;
     }
 
     /**
@@ -53,8 +55,8 @@ class JsonFileLoader extends FileLoader
      *
      * @return bool true if this class supports the given resource, false otherwise
      */
-    public function supports($resource, $type = null): bool
+    public function supports($resource, $type = null)
     {
-        return static::checkSupports('json', $resource);
+        return $this->checkSupports('json', $resource);
     }
 }

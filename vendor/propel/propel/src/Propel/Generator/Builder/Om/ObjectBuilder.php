@@ -214,21 +214,6 @@ class ObjectBuilder extends AbstractObjectBuilder
     }
 
     /**
-     * Return the parent class name, or null.
-     *
-     * @return string|null
-     */
-    protected function getParentClass(): ?string
-    {
-        $parentClass = $this->getBehaviorContent('parentClass');
-        if ($parentClass !== null) {
-            return $parentClass;
-        }
-
-        return ClassTools::classname($this->getBaseClass());
-    }
-
-    /**
      * Adds class phpdoc comment and opening of class.
      *
      * @param string $script The script will be modified in this method.
@@ -241,8 +226,10 @@ class ObjectBuilder extends AbstractObjectBuilder
         $tableName = $table->getName();
         $tableDesc = $table->getDescription();
 
-        $parentClass = $this->getParentClass();
-        if ($parentClass !== null) {
+        if (
+            ($parentClass = $this->getBehaviorContent('parentClass')) !== null ||
+            ($parentClass = ClassTools::classname($this->getBaseClass())) !== null
+        ) {
             $parentClass = ' extends ' . $parentClass;
         }
 
@@ -647,7 +634,9 @@ abstract class " . $this->getUnqualifiedClassName() . $parentClass . ' implement
     {
         $this->addConstructorComment($script);
         $this->addConstructorOpen($script);
-        $this->addConstructorBody($script);
+        if ($this->hasDefaultValues()) {
+            $this->addConstructorBody($script);
+        }
         $this->addConstructorClose($script);
     }
 
@@ -694,14 +683,8 @@ abstract class " . $this->getUnqualifiedClassName() . $parentClass . ' implement
      */
     protected function addConstructorBody(&$script)
     {
-        if ($this->getParentClass() !== null) {
-            $script .= "
-        parent::__construct();";
-        }
-        if ($this->hasDefaultValues()) {
-            $script .= "
+        $script .= "
         \$this->applyDefaultValues();";
-        }
     }
 
     /**
@@ -746,7 +729,10 @@ abstract class " . $this->getUnqualifiedClassName() . $parentClass . ' implement
             }
         }
 
-        if ($this->getParentClass() !== null) {
+        if (
+            $this->getBehaviorContent('parentClass') !== null ||
+            ClassTools::classname($this->getBaseClass()) !== null
+        ) {
             $hooks['hasBaseClass'] = true;
         } else {
             $hooks['hasBaseClass'] = false;

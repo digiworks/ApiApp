@@ -318,13 +318,13 @@ class Table extends ScopedMappingModel implements IdMethod
     /**
      * Returns a build property value for the database this table belongs to.
      *
-     * @param string $name
+     * @param string $key
      *
      * @return string
      */
-    public function getBuildProperty($name)
+    public function getBuildProperty($key)
     {
-        return $this->database ? $this->database->getBuildProperty($name) : '';
+        return $this->database ? $this->database->getBuildProperty($key) : '';
     }
 
     /**

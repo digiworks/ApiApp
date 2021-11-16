@@ -30,7 +30,7 @@ class YamlFileLoader extends FileLoader
      *
      * @return array
      */
-    public function load($resource, $type = null): array
+    public function load($resource, $type = null)
     {
         $path = $this->locator->locate($resource);
 
@@ -40,7 +40,7 @@ class YamlFileLoader extends FileLoader
 
         $content = Yaml::parse(file_get_contents($path));
 
-        // config file is empty
+        //config file is empty
         if ($content === null) {
             $content = [];
         }
@@ -49,7 +49,9 @@ class YamlFileLoader extends FileLoader
             throw new ParseException('Unable to parse the configuration file: wrong yaml content.');
         }
 
-        return $this->resolveParams($content); //Resolve parameter placeholders (%name%)
+        $content = $this->resolveParams($content); //Resolve parameter placeholders (%name%)
+
+        return $content;
     }
 
     /**
@@ -61,8 +63,8 @@ class YamlFileLoader extends FileLoader
      *
      * @return bool true if this class supports the given resource, false otherwise
      */
-    public function supports($resource, $type = null): bool
+    public function supports($resource, $type = null)
     {
-        return static::checkSupports(['yaml', 'yml'], $resource);
+        return $this->checkSupports(['yaml', 'yml'], $resource);
     }
 }

@@ -40,30 +40,30 @@ abstract class PdoAdapter
     /**
      * Build database connection
      *
-     * @param array $params connection parameters
+     * @param array $conparams connection parameters
      *
      * @throws \Propel\Runtime\Exception\InvalidArgumentException
      * @throws \Propel\Runtime\Adapter\Exception\AdapterException
      *
      * @return \Propel\Runtime\Connection\PdoConnection
      */
-    public function getConnection($params)
+    public function getConnection($conparams)
     {
-        $params = $this->prepareParams($params);
+        $conparams = $this->prepareParams($conparams);
 
-        if (!isset($params['dsn'])) {
+        if (!isset($conparams['dsn'])) {
             throw new InvalidArgumentException('No dsn specified in your connection parameters');
         }
 
-        $dsn = $params['dsn'];
-        $user = isset($params['user']) ? $params['user'] : null;
-        $password = isset($params['password']) ? $params['password'] : null;
+        $dsn = $conparams['dsn'];
+        $user = isset($conparams['user']) ? $conparams['user'] : null;
+        $password = isset($conparams['password']) ? $conparams['password'] : null;
 
         // load any driver options from the config file
         // driver options are those PDO settings that have to be passed during the connection construction
         $driverOptions = [];
-        if (isset($params['options']) && is_array($params['options'])) {
-            foreach ($params['options'] as $option => $optiondata) {
+        if (isset($conparams['options']) && is_array($conparams['options'])) {
+            foreach ($conparams['options'] as $option => $optiondata) {
                 $value = $optiondata;
                 if (is_string($value) && strpos($value, '::') !== false) {
                     if (!defined($value)) {
@@ -77,7 +77,7 @@ abstract class PdoAdapter
 
         try {
             $con = new PdoConnection($dsn, $user, $password, $driverOptions);
-            $this->initConnection($con, isset($params['settings']) && is_array($params['settings']) ? $params['settings'] : []);
+            $this->initConnection($con, isset($conparams['settings']) && is_array($conparams['settings']) ? $conparams['settings'] : []);
         } catch (PDOException $e) {
             throw new AdapterException('Unable to open PDO connection', 0, $e);
         }
@@ -110,13 +110,13 @@ abstract class PdoAdapter
     /**
      * Prepare the parameters for a Connection
      *
-     * @param array $params the connection parameters from the configuration
+     * @param array $conparams the connection parameters from the configuration
      *
      * @return array the modified parameters
      */
-    protected function prepareParams($params)
+    protected function prepareParams($conparams)
     {
-        return $params;
+        return $conparams;
     }
 
     /**

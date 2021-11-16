@@ -8,7 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'models\\' => array($baseDir . '/models'),
     'controllers\\' => array($baseDir . '/controllers'),
-    'code\\' => array($baseDir . '/code'),
+    'code\\' => array($vendorDir . '/digiw/api-code/src/code'),
     'Tuupola\\Middleware\\' => array($vendorDir . '/tuupola/callable-handler/src', $vendorDir . '/tuupola/slim-jwt-auth/src'),
     'Tuupola\\Http\\Factory\\' => array($vendorDir . '/tuupola/http-factory/src'),
     'Tuupola\\' => array($vendorDir . '/tuupola/base62/src'),

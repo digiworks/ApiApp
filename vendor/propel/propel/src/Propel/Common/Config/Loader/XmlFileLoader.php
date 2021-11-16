@@ -25,11 +25,12 @@ class XmlFileLoader extends FileLoader
      *
      * @return array
      */
-    public function load($resource, $type = null): array
+    public function load($resource, $type = null)
     {
         $content = XmlToArrayConverter::convert($this->getPath($resource));
+        $content = $this->resolveParams($content); //Resolve parameter placeholders (%name%)
 
-        return $this->resolveParams($content); //Resolve parameter placeholders (%name%)
+        return $content;
     }
 
     /**
@@ -40,8 +41,8 @@ class XmlFileLoader extends FileLoader
      *
      * @return bool true if this class supports the given resource, false otherwise
      */
-    public function supports($resource, $type = null): bool
+    public function supports($resource, $type = null)
     {
-        return static::checkSupports('xml', $resource);
+        return $this->checkSupports('xml', $resource);
     }
 }

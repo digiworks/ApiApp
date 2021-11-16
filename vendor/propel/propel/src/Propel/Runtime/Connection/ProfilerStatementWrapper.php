@@ -57,14 +57,14 @@ class ProfilerStatementWrapper extends StatementWrapper
      * Executes a prepared statement. Returns a boolean value indicating success.
      * Overridden for query counting and logging.
      *
-     * @param array|null $inputParameters
+     * @param array|null $parameters
      *
      * @return bool
      */
-    public function execute($inputParameters = null)
+    public function execute($parameters = null)
     {
         $this->connection->getProfiler()->start();
 
-        return parent::execute($inputParameters);
+        return parent::execute($parameters);
     }
 }
