@@ -22,7 +22,7 @@ function IndexPage() {
     const [emailerror, setEmailError] = React.useState(false);
 
     baseApp.translations().loadResourceBundle("en", 'userform', {
-        name: "Nome del soggetto",
+        Name: "Nome del soggetto",
     }, true, true);
     const getModel = async (id) => {
         var data = {
@@ -75,7 +75,6 @@ function IndexPage() {
             {
                 id_value = qparams.get(id_field);
                 getModel(id_value).then(function (model) {
-                    model["email"] = "digiw@gmail.com"; /*for prevent all values need */
                     setValues(model);
                 });
             }
@@ -93,6 +92,11 @@ function IndexPage() {
             setValues({...values, [name]: event.target.value});
             validator.checkField(name, event.target.value);
         };
+    const handleChangeCheckBox = name => event => {
+            setValues({...values, [name]: event.target.checked});
+            validator.checkField(name, event.target.checked);
+        };
+        
     const handleBlur = name => event => {
             setValues({...values, [name]: event.target.value});
             validator.checkField(name, event.target.value);
@@ -118,14 +122,14 @@ function IndexPage() {
                                     size="small"
                                     onClick={() => {setError(false);}
                                     }
-                        >
-                     <Icon fontSize="inherit">close</Icon>
-                     </IconButton>
-                                }
-                                sx={{mb: 2}}
-                                >
-                                Errore durante il salvataggio!
-                            </Alert>
+                            >
+                            <Icon fontSize="inherit">close</Icon>
+                            </IconButton>
+                                       }
+                                       sx={{mb: 2}}
+                                       >
+                                       Errore durante il salvataggio!
+                                   </Alert>
                         </Collapse>
                         <FormControl fullWidth>
                             <Box 
@@ -179,7 +183,7 @@ function IndexPage() {
                                     </Grid>
                                     <Grid item xs={2}>
                                         <div>
-                                            <FormControlLabel control={ < Checkbox name = "status" checked={Boolean(values.Status)} / > } label={baseApp.translations().t("Active", "userform")}/>  
+                                            <FormControlLabel control={ < Checkbox name = "Status" checked={Boolean(values.Status)} onChange={handleChangeCheckBox("Status")}/ > } label={baseApp.translations().t("Active", "userform")}/>  
                                         </div>
                                     </Grid>
                                     <Grid item xs={4}>

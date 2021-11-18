@@ -1,22 +1,68 @@
 function IndexPage() {
     const [waiting, setWaiting] = React.useState(false);
+    const [error, setError] = React.useState(false);
+    const [errorMsg, setErrorMsg] = React.useState("");
+    const validator = baseApp.formValidator();
+    const [values, setValues] = React.useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        confirm_password: ""
+    });
     
-    const handleSubmit = (event) => {
+    const presentMsg = baseApp.translations().t("Email already present!", "signup");
+    
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-
-        console.log({
-          firstName : data.get("firstName"),
-          lastName : data.get("lastName"),
-          email: data.get("email"),
-          password: data.get("password"),
-        });
+        const formValid = validator.allValid();
+        /*console.log(formValid);
+         debugger;*/
+        if (formValid) {
+            validator.hideMessages();
+            setWaiting(true);
+            const data = new FormData(event.currentTarget);
+            var result = await baseApp.fetch("/api/user/register", baseApp.formDataToObject(data));
+            if (result.status == "success") {
+                if(result.message.message == "present"){
+                    setErrorMsg(presentMsg);
+                    setError(true);
+                    setWaiting(false);
+                }else{
+                    let path = "/login";
+                    baseApp.redirect(path);
+                }
+            } else {
+                if (result.status == "error")
+                {
+                    console.log(result);
+                    setError(true);
+                    setWaiting(false);
+                }
+            }
+        } else {
+            validator.showMessages();
+        }
     };
     
     const handleSigneIn = (event) => {
         setWaiting(true);
     };
     
+    
+    const handleChange = name => event => {
+            setValues({...values, [name]: event.target.value});
+            validator.checkField(name, event.target.value);
+        };
+    const handleChangeCheckBox = name => event => {
+            setValues({...values, [name]: event.target.checked});
+            validator.checkField(name, event.target.checked);
+        };
+        
+    const handleBlur = name => event => {
+            setValues({...values, [name]: event.target.value});
+            validator.checkField(name, event.target.value);
+        };
     
      return (
      <div>
@@ -27,12 +73,30 @@ function IndexPage() {
           >
             <CircularProgress color="inherit" />
         </Backdrop>
+        <Collapse in={error}>
+            <Alert variant="filled" severity="error"
+                   action={
+                            <IconButton
+                            aria-label="close"
+                            color="inherit"
+                            size="small"
+                            onClick={() => {setError(false);}
+                            }
+                            >
+                                <Icon fontSize="inherit">close</Icon>
+                            </IconButton>
+                       }
+                       sx={{mb: 2}}
+                       >
+                       {errorMsg}
+            </Alert>
+        </Collapse>
         <Box
           sx={{
             marginTop: 8,
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
+            alignItems: "center"
           }}
         >
             <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
@@ -42,7 +106,7 @@ function IndexPage() {
                 Sign up
               </Typography>
           </Box>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" autoComplete="off"  onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -53,7 +117,13 @@ function IndexPage() {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  value={values.firstName}  
+                  onChange={handleChange("firstName")}
+                  onBlur={handleBlur("firstName")}
+                  error={!validator.fieldValid("firstName")}
+                  helperText={validator.getFieldErrorMessages("firstName")}
                 />
+                {validator.addFieldRules("firstName", "required")}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -62,8 +132,13 @@ function IndexPage() {
                   id="lastName"
                   label="Last Name"
                   name="lastName"
-                  autoComplete="family-name"
+                  value={values.lastName}  
+                  onChange={handleChange("lastName")}
+                  onBlur={handleBlur("lastName")}
+                  error={!validator.fieldValid("lastName")}
+                  helperText={validator.getFieldErrorMessages("lastName")}
                 />
+                {validator.addFieldRules("lastName", "required")}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -72,8 +147,13 @@ function IndexPage() {
                   id="email"
                   label="Email Address"
                   name="email"
-                  autoComplete="email"
+                  value={values.email}
+                  onChange={handleChange("email")}
+                  onBlur={handleBlur("emial")}
+                  error={!validator.fieldValid("email")}
+                  helperText={validator.getFieldErrorMessages("email")}
                 />
+                {validator.addFieldRules("email", "required|email")}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -83,8 +163,31 @@ function IndexPage() {
                   label="Password"
                   type="password"
                   id="password"
+                  value={values.password}
                   autoComplete="new-password"
+                  onChange={handleChange("password")}
+                  onBlur={handleBlur("password")}
+                   error={!validator.fieldValid("password")}
+                  helperText={validator.getFieldErrorMessages("password")}
                 />
+                {validator.addFieldRules("password", "required")}
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="confirm_password"
+                  label="Confirm Password"
+                  type="password"
+                  id="confirm-password"
+                  value={values.confirm_password}
+                  autoComplete="new-password"
+                  onChange={handleChange("confirm_password")}
+                  onBlur={handleBlur("confirm_password")}
+                  error={!validator.fieldValid("confirm_password")}
+                  helperText={validator.getFieldErrorMessages("confirm_password")}
+                />
+                {validator.addFieldRules("confirm_password", "required")}
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel

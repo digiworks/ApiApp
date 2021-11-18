@@ -324,10 +324,9 @@ abstract class UserGroupsQuery extends ModelCriteria
      * <code>
      * $query->filterByGroupName('fooValue');   // WHERE group_name = 'fooValue'
      * $query->filterByGroupName('%fooValue%', Criteria::LIKE); // WHERE group_name LIKE '%fooValue%'
-     * $query->filterByGroupName(['foo', 'bar']); // WHERE group_name IN ('foo', 'bar')
      * </code>
      *
-     * @param     string|string[] $groupName The value to use as filter.
+     * @param     string $groupName The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildUserGroupsQuery The current query, for fluid interface

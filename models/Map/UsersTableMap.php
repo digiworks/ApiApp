@@ -58,7 +58,7 @@ class UsersTableMap extends TableMap
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 11;
+    const NUM_COLUMNS = 13;
 
     /**
      * The number of lazy-loaded columns
@@ -68,7 +68,7 @@ class UsersTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 11;
+    const NUM_HYDRATE_COLUMNS = 13;
 
     /**
      * the column name for the id field
@@ -84,6 +84,16 @@ class UsersTableMap extends TableMap
      * the column name for the surname field
      */
     const COL_SURNAME = 'public.users.surname';
+
+    /**
+     * the column name for the email field
+     */
+    const COL_EMAIL = 'public.users.email';
+
+    /**
+     * the column name for the description field
+     */
+    const COL_DESCRIPTION = 'public.users.description';
 
     /**
      * the column name for the hash field
@@ -137,11 +147,11 @@ class UsersTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'Name', 'surname', 'hash', 'Status', 'CreatedAt', 'UpdatedAt', 'DeletedAt', 'CreatedBy', 'UpdatedBy', 'DeletedBy', ),
-        self::TYPE_CAMELNAME     => array('id', 'name', 'surname', 'hash', 'status', 'createdAt', 'updatedAt', 'deletedAt', 'createdBy', 'updatedBy', 'deletedBy', ),
-        self::TYPE_COLNAME       => array(UsersTableMap::COL_ID, UsersTableMap::COL_NAME, UsersTableMap::COL_SURNAME, UsersTableMap::COL_HASH, UsersTableMap::COL_STATUS, UsersTableMap::COL_CREATED_AT, UsersTableMap::COL_UPDATED_AT, UsersTableMap::COL_DELETED_AT, UsersTableMap::COL_CREATED_BY, UsersTableMap::COL_UPDATED_BY, UsersTableMap::COL_DELETED_BY, ),
-        self::TYPE_FIELDNAME     => array('id', 'name', 'surname', 'hash', 'status', 'created_at', 'updated_at', 'deleted_at', 'created_by', 'updated_by', 'deleted_by', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, )
+        self::TYPE_PHPNAME       => array('Id', 'Name', 'surname', 'email', 'description', 'hash', 'Status', 'CreatedAt', 'UpdatedAt', 'DeletedAt', 'CreatedBy', 'UpdatedBy', 'DeletedBy', ),
+        self::TYPE_CAMELNAME     => array('id', 'name', 'surname', 'email', 'description', 'hash', 'status', 'createdAt', 'updatedAt', 'deletedAt', 'createdBy', 'updatedBy', 'deletedBy', ),
+        self::TYPE_COLNAME       => array(UsersTableMap::COL_ID, UsersTableMap::COL_NAME, UsersTableMap::COL_SURNAME, UsersTableMap::COL_EMAIL, UsersTableMap::COL_DESCRIPTION, UsersTableMap::COL_HASH, UsersTableMap::COL_STATUS, UsersTableMap::COL_CREATED_AT, UsersTableMap::COL_UPDATED_AT, UsersTableMap::COL_DELETED_AT, UsersTableMap::COL_CREATED_BY, UsersTableMap::COL_UPDATED_BY, UsersTableMap::COL_DELETED_BY, ),
+        self::TYPE_FIELDNAME     => array('id', 'name', 'surname', 'email', 'description', 'hash', 'status', 'created_at', 'updated_at', 'deleted_at', 'created_by', 'updated_by', 'deleted_by', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, )
     );
 
     /**
@@ -151,11 +161,11 @@ class UsersTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'Name' => 1, 'surname' => 2, 'hash' => 3, 'Status' => 4, 'CreatedAt' => 5, 'UpdatedAt' => 6, 'DeletedAt' => 7, 'CreatedBy' => 8, 'UpdatedBy' => 9, 'DeletedBy' => 10, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'name' => 1, 'surname' => 2, 'hash' => 3, 'status' => 4, 'createdAt' => 5, 'updatedAt' => 6, 'deletedAt' => 7, 'createdBy' => 8, 'updatedBy' => 9, 'deletedBy' => 10, ),
-        self::TYPE_COLNAME       => array(UsersTableMap::COL_ID => 0, UsersTableMap::COL_NAME => 1, UsersTableMap::COL_SURNAME => 2, UsersTableMap::COL_HASH => 3, UsersTableMap::COL_STATUS => 4, UsersTableMap::COL_CREATED_AT => 5, UsersTableMap::COL_UPDATED_AT => 6, UsersTableMap::COL_DELETED_AT => 7, UsersTableMap::COL_CREATED_BY => 8, UsersTableMap::COL_UPDATED_BY => 9, UsersTableMap::COL_DELETED_BY => 10, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'name' => 1, 'surname' => 2, 'hash' => 3, 'status' => 4, 'created_at' => 5, 'updated_at' => 6, 'deleted_at' => 7, 'created_by' => 8, 'updated_by' => 9, 'deleted_by' => 10, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, )
+        self::TYPE_PHPNAME       => array('Id' => 0, 'Name' => 1, 'surname' => 2, 'email' => 3, 'description' => 4, 'hash' => 5, 'Status' => 6, 'CreatedAt' => 7, 'UpdatedAt' => 8, 'DeletedAt' => 9, 'CreatedBy' => 10, 'UpdatedBy' => 11, 'DeletedBy' => 12, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'name' => 1, 'surname' => 2, 'email' => 3, 'description' => 4, 'hash' => 5, 'status' => 6, 'createdAt' => 7, 'updatedAt' => 8, 'deletedAt' => 9, 'createdBy' => 10, 'updatedBy' => 11, 'deletedBy' => 12, ),
+        self::TYPE_COLNAME       => array(UsersTableMap::COL_ID => 0, UsersTableMap::COL_NAME => 1, UsersTableMap::COL_SURNAME => 2, UsersTableMap::COL_EMAIL => 3, UsersTableMap::COL_DESCRIPTION => 4, UsersTableMap::COL_HASH => 5, UsersTableMap::COL_STATUS => 6, UsersTableMap::COL_CREATED_AT => 7, UsersTableMap::COL_UPDATED_AT => 8, UsersTableMap::COL_DELETED_AT => 9, UsersTableMap::COL_CREATED_BY => 10, UsersTableMap::COL_UPDATED_BY => 11, UsersTableMap::COL_DELETED_BY => 12, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'name' => 1, 'surname' => 2, 'email' => 3, 'description' => 4, 'hash' => 5, 'status' => 6, 'created_at' => 7, 'updated_at' => 8, 'deleted_at' => 9, 'created_by' => 10, 'updated_by' => 11, 'deleted_by' => 12, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, )
     );
 
     /**
@@ -184,6 +194,18 @@ class UsersTableMap extends TableMap
         'UsersTableMap::COL_SURNAME' => 'SURNAME',
         'COL_SURNAME' => 'SURNAME',
         'public.users.surname' => 'SURNAME',
+        'email' => 'EMAIL',
+        'Users.email' => 'EMAIL',
+        'users.email' => 'EMAIL',
+        'UsersTableMap::COL_EMAIL' => 'EMAIL',
+        'COL_EMAIL' => 'EMAIL',
+        'public.users.email' => 'EMAIL',
+        'description' => 'DESCRIPTION',
+        'Users.description' => 'DESCRIPTION',
+        'users.description' => 'DESCRIPTION',
+        'UsersTableMap::COL_DESCRIPTION' => 'DESCRIPTION',
+        'COL_DESCRIPTION' => 'DESCRIPTION',
+        'public.users.description' => 'DESCRIPTION',
         'hash' => 'HASH',
         'Users.hash' => 'HASH',
         'users.hash' => 'HASH',
@@ -268,7 +290,9 @@ class UsersTableMap extends TableMap
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
         $this->addColumn('name', 'Name', 'VARCHAR', true, 255, null);
         $this->addColumn('surname', 'surname', 'VARCHAR', true, 255, null);
-        $this->addColumn('hash', 'hash', 'VARCHAR', true, 255, null);
+        $this->addColumn('email', 'email', 'VARCHAR', true, 255, null);
+        $this->addColumn('description', 'description', 'VARCHAR', false, 255, null);
+        $this->addColumn('hash', 'hash', 'VARCHAR', false, 255, null);
         $this->addColumn('status', 'Status', 'INTEGER', false, null, null);
         $this->addColumn('created_at', 'CreatedAt', 'TIMESTAMP', false, null, null);
         $this->addColumn('updated_at', 'UpdatedAt', 'TIMESTAMP', false, null, null);
@@ -429,6 +453,8 @@ class UsersTableMap extends TableMap
             $criteria->addSelectColumn(UsersTableMap::COL_ID);
             $criteria->addSelectColumn(UsersTableMap::COL_NAME);
             $criteria->addSelectColumn(UsersTableMap::COL_SURNAME);
+            $criteria->addSelectColumn(UsersTableMap::COL_EMAIL);
+            $criteria->addSelectColumn(UsersTableMap::COL_DESCRIPTION);
             $criteria->addSelectColumn(UsersTableMap::COL_HASH);
             $criteria->addSelectColumn(UsersTableMap::COL_STATUS);
             $criteria->addSelectColumn(UsersTableMap::COL_CREATED_AT);
@@ -441,6 +467,8 @@ class UsersTableMap extends TableMap
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.name');
             $criteria->addSelectColumn($alias . '.surname');
+            $criteria->addSelectColumn($alias . '.email');
+            $criteria->addSelectColumn($alias . '.description');
             $criteria->addSelectColumn($alias . '.hash');
             $criteria->addSelectColumn($alias . '.status');
             $criteria->addSelectColumn($alias . '.created_at');
@@ -469,6 +497,8 @@ class UsersTableMap extends TableMap
             $criteria->removeSelectColumn(UsersTableMap::COL_ID);
             $criteria->removeSelectColumn(UsersTableMap::COL_NAME);
             $criteria->removeSelectColumn(UsersTableMap::COL_SURNAME);
+            $criteria->removeSelectColumn(UsersTableMap::COL_EMAIL);
+            $criteria->removeSelectColumn(UsersTableMap::COL_DESCRIPTION);
             $criteria->removeSelectColumn(UsersTableMap::COL_HASH);
             $criteria->removeSelectColumn(UsersTableMap::COL_STATUS);
             $criteria->removeSelectColumn(UsersTableMap::COL_CREATED_AT);
@@ -481,6 +511,8 @@ class UsersTableMap extends TableMap
             $criteria->removeSelectColumn($alias . '.id');
             $criteria->removeSelectColumn($alias . '.name');
             $criteria->removeSelectColumn($alias . '.surname');
+            $criteria->removeSelectColumn($alias . '.email');
+            $criteria->removeSelectColumn($alias . '.description');
             $criteria->removeSelectColumn($alias . '.hash');
             $criteria->removeSelectColumn($alias . '.status');
             $criteria->removeSelectColumn($alias . '.created_at');

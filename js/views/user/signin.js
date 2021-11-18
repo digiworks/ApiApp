@@ -44,7 +44,7 @@ const handleLink = (event) => {
               marginTop: 8,
               display: "flex",
               flexDirection: "column",
-              alignItems: "center",
+              alignItems: "center"
             }}
           >
           <Collapse in={error}>
@@ -73,7 +73,7 @@ const handleLink = (event) => {
                Sign in
              </Typography>
         </Box>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form"  autoComplete="off" onSubmit={handleSubmit} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -92,7 +92,7 @@ const handleLink = (event) => {
               label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
+              autoComplete="new-password"
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}

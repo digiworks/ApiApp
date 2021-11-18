@@ -37,9 +37,9 @@ class UserApiController extends AppController
                 $user = $model;
             }
         }
-        $user->setName($data["Name"]);
-        $user->setsurname($data["surname"]);
-        $user->setStatus($data["status"] == "on" ? 1:0);
+        unset($data["Id"]);
+        $user->fromArray($data);
+        $user->setStatus($data["Status"] == "on" ? 1:0);
         $user->save();
         $response->getBody()->write(json_encode(['succesful']));
         return $response;
@@ -114,7 +114,6 @@ class UserApiController extends AppController
         $page = $params['page'];
         $per_page = $params['per_page'];
         $query = new UsersQuery();
-        $query->orderBysurname();
         $data = $query->listPaginate($page, $per_page);
         $totalCount = $query->getCount();
         $result = [
@@ -136,8 +135,24 @@ class UserApiController extends AppController
     public function register(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
         $this->response = $response;
         $this->request = $request;
-        
-        
+        $message = "ok";
+        $data = $request->getParsedBody();
+        $query = new UsersQuery();
+        $user = $query->create()->findOneBy('email', $data['email']);
+        if(is_null($user)){
+           $user = new Users();
+           $user->setName($data['firstName']);
+           $user->setsurname($data['lastName']);
+           $user->setemail($data['email']);
+           $user->sethash($data['password']);
+           $user->save();
+        }else{
+            $message = "present";
+        }
+        $result = [
+            'message' => $message
+        ];
+        $this->response->withHeader("Content-Type", "application/json")->getBody()->write(json_encode($result, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
         return $this->response;
     }
     /**

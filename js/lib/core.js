@@ -40,8 +40,10 @@ function BaseApp() {
     this.validator = new ReactValidator({locale:"it"});  
     this.i18n = new baseI18n();
    
+   /* url of api gateway or empty if application is the gateway*/
+    this.apiGateway = "";
     
-    this.init = function (){
+    this.init = function (conf = {}){
         this.i18n.init();
         if(this.isWeb()){
             this.localStorage = window.localStorage;
@@ -54,31 +56,39 @@ function BaseApp() {
             window.location = goto;
         }
     }
-
+    
+    this.buildApiUrl = function(url) {
+        return this.apiGateway + url;
+    }
+    
     this.fetch = async function (url, data) {
         var result = {status: "", message: ""};
         headers = {
-                "Content-Type": "application/json",
+                "Content-Type": "application/json"
             };
         if(this.sessionStore().jwt){
             headers["Authorization"] = "Bearer " + this.readJWT().token;
         }
-        await fetch(url, {
+        await fetch(this.buildApiUrl(url), {
             method: "POST",
             headers: headers,
-            body: JSON.stringify(data),
+            body: JSON.stringify(data)
         })
-                .then(response => response.json())
-                .then(data => {
-                    result.message = data;
-                    result.status = "success";
-                })
-                .catch((error) => {
-                    result.message = error;
-                    result.status = "error";
-                    console.error("Error:", error);
-                });
+        .then(response => response.json())
+        .then(data => {
+            result.message = data;
+            result.status = "success";
+        })
+        .catch((error) => {
+            result.message = error;
+            result.status = "error";
+            console.error("Error:", error);
+        });
         return result;
+    }
+    
+    this.urlStream = function (url){
+        return this.buildApiUrl("api/file/stream") + "?file=" + url +"&type=1";
     }
 
     this.formDataToObject = function (formdata)

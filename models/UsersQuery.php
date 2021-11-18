@@ -11,7 +11,7 @@ class UsersQuery extends BaseUsersQuery {
     }
     
     public function listPaginate($page = 1, $maxPerPage = 10) {
-        return $this->create()->paginate($page, $maxPerPage)->getResults()->toArray();
+        return $this->create()->filterByDeletedAt()->orderBy("surname")->paginate($page, $maxPerPage)->getResults()->toArray();
     }
     
     public function getCount(){

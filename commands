@@ -1,2 +1,6 @@
 
 ..\vendor\bin\propel.bat model:build
+
+..\vendor\bin\propel.bat migration:diff // create migration with diff the database
+
+..\vendor\bin\propel.bat migrate // execute migrations

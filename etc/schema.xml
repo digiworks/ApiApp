@@ -4,7 +4,9 @@
     <column name="id" type="integer" primaryKey="true" autoIncrement="true"/>
     <column name="name" type="varchar" size="255" required="true" />
     <column name="surname" type="varchar" size="255" required="true" phpName="surname"/>
-    <column name="hash" type="varchar" size="255" required="true" phpName="hash"/>
+    <column name="email" type="varchar" size="255" required="true" phpName="email"/>
+    <column name="description" type="varchar" size="255" required="false" phpName="description"/>
+    <column name="hash" type="varchar" size="255" required="false" phpName="hash"/>
     <column name="status" type="integer" required="false"/>
     <column name="created_at" type="timestamp" required="false"/>
     <column name="updated_at" type="timestamp" required="false"/>

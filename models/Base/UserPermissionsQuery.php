@@ -336,10 +336,9 @@ abstract class UserPermissionsQuery extends ModelCriteria
      * <code>
      * $query->filterByPermissionName('fooValue');   // WHERE permission_name = 'fooValue'
      * $query->filterByPermissionName('%fooValue%', Criteria::LIKE); // WHERE permission_name LIKE '%fooValue%'
-     * $query->filterByPermissionName(['foo', 'bar']); // WHERE permission_name IN ('foo', 'bar')
      * </code>
      *
-     * @param     string|string[] $permissionName The value to use as filter.
+     * @param     string $permissionName The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildUserPermissionsQuery The current query, for fluid interface

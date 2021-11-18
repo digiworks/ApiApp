@@ -150,12 +150,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/digiworks/ApiCode.git",
-                "reference": "9cef4be92ce77b799ca1fd337f63bca90d8a4c88"
+                "reference": "0c1d9c9d79934cf0590b6da3ed8560696f4e1d47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digiworks/ApiCode/zipball/9cef4be92ce77b799ca1fd337f63bca90d8a4c88",
-                "reference": "9cef4be92ce77b799ca1fd337f63bca90d8a4c88",
+                "url": "https://api.github.com/repos/digiworks/ApiCode/zipball/0c1d9c9d79934cf0590b6da3ed8560696f4e1d47",
+                "reference": "0c1d9c9d79934cf0590b6da3ed8560696f4e1d47",
                 "shasum": ""
             },
             "require": {
@@ -182,7 +182,7 @@
                 "tuupola/base62": "^2.0",
                 "tuupola/slim-jwt-auth": "^3.5"
             },
-            "time": "2021-11-16T15:15:02+00:00",
+            "time": "2021-11-18T14:20:17+00:00",
             "type": "component",
             "installation-source": "dist",
             "autoload": {

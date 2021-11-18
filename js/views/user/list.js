@@ -7,12 +7,14 @@ function IndexPage() {
     var hd = [
         {text: "Nome"},
         {text: "Cognome"},
+        {text: "Email"},
         {text: "Stato"}
     ];
     
     const columns = [
         {field: "Name"},
         {field: "surname"},
+        {field: "email"},
         {field: "Status"}
     ];
     

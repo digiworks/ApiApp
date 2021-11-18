@@ -83,9 +83,23 @@ abstract class Users implements ActiveRecordInterface
     protected $surname;
 
     /**
-     * The value for the hash field.
+     * The value for the email field.
      *
      * @var        string
+     */
+    protected $email;
+
+    /**
+     * The value for the description field.
+     *
+     * @var        string|null
+     */
+    protected $description;
+
+    /**
+     * The value for the hash field.
+     *
+     * @var        string|null
      */
     protected $hash;
 
@@ -401,9 +415,29 @@ abstract class Users implements ActiveRecordInterface
     }
 
     /**
-     * Get the [hash] column value.
+     * Get the [email] column value.
      *
      * @return string
+     */
+    public function getemail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Get the [description] column value.
+     *
+     * @return string|null
+     */
+    public function getdescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Get the [hash] column value.
+     *
+     * @return string|null
      */
     public function gethash()
     {
@@ -577,9 +611,49 @@ abstract class Users implements ActiveRecordInterface
     } // setsurname()
 
     /**
-     * Set the value of [hash] column.
+     * Set the value of [email] column.
      *
      * @param string $v New value
+     * @return $this|\models\Users The current object (for fluent API support)
+     */
+    public function setemail($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->email !== $v) {
+            $this->email = $v;
+            $this->modifiedColumns[UsersTableMap::COL_EMAIL] = true;
+        }
+
+        return $this;
+    } // setemail()
+
+    /**
+     * Set the value of [description] column.
+     *
+     * @param string|null $v New value
+     * @return $this|\models\Users The current object (for fluent API support)
+     */
+    public function setdescription($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->description !== $v) {
+            $this->description = $v;
+            $this->modifiedColumns[UsersTableMap::COL_DESCRIPTION] = true;
+        }
+
+        return $this;
+    } // setdescription()
+
+    /**
+     * Set the value of [hash] column.
+     *
+     * @param string|null $v New value
      * @return $this|\models\Users The current object (for fluent API support)
      */
     public function sethash($v)
@@ -781,28 +855,34 @@ abstract class Users implements ActiveRecordInterface
             $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : UsersTableMap::translateFieldName('surname', TableMap::TYPE_PHPNAME, $indexType)];
             $this->surname = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : UsersTableMap::translateFieldName('hash', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : UsersTableMap::translateFieldName('email', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->email = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : UsersTableMap::translateFieldName('description', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->description = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : UsersTableMap::translateFieldName('hash', TableMap::TYPE_PHPNAME, $indexType)];
             $this->hash = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : UsersTableMap::translateFieldName('Status', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : UsersTableMap::translateFieldName('Status', TableMap::TYPE_PHPNAME, $indexType)];
             $this->status = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : UsersTableMap::translateFieldName('CreatedAt', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : UsersTableMap::translateFieldName('CreatedAt', TableMap::TYPE_PHPNAME, $indexType)];
             $this->created_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : UsersTableMap::translateFieldName('UpdatedAt', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : UsersTableMap::translateFieldName('UpdatedAt', TableMap::TYPE_PHPNAME, $indexType)];
             $this->updated_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : UsersTableMap::translateFieldName('DeletedAt', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 9 + $startcol : UsersTableMap::translateFieldName('DeletedAt', TableMap::TYPE_PHPNAME, $indexType)];
             $this->deleted_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : UsersTableMap::translateFieldName('CreatedBy', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 10 + $startcol : UsersTableMap::translateFieldName('CreatedBy', TableMap::TYPE_PHPNAME, $indexType)];
             $this->created_by = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 9 + $startcol : UsersTableMap::translateFieldName('UpdatedBy', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 11 + $startcol : UsersTableMap::translateFieldName('UpdatedBy', TableMap::TYPE_PHPNAME, $indexType)];
             $this->updated_by = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 10 + $startcol : UsersTableMap::translateFieldName('DeletedBy', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 12 + $startcol : UsersTableMap::translateFieldName('DeletedBy', TableMap::TYPE_PHPNAME, $indexType)];
             $this->deleted_by = (null !== $col) ? (int) $col : null;
             $this->resetModified();
 
@@ -812,7 +892,7 @@ abstract class Users implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 11; // 11 = UsersTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 13; // 13 = UsersTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\models\\Users'), 0, $e);
@@ -1031,6 +1111,12 @@ abstract class Users implements ActiveRecordInterface
         if ($this->isColumnModified(UsersTableMap::COL_SURNAME)) {
             $modifiedColumns[':p' . $index++]  = 'surname';
         }
+        if ($this->isColumnModified(UsersTableMap::COL_EMAIL)) {
+            $modifiedColumns[':p' . $index++]  = 'email';
+        }
+        if ($this->isColumnModified(UsersTableMap::COL_DESCRIPTION)) {
+            $modifiedColumns[':p' . $index++]  = 'description';
+        }
         if ($this->isColumnModified(UsersTableMap::COL_HASH)) {
             $modifiedColumns[':p' . $index++]  = 'hash';
         }
@@ -1074,6 +1160,12 @@ abstract class Users implements ActiveRecordInterface
                         break;
                     case 'surname':
                         $stmt->bindValue($identifier, $this->surname, PDO::PARAM_STR);
+                        break;
+                    case 'email':
+                        $stmt->bindValue($identifier, $this->email, PDO::PARAM_STR);
+                        break;
+                    case 'description':
+                        $stmt->bindValue($identifier, $this->description, PDO::PARAM_STR);
                         break;
                     case 'hash':
                         $stmt->bindValue($identifier, $this->hash, PDO::PARAM_STR);
@@ -1164,27 +1256,33 @@ abstract class Users implements ActiveRecordInterface
                 return $this->getsurname();
                 break;
             case 3:
-                return $this->gethash();
+                return $this->getemail();
                 break;
             case 4:
-                return $this->getStatus();
+                return $this->getdescription();
                 break;
             case 5:
-                return $this->getCreatedAt();
+                return $this->gethash();
                 break;
             case 6:
-                return $this->getUpdatedAt();
+                return $this->getStatus();
                 break;
             case 7:
-                return $this->getDeletedAt();
+                return $this->getCreatedAt();
                 break;
             case 8:
-                return $this->getCreatedBy();
+                return $this->getUpdatedAt();
                 break;
             case 9:
-                return $this->getUpdatedBy();
+                return $this->getDeletedAt();
                 break;
             case 10:
+                return $this->getCreatedBy();
+                break;
+            case 11:
+                return $this->getUpdatedBy();
+                break;
+            case 12:
                 return $this->getDeletedBy();
                 break;
             default:
@@ -1219,25 +1317,27 @@ abstract class Users implements ActiveRecordInterface
             $keys[0] => $this->getId(),
             $keys[1] => $this->getName(),
             $keys[2] => $this->getsurname(),
-            $keys[3] => $this->gethash(),
-            $keys[4] => $this->getStatus(),
-            $keys[5] => $this->getCreatedAt(),
-            $keys[6] => $this->getUpdatedAt(),
-            $keys[7] => $this->getDeletedAt(),
-            $keys[8] => $this->getCreatedBy(),
-            $keys[9] => $this->getUpdatedBy(),
-            $keys[10] => $this->getDeletedBy(),
+            $keys[3] => $this->getemail(),
+            $keys[4] => $this->getdescription(),
+            $keys[5] => $this->gethash(),
+            $keys[6] => $this->getStatus(),
+            $keys[7] => $this->getCreatedAt(),
+            $keys[8] => $this->getUpdatedAt(),
+            $keys[9] => $this->getDeletedAt(),
+            $keys[10] => $this->getCreatedBy(),
+            $keys[11] => $this->getUpdatedBy(),
+            $keys[12] => $this->getDeletedBy(),
         );
-        if ($result[$keys[5]] instanceof \DateTimeInterface) {
-            $result[$keys[5]] = $result[$keys[5]]->format('Y-m-d H:i:s.u');
-        }
-
-        if ($result[$keys[6]] instanceof \DateTimeInterface) {
-            $result[$keys[6]] = $result[$keys[6]]->format('Y-m-d H:i:s.u');
-        }
-
         if ($result[$keys[7]] instanceof \DateTimeInterface) {
             $result[$keys[7]] = $result[$keys[7]]->format('Y-m-d H:i:s.u');
+        }
+
+        if ($result[$keys[8]] instanceof \DateTimeInterface) {
+            $result[$keys[8]] = $result[$keys[8]]->format('Y-m-d H:i:s.u');
+        }
+
+        if ($result[$keys[9]] instanceof \DateTimeInterface) {
+            $result[$keys[9]] = $result[$keys[9]]->format('Y-m-d H:i:s.u');
         }
 
         $virtualColumns = $this->virtualColumns;
@@ -1288,27 +1388,33 @@ abstract class Users implements ActiveRecordInterface
                 $this->setsurname($value);
                 break;
             case 3:
-                $this->sethash($value);
+                $this->setemail($value);
                 break;
             case 4:
-                $this->setStatus($value);
+                $this->setdescription($value);
                 break;
             case 5:
-                $this->setCreatedAt($value);
+                $this->sethash($value);
                 break;
             case 6:
-                $this->setUpdatedAt($value);
+                $this->setStatus($value);
                 break;
             case 7:
-                $this->setDeletedAt($value);
+                $this->setCreatedAt($value);
                 break;
             case 8:
-                $this->setCreatedBy($value);
+                $this->setUpdatedAt($value);
                 break;
             case 9:
-                $this->setUpdatedBy($value);
+                $this->setDeletedAt($value);
                 break;
             case 10:
+                $this->setCreatedBy($value);
+                break;
+            case 11:
+                $this->setUpdatedBy($value);
+                break;
+            case 12:
                 $this->setDeletedBy($value);
                 break;
         } // switch()
@@ -1347,28 +1453,34 @@ abstract class Users implements ActiveRecordInterface
             $this->setsurname($arr[$keys[2]]);
         }
         if (array_key_exists($keys[3], $arr)) {
-            $this->sethash($arr[$keys[3]]);
+            $this->setemail($arr[$keys[3]]);
         }
         if (array_key_exists($keys[4], $arr)) {
-            $this->setStatus($arr[$keys[4]]);
+            $this->setdescription($arr[$keys[4]]);
         }
         if (array_key_exists($keys[5], $arr)) {
-            $this->setCreatedAt($arr[$keys[5]]);
+            $this->sethash($arr[$keys[5]]);
         }
         if (array_key_exists($keys[6], $arr)) {
-            $this->setUpdatedAt($arr[$keys[6]]);
+            $this->setStatus($arr[$keys[6]]);
         }
         if (array_key_exists($keys[7], $arr)) {
-            $this->setDeletedAt($arr[$keys[7]]);
+            $this->setCreatedAt($arr[$keys[7]]);
         }
         if (array_key_exists($keys[8], $arr)) {
-            $this->setCreatedBy($arr[$keys[8]]);
+            $this->setUpdatedAt($arr[$keys[8]]);
         }
         if (array_key_exists($keys[9], $arr)) {
-            $this->setUpdatedBy($arr[$keys[9]]);
+            $this->setDeletedAt($arr[$keys[9]]);
         }
         if (array_key_exists($keys[10], $arr)) {
-            $this->setDeletedBy($arr[$keys[10]]);
+            $this->setCreatedBy($arr[$keys[10]]);
+        }
+        if (array_key_exists($keys[11], $arr)) {
+            $this->setUpdatedBy($arr[$keys[11]]);
+        }
+        if (array_key_exists($keys[12], $arr)) {
+            $this->setDeletedBy($arr[$keys[12]]);
         }
 
         return $this;
@@ -1421,6 +1533,12 @@ abstract class Users implements ActiveRecordInterface
         }
         if ($this->isColumnModified(UsersTableMap::COL_SURNAME)) {
             $criteria->add(UsersTableMap::COL_SURNAME, $this->surname);
+        }
+        if ($this->isColumnModified(UsersTableMap::COL_EMAIL)) {
+            $criteria->add(UsersTableMap::COL_EMAIL, $this->email);
+        }
+        if ($this->isColumnModified(UsersTableMap::COL_DESCRIPTION)) {
+            $criteria->add(UsersTableMap::COL_DESCRIPTION, $this->description);
         }
         if ($this->isColumnModified(UsersTableMap::COL_HASH)) {
             $criteria->add(UsersTableMap::COL_HASH, $this->hash);
@@ -1534,6 +1652,8 @@ abstract class Users implements ActiveRecordInterface
     {
         $copyObj->setName($this->getName());
         $copyObj->setsurname($this->getsurname());
+        $copyObj->setemail($this->getemail());
+        $copyObj->setdescription($this->getdescription());
         $copyObj->sethash($this->gethash());
         $copyObj->setStatus($this->getStatus());
         $copyObj->setCreatedAt($this->getCreatedAt());
@@ -1580,6 +1700,8 @@ abstract class Users implements ActiveRecordInterface
         $this->id = null;
         $this->name = null;
         $this->surname = null;
+        $this->email = null;
+        $this->description = null;
         $this->hash = null;
         $this->status = null;
         $this->created_at = null;

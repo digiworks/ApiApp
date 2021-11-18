@@ -33,7 +33,7 @@ class IndexPage extends React.Component {
       }
     gotlistuser(e)
     {
-        e.preventDefault();
+      e.preventDefault();
       let path = "/listuser";
       redirect(path);
     }
@@ -136,9 +136,9 @@ class IndexPage extends React.Component {
                         <Chip label="Chip Outlined" variant="outlined" />
                       </Stack>
                       <Stack direction="row" spacing={2}>
-                        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                        <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-                        <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
+                        <Avatar alt="Remy Sharp" src={baseApp.urlStream("images/avatar/1.jpg")} />
+                        <Avatar alt="Travis Howard" src={baseApp.urlStream("images/avatar/2.jpg")} />
+                        <Avatar alt="Cindy Baker" src={baseApp.urlStream("images/avatar/3.jpg")} />
                       </Stack>
                        
                        <Button sx={{ border: "1px dashed grey" }} id = "id_button_1" onClick={this.gotlistuser}>ListUser</Button>

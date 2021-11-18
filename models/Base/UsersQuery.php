@@ -22,6 +22,8 @@ use models\Map\UsersTableMap;
  * @method     ChildUsersQuery orderById($order = Criteria::ASC) Order by the id column
  * @method     ChildUsersQuery orderByName($order = Criteria::ASC) Order by the name column
  * @method     ChildUsersQuery orderBysurname($order = Criteria::ASC) Order by the surname column
+ * @method     ChildUsersQuery orderByemail($order = Criteria::ASC) Order by the email column
+ * @method     ChildUsersQuery orderBydescription($order = Criteria::ASC) Order by the description column
  * @method     ChildUsersQuery orderByhash($order = Criteria::ASC) Order by the hash column
  * @method     ChildUsersQuery orderByStatus($order = Criteria::ASC) Order by the status column
  * @method     ChildUsersQuery orderByCreatedAt($order = Criteria::ASC) Order by the created_at column
@@ -34,6 +36,8 @@ use models\Map\UsersTableMap;
  * @method     ChildUsersQuery groupById() Group by the id column
  * @method     ChildUsersQuery groupByName() Group by the name column
  * @method     ChildUsersQuery groupBysurname() Group by the surname column
+ * @method     ChildUsersQuery groupByemail() Group by the email column
+ * @method     ChildUsersQuery groupBydescription() Group by the description column
  * @method     ChildUsersQuery groupByhash() Group by the hash column
  * @method     ChildUsersQuery groupByStatus() Group by the status column
  * @method     ChildUsersQuery groupByCreatedAt() Group by the created_at column
@@ -57,6 +61,8 @@ use models\Map\UsersTableMap;
  * @method     ChildUsers|null findOneById(int $id) Return the first ChildUsers filtered by the id column
  * @method     ChildUsers|null findOneByName(string $name) Return the first ChildUsers filtered by the name column
  * @method     ChildUsers|null findOneBysurname(string $surname) Return the first ChildUsers filtered by the surname column
+ * @method     ChildUsers|null findOneByemail(string $email) Return the first ChildUsers filtered by the email column
+ * @method     ChildUsers|null findOneBydescription(string $description) Return the first ChildUsers filtered by the description column
  * @method     ChildUsers|null findOneByhash(string $hash) Return the first ChildUsers filtered by the hash column
  * @method     ChildUsers|null findOneByStatus(int $status) Return the first ChildUsers filtered by the status column
  * @method     ChildUsers|null findOneByCreatedAt(string $created_at) Return the first ChildUsers filtered by the created_at column
@@ -72,6 +78,8 @@ use models\Map\UsersTableMap;
  * @method     ChildUsers requireOneById(int $id) Return the first ChildUsers filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByName(string $name) Return the first ChildUsers filtered by the name column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneBysurname(string $surname) Return the first ChildUsers filtered by the surname column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildUsers requireOneByemail(string $email) Return the first ChildUsers filtered by the email column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildUsers requireOneBydescription(string $description) Return the first ChildUsers filtered by the description column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByhash(string $hash) Return the first ChildUsers filtered by the hash column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByStatus(int $status) Return the first ChildUsers filtered by the status column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsers requireOneByCreatedAt(string $created_at) Return the first ChildUsers filtered by the created_at column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -89,6 +97,10 @@ use models\Map\UsersTableMap;
  * @psalm-method ObjectCollection&\Traversable<ChildUsers> findByName(string $name) Return ChildUsers objects filtered by the name column
  * @method     ChildUsers[]|ObjectCollection findBysurname(string $surname) Return ChildUsers objects filtered by the surname column
  * @psalm-method ObjectCollection&\Traversable<ChildUsers> findBysurname(string $surname) Return ChildUsers objects filtered by the surname column
+ * @method     ChildUsers[]|ObjectCollection findByemail(string $email) Return ChildUsers objects filtered by the email column
+ * @psalm-method ObjectCollection&\Traversable<ChildUsers> findByemail(string $email) Return ChildUsers objects filtered by the email column
+ * @method     ChildUsers[]|ObjectCollection findBydescription(string $description) Return ChildUsers objects filtered by the description column
+ * @psalm-method ObjectCollection&\Traversable<ChildUsers> findBydescription(string $description) Return ChildUsers objects filtered by the description column
  * @method     ChildUsers[]|ObjectCollection findByhash(string $hash) Return ChildUsers objects filtered by the hash column
  * @psalm-method ObjectCollection&\Traversable<ChildUsers> findByhash(string $hash) Return ChildUsers objects filtered by the hash column
  * @method     ChildUsers[]|ObjectCollection findByStatus(int $status) Return ChildUsers objects filtered by the status column
@@ -204,7 +216,7 @@ abstract class UsersQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, name, surname, hash, status, created_at, updated_at, deleted_at, created_by, updated_by, deleted_by FROM public.users WHERE id = :p0';
+        $sql = 'SELECT id, name, surname, email, description, hash, status, created_at, updated_at, deleted_at, created_by, updated_by, deleted_by FROM public.users WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -342,10 +354,9 @@ abstract class UsersQuery extends ModelCriteria
      * <code>
      * $query->filterByName('fooValue');   // WHERE name = 'fooValue'
      * $query->filterByName('%fooValue%', Criteria::LIKE); // WHERE name LIKE '%fooValue%'
-     * $query->filterByName(['foo', 'bar']); // WHERE name IN ('foo', 'bar')
      * </code>
      *
-     * @param     string|string[] $name The value to use as filter.
+     * @param     string $name The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildUsersQuery The current query, for fluid interface
@@ -368,10 +379,9 @@ abstract class UsersQuery extends ModelCriteria
      * <code>
      * $query->filterBysurname('fooValue');   // WHERE surname = 'fooValue'
      * $query->filterBysurname('%fooValue%', Criteria::LIKE); // WHERE surname LIKE '%fooValue%'
-     * $query->filterBysurname(['foo', 'bar']); // WHERE surname IN ('foo', 'bar')
      * </code>
      *
-     * @param     string|string[] $surname The value to use as filter.
+     * @param     string $surname The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildUsersQuery The current query, for fluid interface
@@ -388,16 +398,65 @@ abstract class UsersQuery extends ModelCriteria
     }
 
     /**
+     * Filter the query on the email column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByemail('fooValue');   // WHERE email = 'fooValue'
+     * $query->filterByemail('%fooValue%', Criteria::LIKE); // WHERE email LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $email The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildUsersQuery The current query, for fluid interface
+     */
+    public function filterByemail($email = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($email)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(UsersTableMap::COL_EMAIL, $email, $comparison);
+    }
+
+    /**
+     * Filter the query on the description column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterBydescription('fooValue');   // WHERE description = 'fooValue'
+     * $query->filterBydescription('%fooValue%', Criteria::LIKE); // WHERE description LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $description The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildUsersQuery The current query, for fluid interface
+     */
+    public function filterBydescription($description = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($description)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(UsersTableMap::COL_DESCRIPTION, $description, $comparison);
+    }
+
+    /**
      * Filter the query on the hash column
      *
      * Example usage:
      * <code>
      * $query->filterByhash('fooValue');   // WHERE hash = 'fooValue'
      * $query->filterByhash('%fooValue%', Criteria::LIKE); // WHERE hash LIKE '%fooValue%'
-     * $query->filterByhash(['foo', 'bar']); // WHERE hash IN ('foo', 'bar')
      * </code>
      *
-     * @param     string|string[] $hash The value to use as filter.
+     * @param     string $hash The value to use as filter.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildUsersQuery The current query, for fluid interface
