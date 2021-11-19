@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <database name="default" defaultIdMethod="native" namespace="models" defaultPhpNamingMethod="underscore" schema = "public">
- <table name="users" phpName="Users">
+ <table name="users" phpName="Users" baseClass="code\user\AppUser">
     <column name="id" type="integer" primaryKey="true" autoIncrement="true"/>
     <column name="name" type="varchar" size="255" required="true" />
     <column name="surname" type="varchar" size="255" required="true" phpName="surname"/>

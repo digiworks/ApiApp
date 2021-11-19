@@ -15,5 +15,8 @@ use models\Base\Users as BaseUsers;
  */
 class Users extends BaseUsers
 {
+    public function getPassword(): string {
+        return $this->gethash();
+    }
 
 }

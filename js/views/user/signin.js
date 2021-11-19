@@ -8,11 +8,17 @@ const handleSubmit = async (event) => {
     /*setWaiting(true);*/
     var result = await baseApp.fetch("/api/user/token", baseApp.formDataToObject(data));
     if(result.status == "success"){
-        if(baseApp.isWeb()){
-            baseApp.login(result.message);
+        if(result.message.message ==  "ok"){
+            if(baseApp.isWeb()){
+               baseApp.login(result.message);
+
+            }
+            let path = "/dashboard";
+            baseApp.redirect(path);
+        }else{
+            setError(true);
+            setWaiting(false);
         }
-        let path = "/dashboard";
-        baseApp.redirect(path);
     }else{
         if(result.status == "error")
         {

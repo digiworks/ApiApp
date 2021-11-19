@@ -17,6 +17,7 @@ use Propel\Runtime\Exception\PropelException;
 use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
 use Propel\Runtime\Util\PropelDateTime;
+use code\user\AppUser;
 use models\UsersQuery as ChildUsersQuery;
 use models\Map\UsersTableMap;
 
@@ -27,7 +28,7 @@ use models\Map\UsersTableMap;
  *
  * @package    propel.generator.models.Base
  */
-abstract class Users implements ActiveRecordInterface
+abstract class Users extends AppUser implements ActiveRecordInterface
 {
     /**
      * TableMap class name
@@ -1749,6 +1750,9 @@ abstract class Users implements ActiveRecordInterface
      */
     public function preSave(ConnectionInterface $con = null)
     {
+                if (is_callable('parent::preSave')) {
+            return parent::preSave($con);
+        }
                 return true;
     }
 
@@ -1758,6 +1762,9 @@ abstract class Users implements ActiveRecordInterface
      */
     public function postSave(ConnectionInterface $con = null)
     {
+                if (is_callable('parent::postSave')) {
+            parent::postSave($con);
+        }
             }
 
     /**
@@ -1767,6 +1774,9 @@ abstract class Users implements ActiveRecordInterface
      */
     public function preInsert(ConnectionInterface $con = null)
     {
+                if (is_callable('parent::preInsert')) {
+            return parent::preInsert($con);
+        }
                 return true;
     }
 
@@ -1776,6 +1786,9 @@ abstract class Users implements ActiveRecordInterface
      */
     public function postInsert(ConnectionInterface $con = null)
     {
+                if (is_callable('parent::postInsert')) {
+            parent::postInsert($con);
+        }
             }
 
     /**
@@ -1785,6 +1798,9 @@ abstract class Users implements ActiveRecordInterface
      */
     public function preUpdate(ConnectionInterface $con = null)
     {
+                if (is_callable('parent::preUpdate')) {
+            return parent::preUpdate($con);
+        }
                 return true;
     }
 
@@ -1794,6 +1810,9 @@ abstract class Users implements ActiveRecordInterface
      */
     public function postUpdate(ConnectionInterface $con = null)
     {
+                if (is_callable('parent::postUpdate')) {
+            parent::postUpdate($con);
+        }
             }
 
     /**
@@ -1803,6 +1822,9 @@ abstract class Users implements ActiveRecordInterface
      */
     public function preDelete(ConnectionInterface $con = null)
     {
+                if (is_callable('parent::preDelete')) {
+            return parent::preDelete($con);
+        }
                 return true;
     }
 
@@ -1812,6 +1834,9 @@ abstract class Users implements ActiveRecordInterface
      */
     public function postDelete(ConnectionInterface $con = null)
     {
+                if (is_callable('parent::postDelete')) {
+            parent::postDelete($con);
+        }
             }
 
 

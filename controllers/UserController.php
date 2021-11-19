@@ -61,7 +61,7 @@ class UserController extends AppController
     }
     
     public function userslist(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
-
+        
         $currentView = 'js/views/user/list.js';
         $renderManager = ApiAppFactory::getApp()->getService(ServiceTypes::RENDER);
         $response->getBody()->write($renderManager->getRender()->renderView($currentView));

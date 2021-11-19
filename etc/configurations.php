@@ -83,27 +83,31 @@ return Arr::mergeRecursive(
                             $app = ApiAppFactory::getApp();
 
                             return new JwtAuthentication([
-                        "secret" => $app->getService(ServiceTypes::CONFIGURATIONS)->get('env.jwt_secret'),
-                        "algorithm" => ["HS256", "HS384"],
-                        'logger' => $app->getLogger()->getLogger('info'),
-                        "rules" => [
-                            new RequestPathRule([
-                                "path" => "/",
-                                "ignore" => [
-                                    "/login", 
-                                    "/signup", 
-                                    "/forgot", 
-                                    "/api/user/token", 
-                                    "/api/user/register",
-                                    "/api/file/js",
-                                    "/api/file/css"
-                                    ]
-                                ]),
-                        ],
-                        "error" => function ($response, $arguments) {
-                            return $response->withHeader('Location', '/login')->withStatus(302);
-                            //new UnauthorizedResponse($arguments["message"], 401);
-                        },
+                                "secret" => $app->getService(ServiceTypes::CONFIGURATIONS)->get('env.jwt_secret'),
+                                "algorithm" => ["HS256", "HS384"],
+                                'logger' => $app->getLogger()->getLogger('info'),
+                                'attribute' => "payload",
+                                "rules" => [
+                                    new RequestPathRule([
+                                        "path" => "/",
+                                        "ignore" => [
+                                            "/login", 
+                                            "/signup", 
+                                            "/forgot", 
+                                            "/api/user/token", 
+                                            "/api/user/register",
+                                            "/api/file/js",
+                                            "/api/file/css"
+                                            ]
+                                        ]),
+                                    ],
+                                    "error" => function ($response, $arguments) {
+                                        return $response->withHeader('Location', '/login')->withStatus(302);
+                                        //new UnauthorizedResponse($arguments["message"], 401);
+                                    },
+                                    "before" =>  function ($response, $arguments) {
+                                         ApiAppFactory::getApp()->addParams($arguments);
+                                    },
                             ]);
                         },
                         "EscaperMiddleware" => [
