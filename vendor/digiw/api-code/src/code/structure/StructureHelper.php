@@ -90,7 +90,7 @@ class StructureHelper {
      */
     public static function getFormatClass($format) {
         // Return a namespace in a given format
-        $class = sprintf('%s\Format\%sFormat', __NAMESPACE__, ucfirst(strtolower($format)));
+        $class = sprintf('%s\format\%sFormat', __NAMESPACE__, ucfirst(strtolower($format)));
 
         if (!class_exists($class)) {
             throw new DomainException(

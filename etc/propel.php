@@ -30,7 +30,7 @@ return [
 //                ]
                 'default' => [
                     'adapter' => 'pgsql',
-                    'dsn' => 'pgsql:host=localhost;port=5432;dbname=apiapp',
+                    'dsn' => 'pgsql:host=192.168.178.40;port=5432;dbname=apiapp',
                     'user' => 'postgres',
                     'password' => '21033200',
                     'settings' => [
