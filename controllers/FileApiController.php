@@ -36,9 +36,15 @@ class FileApiController extends AppController {
 
     public function js(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
         try {
-            $params = $request->getQueryParams();
             $fileSystem = ApiAppFactory::getApp()->getService(ServiceTypes::FILESYSTEM);
-            $file = $fileSystem->getJs($params['file']);
+            $params = $request->getQueryParams();
+            if(isset($params['file'])){
+                $file = $fileSystem->getJs($params['file']);
+            }else{
+                $file = $fileSystem->getJs($request->getAttribute('path'));
+            }
+                   
+            
             $file_stream = $file->stream();
             $expireOffset = ApiAppFactory::getApp()->getService(ServiceTypes::CONFIGURATIONS)->get('env.web.jsExpirationOffset', 0);
             return $response
