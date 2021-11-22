@@ -52,6 +52,7 @@ function IndexPage() {
     
     const handleSigneIn = (event) => {
         setWaiting(true);
+        baseApp.redirect(event.target.href);
     };
     
     
@@ -171,7 +172,7 @@ function IndexPage() {
                   name="email"
                   value={values.email}
                   onChange={handleChange("email")}
-                  onBlur={handleBlur("emial")}
+                  onBlur={handleBlur("email")}
                   error={!validator.fieldValid("email")}
                   helperText={validator.getFieldErrorMessages("email")}
                 />
@@ -256,7 +257,7 @@ function IndexPage() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/login" onClick={handleSigneIn} variant="body2">
+                <Link href="/login" onMouseDown ={handleSigneIn} variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
