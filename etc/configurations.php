@@ -35,7 +35,7 @@ define('COREPATH_STATIC', COREPATH_ROOT . DIRECTORY_SEPARATOR . 'static');
 define('COREPATH_JS', COREPATH_ROOT . DIRECTORY_SEPARATOR . '');
 define('COREPATH_CSS', COREPATH_STATIC . DIRECTORY_SEPARATOR . 'css');
 define('COREPATH_MIGRATIONS', COREPATH_ROOT . DIRECTORY_SEPARATOR . COREPATH_ETC. 'generated-migrations');
-define('COREPATH_MIGRATIONS', COREPATH_ROOT . DIRECTORY_SEPARATOR . 'mails');
+define('COREPATH_MAILS', COREPATH_ROOT . DIRECTORY_SEPARATOR . 'mails');
 
 return Arr::mergeRecursive(
                 [
@@ -60,7 +60,8 @@ return Arr::mergeRecursive(
                             "streamExpirationOffset" => 86400,
                             "baseStaticFolderPath" => COREPATH_STATIC,
                             "baseJsFolderPath" => COREPATH_JS,
-                            "baseCssFolderPath" => COREPATH_CSS
+                            "baseCssFolderPath" => COREPATH_CSS,
+                            "baseMailsFolderPath" => COREPATH_MAILS
                         ]
                     ],
                     "services" => [
@@ -123,6 +124,7 @@ return Arr::mergeRecursive(
                             //['lib' => 'https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.js','tranlsator'=> ''],
                             ['lib' => 'js/engines/react/date-fns/1.30.1/date_fns.js', 'tranlsator' => ''],
                             ['lib' => 'js/engines/axios@0.24.0/dist/axios.js', 'tranlsator' => ''],
+                            ['lib' => 'js/engines/apexcharts@3.30.0/dist/apexcharts.js', 'tranlsator' => '', 'use' => 'client'], // work only in browser
                             
                             //['lib' => 'https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js','tranlsator'=> ''],
                             ['lib' => 'js/engines/react/17.0.2/umd/react.development.js', 'tranlsator' => ''],
@@ -156,6 +158,7 @@ return Arr::mergeRecursive(
                             //['lib' => "https://cdn.jsdelivr.net/npm/react-multi-date-picker@latest/build/date_picker_header.browser.js",'tranlsator'=> ''],
                             ['lib' => "js/engines/react/react-multi-date-picker/build/date_picker_header.browser.js", 'tranlsator' => ''],
                             ['lib' => "js/engines/react/reactmultidatepicker.js", 'tranlsator' => ''],
+                            ['lib' => 'js/engines/react/react-apexcharts@1.3.9/dist/react-apexcharts.js', 'tranlsator' => '', 'use' => 'client'], // work only in browser
                             //['lib' => 'https://cdn.jsdelivr.net/npm/react-hook-form@7.17.5/dist/index.umd.js','tranlsator'=> ''],
                             //['lib' => 'js/engines/react/react-hook-form/7.17.5/dist/index.umd.js','tranlsator'=> ''],
                             ['lib' => "js/engines/react/components.js", 'tranlsator' => 'text/babel']
@@ -164,6 +167,7 @@ return Arr::mergeRecursive(
                             "googleapis-css/css.css",
                             "material-icons/icon.css",
                             "react/react-table/6.11.5/react-table.css",
+                            "apexcharts@3.30.0/dist/apexcharts.css"
                             //"https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/css/semi.css"
                         ],
                         "translator" => [
