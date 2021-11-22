@@ -4,6 +4,11 @@ function IndexPage() {
     const [data, setData] = React.useState([]);
     const [refresh, setRefresh] = React.useState(false);
     
+    
+   const labels = { 
+       "Active" : baseApp.translations().t("Active", "userform"),
+       "Deactivated" : baseApp.translations().t("Deactivated", "userform")
+    };
     var hd = [
         {text: "Nome"},
         {text: "Cognome"},
@@ -15,7 +20,7 @@ function IndexPage() {
         {field: "Name"},
         {field: "surname"},
         {field: "email"},
-        {field: "Status"}
+        {field: (row) => { return (row.Status == 1 ? labels.Active : labels.Deactivated); }}
     ];
     
     const handleClose = () => {

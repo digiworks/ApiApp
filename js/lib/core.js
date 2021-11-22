@@ -39,6 +39,7 @@ function BaseApp() {
     this.sessionStorage;
     this.validator = new ReactValidator({locale:"it"});  
     this.i18n = new baseI18n();
+    this.httpClient = axios;
    
    /* url of api gateway or empty if application is the gateway*/
     this.apiGateway = "";
@@ -106,6 +107,10 @@ function BaseApp() {
             object[key].push(value);
         });
         return object;
+    }
+    
+    this.isClousure = function (value){
+        return (typeof value === "function");
     }
     
     this.isSsr = function () {

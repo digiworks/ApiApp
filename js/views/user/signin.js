@@ -1,6 +1,9 @@
 function IndexPage() {
 const [waiting, setWaiting] = React.useState(false);
 const [error, setError] = React.useState(false);
+const [values, setValues] = React.useState({
+    showPassword: false
+});
  
 const handleSubmit = async (event) => {
     event.preventDefault();
@@ -31,6 +34,18 @@ const handleSubmit = async (event) => {
       password: data.get("password"),
     });*/
 };
+
+const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+};
+
+const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+};
+
 
 const handleLink = (event) => {
     setWaiting(true);
@@ -96,9 +111,23 @@ const handleLink = (event) => {
               fullWidth
               name="password"
               label="Password"
-              type="password"
+              type={values.showPassword ? 'text' : 'password'}
               id="password"
               autoComplete="new-password"
+              InputProps={{
+                    endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={handleClickShowPassword}
+                                onMouseDown={handleMouseDownPassword}
+                                edge="end"
+                              >
+                                {values.showPassword ? <Icon>visibility_off</Icon> :  <Icon>visibility</Icon>}
+                              </IconButton>
+                            </InputAdornment>
+                    )
+                }}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}

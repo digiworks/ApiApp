@@ -11,6 +11,13 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class FileApiController extends AppController {
 
+    /**
+     * 
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param array $args
+     * @return ResponseInterface
+     */
     public function stream(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
 
         try {
@@ -34,17 +41,24 @@ class FileApiController extends AppController {
         return $response;
     }
 
+    /**
+     * 
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param array $args
+     * @return ResponseInterface
+     */
     public function js(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
         try {
             $fileSystem = ApiAppFactory::getApp()->getService(ServiceTypes::FILESYSTEM);
             $params = $request->getQueryParams();
-            if(isset($params['file'])){
+            if (isset($params['file'])) {
                 $file = $fileSystem->getJs($params['file']);
-            }else{
+            } else {
                 $file = $fileSystem->getJs($request->getAttribute('path'));
             }
-                   
-            
+
+
             $file_stream = $file->stream();
             $expireOffset = ApiAppFactory::getApp()->getService(ServiceTypes::CONFIGURATIONS)->get('env.web.jsExpirationOffset', 0);
             return $response
@@ -61,11 +75,23 @@ class FileApiController extends AppController {
         return $response;
     }
 
+    /**
+     * 
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param array $args
+     * @return ResponseInterface
+     */
     public function css(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
         try {
-            $params = $request->getQueryParams();
+
             $fileSystem = ApiAppFactory::getApp()->getService(ServiceTypes::FILESYSTEM);
-            $file = $fileSystem->getJs($params['file']);
+            $params = $request->getQueryParams();
+            if (isset($params['file'])) {
+                $file = $fileSystem->getCss($params['file']);
+            } else {
+                $file = $fileSystem->getCss($request->getAttribute('path'));
+            }
             $file_stream = $file->stream();
             $expireOffset = ApiAppFactory::getApp()->getService(ServiceTypes::CONFIGURATIONS)->get('env.web.cssExpirationOffset', 0);
             return $response->withHeader('Content-Type', 'text/css')

@@ -43,6 +43,7 @@ class ReactValidator {
             phone: {message: 'The :attribute must be a valid phone number.', rule: val => this.helpers.testRegex(val, /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)$/) && !this.helpers.testRegex(val, /^\b(\d)\1{8,}\b$/)},
             regex: {message: 'The :attribute must match the required pattern.', rule: (val, params) => this.helpers.testRegex(val, typeof params[0] === 'string' || params[0] instanceof String ? new RegExp(params[0]) : params[0])},
             required: {message: 'The :attribute field is required.', rule: val => !this.helpers.isBlank(val), required: true},
+            same:{message: 'The :attribute field must be equal to :field', rule: (val,params, validator) => { let element = document.querySelector("#"+params[0]); if(element){ return val == element.value}else{ return false}}, required: true, messageReplace: (message, params) => message.replace(':field', params[0])},
             size: {message: 'The :attribute must be :size:type.', rule: (val, params) => this.helpers.size(val, params[1]) == parseFloat(params[0]), messageReplace: (message, params) => message.replace(':size', params[0]).replace(':type', this.helpers.sizeText(params[1]))},
             string: {message: 'The :attribute must be a string.', rule: val => typeof (val) === typeof ('string')},
             typeof : {message: 'The :attribute is not the correct type of :type.', rule: (val, params) => typeof (val) === typeof (params[0]), messageReplace: (message, params) => message.replace(':type', typeof (params[0]))},

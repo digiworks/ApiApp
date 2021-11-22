@@ -28,5 +28,6 @@ return [
         
                 ["route" => "/api/file/stream", "method" => "GET", "controller" => "\controllers\FileApiController:stream"],
                 ["route" => "/api/file/js/{path:.*}", "method" => "GET", "controller" => "\controllers\FileApiController:js"],
+                ["route" => "/api/file/css/{path:.*}", "method" => "GET", "controller" => "\controllers\FileApiController:css"],
             ]
 ];

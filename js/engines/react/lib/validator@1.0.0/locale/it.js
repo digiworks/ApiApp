@@ -30,6 +30,7 @@ ReactValidator.addLocale('it', {
   phone                : 'Il campo :attribute deve essere un numero di telefono.',
   regex                : 'Il formato di :attribute non è corretto.',
   required             : 'Il campo :attribute è obbligatorio.',
+  same                 : 'Il campo :attribute deve essere uguale al campo :field',
   size                 : 'La dimensione di :attribute non deve superare :size:type.',
   string               : 'Il campo :attribute deve essere una stringa.',
   typeof               : 'Il campo :attribute deve essere di tipo :type.',

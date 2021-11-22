@@ -35,8 +35,7 @@ define('COREPATH_STATIC', COREPATH_ROOT . DIRECTORY_SEPARATOR . 'static');
 define('COREPATH_JS', COREPATH_ROOT . DIRECTORY_SEPARATOR . '');
 define('COREPATH_CSS', COREPATH_STATIC . DIRECTORY_SEPARATOR . 'css');
 define('COREPATH_MIGRATIONS', COREPATH_ROOT . DIRECTORY_SEPARATOR . COREPATH_ETC. 'generated-migrations');
-define('COREPATH_SEEDERS', COREPATH_ROOT . DIRECTORY_SEPARATOR . 'seeders');
-define('COREPATH_LANGUAGES', COREPATH_ROOT . DIRECTORY_SEPARATOR . 'languages');
+define('COREPATH_MIGRATIONS', COREPATH_ROOT . DIRECTORY_SEPARATOR . 'mails');
 
 return Arr::mergeRecursive(
                 [
@@ -61,7 +60,7 @@ return Arr::mergeRecursive(
                             "streamExpirationOffset" => 86400,
                             "baseStaticFolderPath" => COREPATH_STATIC,
                             "baseJsFolderPath" => COREPATH_JS,
-                            "baseCssFolderPath" =>COREPATH_CSS
+                            "baseCssFolderPath" => COREPATH_CSS
                         ]
                     ],
                     "services" => [
@@ -123,6 +122,8 @@ return Arr::mergeRecursive(
                             ['lib' => 'js/lib/boot.js', 'tranlsator' => ''],
                             //['lib' => 'https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.js','tranlsator'=> ''],
                             ['lib' => 'js/engines/react/date-fns/1.30.1/date_fns.js', 'tranlsator' => ''],
+                            ['lib' => 'js/engines/axios@0.24.0/dist/axios.js', 'tranlsator' => ''],
+                            
                             //['lib' => 'https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js','tranlsator'=> ''],
                             ['lib' => 'js/engines/react/17.0.2/umd/react.development.js', 'tranlsator' => ''],
                             //['lib' => 'https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom-server.browser.development.min.js','tranlsator'=> ''],
@@ -160,9 +161,9 @@ return Arr::mergeRecursive(
                             ['lib' => "js/engines/react/components.js", 'tranlsator' => 'text/babel']
                         ],
                         "stylesheets" => [
-                            "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap",
-                            "https://fonts.googleapis.com/icon?family=Material+Icons",
-                            "https://cdnjs.cloudflare.com/ajax/libs/react-table/6.11.5/react-table.css",
+                            "googleapis-css/css.css",
+                            "material-icons/icon.css",
+                            "react/react-table/6.11.5/react-table.css",
                             //"https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/css/semi.css"
                         ],
                         "translator" => [

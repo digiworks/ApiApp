@@ -103,7 +103,7 @@ function DataGridRest({restUrl,
                               columns
                             ).map((column, index) => (
                                 <TableCell component="td" scope="row" key={row[keyColumn] + index.toString()}>
-                                  {row[column.field]}
+                                  { (typeof column.field !== "function") ? row[column.field] : column.field(row)}
                                 </TableCell>
                             ))}
                             {renderActions(actions, row[keyColumn], row)}

@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install required dependencies
-sudo apt install build-essential curl git python libglib2.0-dev php php-dev php-intl php-curl php-mbstring php-bcmath php-common php-pgsql php-mysql php-bz2
+sudo apt install build-essential curl git python libglib2.0-dev php php-dev php-intl php-curl php-mbstring php-bcmath php-common php-pgsql php-mysql php-bz2 php-gd
 
 cd /tmp
 

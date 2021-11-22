@@ -158,12 +158,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/digiworks/ApiCode.git",
-                "reference": "e31e1013075acfeda30f253059a3d1f43dc10178"
+                "reference": "d36ec503311fb00a1606b5f535439a291cdf3963"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digiworks/ApiCode/zipball/e31e1013075acfeda30f253059a3d1f43dc10178",
-                "reference": "e31e1013075acfeda30f253059a3d1f43dc10178",
+                "url": "https://api.github.com/repos/digiworks/ApiCode/zipball/d36ec503311fb00a1606b5f535439a291cdf3963",
+                "reference": "d36ec503311fb00a1606b5f535439a291cdf3963",
                 "shasum": ""
             },
             "require": {
@@ -209,7 +209,7 @@
                 "issues": "https://github.com/digiworks/ApiCode/issues",
                 "source": "https://github.com/digiworks/ApiCode/tree/0.1.0"
             },
-            "time": "2021-11-16T11:16:58+00:00"
+            "time": "2021-11-19T17:03:30+00:00"
         },
         {
             "name": "doctrine/lexer",

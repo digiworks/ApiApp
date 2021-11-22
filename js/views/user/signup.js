@@ -11,6 +11,11 @@ function IndexPage() {
         confirm_password: ""
     });
     
+    const [pwdsShow, setPwdsShow] = React.useState({
+        showPassword: false,
+        showConfirmPassword: false,
+    });
+
     const presentMsg = baseApp.translations().t("Email already present!", "signup");
     
     const handleSubmit = async (event) => {
@@ -64,6 +69,23 @@ function IndexPage() {
             validator.checkField(name, event.target.value);
         };
     
+    const handleClickShowPassword = () => {
+        setPwdsShow({
+          ...pwdsShow,
+          showPassword: !pwdsShow.showPassword,
+        });
+    };
+    const handleClickShowConfirmPassword = () => {
+        setPwdsShow({
+          ...pwdsShow,
+          showConfirmPassword: !pwdsShow.showConfirmPassword,
+        });
+    };
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
+
      return (
      <div>
         <React.Fragment>
@@ -161,14 +183,28 @@ function IndexPage() {
                   fullWidth
                   name="password"
                   label="Password"
-                  type="password"
+                  type={pwdsShow.showPassword ? 'text' : 'password'}
                   id="password"
                   value={values.password}
                   autoComplete="new-password"
                   onChange={handleChange("password")}
                   onBlur={handleBlur("password")}
-                   error={!validator.fieldValid("password")}
+                  error={!validator.fieldValid("password")}
                   helperText={validator.getFieldErrorMessages("password")}
+                  InputProps={{
+                        endAdornment: (
+                                <InputAdornment position="end">
+                                  <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={handleClickShowPassword}
+                                    onMouseDown={handleMouseDownPassword}
+                                    edge="end"
+                                  >
+                                    {pwdsShow.showPassword ? <Icon>visibility_off</Icon> :  <Icon>visibility</Icon>}
+                                  </IconButton>
+                                </InputAdornment>
+                        )
+                    }}
                 />
                 {validator.addFieldRules("password", "required")}
               </Grid>
@@ -178,7 +214,7 @@ function IndexPage() {
                   fullWidth
                   name="confirm_password"
                   label="Confirm Password"
-                  type="password"
+                  type={pwdsShow.showConfirmPassword ? 'text' : 'password'}
                   id="confirm-password"
                   value={values.confirm_password}
                   autoComplete="new-password"
@@ -186,8 +222,22 @@ function IndexPage() {
                   onBlur={handleBlur("confirm_password")}
                   error={!validator.fieldValid("confirm_password")}
                   helperText={validator.getFieldErrorMessages("confirm_password")}
+                  InputProps={{
+                        endAdornment: (
+                                <InputAdornment position="end">
+                                  <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={handleClickShowConfirmPassword}
+                                    onMouseDown={handleMouseDownPassword}
+                                    edge="end"
+                                  >
+                                    {pwdsShow.showConfirmPassword ? <Icon>visibility_off</Icon> :  <Icon>visibility</Icon>}
+                                  </IconButton>
+                                </InputAdornment>
+                        )
+                    }}
                 />
-                {validator.addFieldRules("confirm_password", "required")}
+                {validator.addFieldRules("confirm_password", "required|same:password")}
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
