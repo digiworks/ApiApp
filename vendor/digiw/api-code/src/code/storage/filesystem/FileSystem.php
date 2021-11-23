@@ -25,8 +25,8 @@ class FileSystem implements ServiceInterface {
     public function getJs($url) {
         return new File($this->basePathJS . DIRECTORY_SEPARATOR . $url);
     }
-
-    public function getCss($url) {
+    
+     public function getCss($url) {
         return new File($this->basePathCss . DIRECTORY_SEPARATOR . $url);
     }
 

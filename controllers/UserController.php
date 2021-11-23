@@ -1,17 +1,15 @@
 <?php
+
 namespace controllers;
 
 use code\applications\ApiAppFactory;
 use code\controllers\AppController;
-use code\service\ServiceTypes;
+use Exception;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
+class UserController extends AppController {
 
-
-class UserController extends AppController
-{
-    
     /**
      * 
      * @param ServerRequestInterface $request
@@ -20,14 +18,16 @@ class UserController extends AppController
      * @return ResponseInterface
      */
     public function table(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
-
-        $currentView = 'js/views/table.js';
-        $renderManager = ApiAppFactory::getApp()->getService(ServiceTypes::RENDER);
-        $response->getBody()->write($renderManager->getRender()->renderView($currentView));
-
+        try {
+            $currentView = 'js/views/table.js';
+            $this->setRequest($request)->setResponse($response)->setCurrentView($currentView)->render();
+        } catch (Exception $ex) {
+            ApiAppFactory::getApp()->getLogger()->error("error", $ex->getMessage());
+            ApiAppFactory::getApp()->getLogger()->error("error", $ex->getTraceAsString());
+        }
         return $response;
     }
-    
+
     /**
      * 
      * @param ServerRequestInterface $request
@@ -38,12 +38,10 @@ class UserController extends AppController
     public function listuser(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
 
         $currentView = 'js/views/listuser.js';
-        $renderManager = ApiAppFactory::getApp()->getService(ServiceTypes::RENDER);
-        $response->getBody()->write($renderManager->getRender()->renderView($currentView));
-
-        return $response;
+        $this->setRequest($request)->setResponse($response)->setCurrentView($currentView)->render();
+        return $this->getResponse();
     }
-    
+
     /**
      * 
      * @param ServerRequestInterface $request
@@ -53,56 +51,54 @@ class UserController extends AppController
      */
     public function login(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
 
-        $currentView = 'js/views/index.js';
-        $renderManager = ApiAppFactory::getApp()->getService(ServiceTypes::RENDER);
-        $response->getBody()->write($renderManager->getRender()->renderView($currentView));
-
+        try {
+            $currentView = 'js/views/index.js';
+            $this->setRequest($request)->setResponse($response)->setCurrentView($currentView)->render();
+        } catch (Exception $ex) {
+            ApiAppFactory::getApp()->getLogger()->error("error", $ex->getMessage());
+            ApiAppFactory::getApp()->getLogger()->error("error", $ex->getTraceAsString());
+        }
         return $response;
     }
-    
+
     public function userslist(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
-        
-        $currentView = 'js/views/user/list.js';
-        $renderManager = ApiAppFactory::getApp()->getService(ServiceTypes::RENDER);
-        $response->getBody()->write($renderManager->getRender()->renderView($currentView));
 
+        try {
+            $currentView = 'js/views/user/list.js';
+            $this->setRequest($request)->setResponse($response)->setCurrentView($currentView)->render();
+        } catch (Exception $ex) {
+            ApiAppFactory::getApp()->getLogger()->error("error", $ex->getMessage());
+            ApiAppFactory::getApp()->getLogger()->error("error", $ex->getTraceAsString());
+        }
         return $response;
     }
-    
+
     public function formuser(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
 
         $currentView = 'js/views/user/form.js';
-        $renderManager = ApiAppFactory::getApp()->getService(ServiceTypes::RENDER);
-        $response->getBody()->write($renderManager->getRender()->renderView($currentView));
-
-        return $response;
+        $this->setRequest($request)->setResponse($response)->setCurrentView($currentView)->render();
+        return $this->getResponse();
     }
-    
+
     public function signup(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
 
         $currentView = 'js/views/user/signup.js';
-        $renderManager = ApiAppFactory::getApp()->getService(ServiceTypes::RENDER);
-        $response->getBody()->write($renderManager->getRender()->useTheme("login")->renderView($currentView));
-
-        return $response;
+        $this->setRequest($request)->setResponse($response)->useTheme("login")->setCurrentView($currentView)->render();
+        return $this->getResponse();
     }
-    
-     public function signin(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
+
+    public function signin(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
 
         $currentView = 'js/views/user/signin.js';
-        $renderManager = ApiAppFactory::getApp()->getService(ServiceTypes::RENDER);
-        $response->getBody()->write($renderManager->getRender()->useTheme("login")->renderView($currentView));
-
-        return $response;
+        $this->setRequest($request)->setResponse($response)->useTheme("login")->setCurrentView($currentView)->render();
+        return $this->getResponse();
     }
-    
+
     public function forgot(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
 
-        $this->response = $response;
-        $this->request = $request;
         $currentView = 'js/views/user/forgot.js';
-        $this->render($currentView, "login");
-        return $response;
+        $this->setRequest($request)->setResponse($response)->useTheme("login")->setCurrentView($currentView)->render();
+        return $this->getResponse();
     }
-    
+
 }

@@ -15,17 +15,11 @@
 
 <body>
 <div id="root">{{serverside}}</div>
-<script  type="text/babel">
+<script  type="{{typeScript}}">
     {{javascript}}
 </script>
 </body>
-<script  type="text/babel">
-    function init(){
-        ReactDOM.hydrate(
-          <App />,
-          document.getElementById("root")
-        );
-    }
-    init();
+<script  type="{{typeScript}}">
+    {{launchScript}}
 </script>
 </html>

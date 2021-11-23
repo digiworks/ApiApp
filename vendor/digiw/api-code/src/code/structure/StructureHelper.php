@@ -1,4 +1,5 @@
 <?php
+
 namespace code\structure;
 
 use ArrayAccess;
@@ -94,11 +95,11 @@ class StructureHelper {
 
         if (!class_exists($class)) {
             throw new DomainException(
-                    sprintf(
-                            'Structure format: %s not supported. Class: %s not found.',
-                            $format,
-                            $class
-                    )
+                            sprintf(
+                                    'Structure format: %s not supported. Class: %s not found.',
+                                    $format,
+                                    $class
+                            )
             );
         }
 

@@ -3,6 +3,7 @@
 namespace code\renders;
 
 use code\applications\ApiAppFactory;
+use code\components\Component;
 use code\service\ServiceInterface;
 use code\service\ServiceTypes;
 
@@ -42,15 +43,26 @@ class RenderManager implements ServiceInterface {
                 $this->render->addTheme($th, $key);
             }
         }
-        if(isset($conf['stylesheets'])){
-             $this->render->addStylesheets($conf['stylesheets']);
+        $components = ApiAppFactory::getApp()->getComponents();
+        if (isset($conf['stylesheets'])) {
+            $this->render->addStylesheets($conf['stylesheets']);
+            /** @var Component $component */
+            foreach($components as $component){
+                $this->render->addStylesheets($component->loadStylesheets());
+            }
         }
-        
+
         if (isset($conf['imports'])) {
             $this->render->addImports($conf['imports']);
+            /** @var Component $component */
+            foreach($components as $component){
+                $this->render->addImports($component->loadImports());
+            }
             $this->render->loadImports();
         }
-        
+        if (isset($conf['onlyServerTrasnformation'])) {
+            $this->render->setOnlyServerTrasnformation($conf['onlyServerTrasnformation']);
+        }
     }
 
 }

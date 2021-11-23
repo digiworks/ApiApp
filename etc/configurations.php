@@ -116,6 +116,7 @@ return Arr::mergeRecursive(
                     ],
                     "render" => [
                         "class" => JsRender::class,
+                        "onlyServerTrasnformation" => false,
                         "engine" => [
                             "class" => V8::class
                         ],
@@ -158,7 +159,6 @@ return Arr::mergeRecursive(
                             //['lib' => "https://cdn.jsdelivr.net/npm/react-multi-date-picker@latest/build/date_picker_header.browser.js",'tranlsator'=> ''],
                             ['lib' => "js/engines/react/react-multi-date-picker/build/date_picker_header.browser.js", 'tranlsator' => ''],
                             ['lib' => "js/engines/react/reactmultidatepicker.js", 'tranlsator' => ''],
-                            ['lib' => 'js/engines/react/react-apexcharts@1.3.9/dist/react-apexcharts.js', 'tranlsator' => '', 'use' => 'client'], // work only in browser
                             //['lib' => 'https://cdn.jsdelivr.net/npm/react-hook-form@7.17.5/dist/index.umd.js','tranlsator'=> ''],
                             //['lib' => 'js/engines/react/react-hook-form/7.17.5/dist/index.umd.js','tranlsator'=> ''],
                             ['lib' => "js/engines/react/components.js", 'tranlsator' => 'text/babel']
@@ -187,6 +187,9 @@ return Arr::mergeRecursive(
                             ]
                         ]
                     ],
+                    "components" => [
+                        
+                    ]
                 ],
                 require 'routes.php',
                 require 'propel.php',

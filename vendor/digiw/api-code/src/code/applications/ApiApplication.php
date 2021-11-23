@@ -24,10 +24,18 @@ class ApiApplication extends App implements CoreApplicationInterface {
     private $params;
     private $services = [];
     private $middlewares = [];
+    private $components = [];
+
+    /**
+     *  Getarray of Components.
+     * @return array
+     */
+    public function getComponents() {
+        return $this->components;
+    }
 
     /**
      * Get the logger.
-     *
      * @return  LoggerInterface
      *
      * @since   1.0
@@ -47,7 +55,7 @@ class ApiApplication extends App implements CoreApplicationInterface {
      */
     public function __construct(ResponseFactoryInterface $responseFactory, ?ContainerInterface $container = null, ?CallableResolverInterface $callableResolver = null, ?RouteCollectorInterface $routeCollector = null, ?RouteResolverInterface $routeResolver = null, ?MiddlewareDispatcherInterface $middlewareDispatcher = null) {
         parent::__construct($responseFactory, $container, $callableResolver, $routeCollector, $routeResolver, $middlewareDispatcher);
-         $this->params = new Structure();
+        $this->params = new Structure();
         $this->addService(ServiceTypes::CONFIGURATIONS, (new Configurations($this->config_path))->init());
     }
 
@@ -130,6 +138,14 @@ class ApiApplication extends App implements CoreApplicationInterface {
      */
     public function loadRoutes() {
         $routes = (array) $this->getService(ServiceTypes::CONFIGURATIONS)->get('routes', []);
+        $this->processRoutes($routes);
+    }
+
+    /**
+     * 
+     * @param array $routes
+     */
+    protected function processRoutes(array $routes) {
         foreach ($routes as $route) {
             switch (strtolower($route['method'])) {
                 case "get":
@@ -139,6 +155,14 @@ class ApiApplication extends App implements CoreApplicationInterface {
                     $this->post($route['route'], $route['controller']);
                     break;
             }
+        }
+    }
+
+    public function loadComponents() {
+        $components = (array) $this->getService(ServiceTypes::CONFIGURATIONS)->get('components', []);
+        foreach ($components as $comp) {
+            $component = $this->newInstance($comp["class"]);
+            $this->processRoutes($component->loadRoutes());
         }
     }
 

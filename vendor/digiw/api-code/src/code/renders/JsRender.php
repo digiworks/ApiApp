@@ -5,6 +5,7 @@ namespace code\renders;
 use code\exceptions\EngineError;
 use code\renders\theme\JsTheme;
 use code\renders\theme\JsThemeInterface;
+use code\utility\Arr;
 use code\utility\Curl;
 
 class JsRender {
@@ -24,7 +25,15 @@ class JsRender {
 
     /** @var bool */
     protected $debug = false;
+
+    /**
+     * 
+     * 
+     */
     protected $transformer;
+
+    /** @var bool */
+    protected $onlyServerTrasnformation = false;
 
     /** @var View */
     protected $view = null;
@@ -95,6 +104,14 @@ class JsRender {
         return $this;
     }
 
+    public function getOnlyServerTrasnformation(): bool {
+        return $this->onlyServerTrasnformation;
+    }
+
+    public function setOnlyServerTrasnformation(bool $onlyServerTrasnformation): void {
+        $this->onlyServerTrasnformation = $onlyServerTrasnformation;
+    }
+
     /**
      * @param bool $enabled
      *
@@ -144,6 +161,16 @@ class JsRender {
      * @return $this
      */
     public function addImports(array $imports) {
+        $this->imports = Arr::mergeRecursive($this->imports, $imports);
+        return $this;
+    }
+
+    /**
+     * 
+     * @param array $imports
+     * @return $this
+     */
+    public function setImports(array $imports) {
         $this->imports = $imports;
         return $this;
     }
@@ -153,8 +180,18 @@ class JsRender {
      * @param array $stylesheets
      * @return $this
      */
-    public function addStylesheets(array $stylesheets) {
+    public function setStylesheets(array $stylesheets) {
         $this->stylesheets = $stylesheets;
+        return $this;
+    }
+
+    /**
+     * 
+     * @param array $stylesheets
+     * @return $this
+     */
+    public function addStylesheets(array $stylesheets) {
+        $this->stylesheets = Arr::mergeRecursive($this->stylesheets, $stylesheets);
         return $this;
     }
 
@@ -262,10 +299,17 @@ class JsRender {
             $clientScript = $this->view->setRenderType(RenderTypes::CLIENT)->render();
         }
         $scriptLibs = $this->imports;
+        $renderer = $this->ssrView->addStylesheets($this->stylesheets)->setScriptServer($ssrScript);
         if (!is_null($this->transformer)) {
+            if ($this->onlyServerTrasnformation) {
+                $clientScript = $this->transformer->transform($clientScript);
+                $renderer->setLaunchScript($this->transformer->transform($renderer->getLaunchScript()));
+            } else {
+                $renderer->setClientTypeScript($this->transformer->getTypeString());
+            }
             array_unshift($scriptLibs, ['lib' => $this->transformer->getLib(), "tranlsator" => ""]);
         }
-        return $this->ssrView->addStylesheets($this->stylesheets)->addImports($scriptLibs)->setScriptServer($ssrScript)->setScriptClient($clientScript)->render();
+        return $renderer->addImports($scriptLibs)->setScriptClient($clientScript)->render();
     }
 
     /**

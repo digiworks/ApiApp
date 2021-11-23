@@ -13,10 +13,8 @@ class DashboardController extends AppController {
     public function dashboard(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
 
         $currentView = 'js/views/dashboard/dashboard.js';
-        $renderManager = ApiAppFactory::getApp()->getService(ServiceTypes::RENDER);
-        $response->getBody()->write($renderManager->getRender()->renderView($currentView));
-
-        return $response;
+        $this->setRequest($request)->setResponse($response)->setCurrentView($currentView)->render();
+        return $this->getResponse();
     }
 
 }
