@@ -126,7 +126,7 @@ function IndexPage() {
                 <Icon>lock</Icon>
             </Avatar>
               <Typography component="h1" variant="h5">
-                Sign up
+                {baseApp.translations().t("signup", "userform")}
               </Typography>
           </Box>
           <Box component="form" autoComplete="off"  onSubmit={handleSubmit} sx={{ mt: 3 }}>
@@ -138,7 +138,7 @@ function IndexPage() {
                   required
                   fullWidth
                   id="firstName"
-                  label="First Name"
+                  label={baseApp.translations().t("name", "userform")}
                   autoFocus
                   value={values.firstName}  
                   onChange={handleChange("firstName")}
@@ -153,7 +153,7 @@ function IndexPage() {
                   required
                   fullWidth
                   id="lastName"
-                  label="Last Name"
+                  label={baseApp.translations().t("surname", "userform")}
                   name="lastName"
                   value={values.lastName}  
                   onChange={handleChange("lastName")}
@@ -168,7 +168,7 @@ function IndexPage() {
                   required
                   fullWidth
                   id="email"
-                  label="Email Address"
+                  label={baseApp.translations().t("email", "userform")}
                   name="email"
                   value={values.email}
                   onChange={handleChange("email")}
@@ -183,7 +183,7 @@ function IndexPage() {
                   required
                   fullWidth
                   name="password"
-                  label="Password"
+                  label={baseApp.translations().t("password", "userform")}
                   type={pwdsShow.showPassword ? 'text' : 'password'}
                   id="password"
                   value={values.password}
@@ -214,7 +214,7 @@ function IndexPage() {
                   required
                   fullWidth
                   name="confirm_password"
-                  label="Confirm Password"
+                  label={baseApp.translations().t("confirm_password", "userform")}
                   type={pwdsShow.showConfirmPassword ? 'text' : 'password'}
                   id="confirm-password"
                   value={values.confirm_password}
@@ -253,12 +253,12 @@ function IndexPage() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              {baseApp.translations().t("signup", "userform")}
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/login" onMouseDown ={handleSigneIn} variant="body2">
-                  Already have an account? Sign in
+                  {baseApp.translations().t("already_account", "userform")}
                 </Link>
               </Grid>
             </Grid>

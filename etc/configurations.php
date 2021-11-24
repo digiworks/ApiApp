@@ -65,10 +65,10 @@ return Arr::mergeRecursive(
                         ]
                     ],
                     "services" => [
-                        ServiceTypes::DATABASE => DataBase::class,
-                        ServiceTypes::LOGGER => Logger::class,
-                        ServiceTypes::RENDER => RenderManager::class,
                         ServiceTypes::FILESYSTEM => FileSystem::class,
+                        ServiceTypes::LOGGER => Logger::class,
+                        ServiceTypes::DATABASE => DataBase::class,
+                        ServiceTypes::RENDER => RenderManager::class,
                         ServiceTypes::MAILER => Mailer::class, //Optional service
                         ServiceTypes::SESSION => Session::class //Optional service
                     ],

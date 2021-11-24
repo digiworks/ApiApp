@@ -84,13 +84,13 @@ function App() {
           <ListItemIcon>
              <Icon >dashboard</Icon>
           </ListItemIcon>
-          <ListItemText primary="Dashboard" />
+          <ListItemText primary={baseApp.translations().t("Dashboard", "app")} />
         </ListItem>
         <ListItem button onClick={toogleUser}>
           <ListItemIcon>
              <Icon >face</Icon>
           </ListItemIcon>
-          <ListItemText primary="Users" />
+          <ListItemText primary={baseApp.translations().t("Users", "app")} />
         </ListItem>
         <ListItem button>
           <ListItemIcon>
@@ -120,7 +120,7 @@ function App() {
           <ListItemIcon>
             <Icon >logout</Icon>
           </ListItemIcon>
-          <ListItemText primary="Log out" />
+          <ListItemText primary={baseApp.translations().t("LogOut", "app")} />
         </ListItem>
       </div>
     );

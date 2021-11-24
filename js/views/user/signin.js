@@ -91,7 +91,7 @@ const handleLink = (event) => {
                <Icon>lock</Icon>
              </Avatar>
              <Typography component="h1" variant="h5">
-               Sign in
+               {baseApp.translations().t("signin", "userform")}
              </Typography>
         </Box>
           <Box component="form"  autoComplete="off" onSubmit={handleSubmit} sx={{ mt: 1 }}>
@@ -100,7 +100,7 @@ const handleLink = (event) => {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label={baseApp.translations().t("email", "userform")}
               name="email"
               autoComplete="email"
               autoFocus
@@ -110,7 +110,7 @@ const handleLink = (event) => {
               required
               fullWidth
               name="password"
-              label="Password"
+              label={baseApp.translations().t("password", "userform")}
               type={values.showPassword ? 'text' : 'password'}
               id="password"
               autoComplete="new-password"
@@ -139,17 +139,17 @@ const handleLink = (event) => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              {baseApp.translations().t("signin", "userform")}
             </Button>
             <Grid container>
               <Grid item xs>
                 <Link href="/forgot" variant="body2" onClick={handleLink}>
-                  Forgot password?
+                  {baseApp.translations().t("forgotpassword", "userform")}
                 </Link>
               </Grid>
               <Grid item>
                 <Link href="/signup" variant="body2" onClick={handleLink}>
-                  {"Don't have an account? Sign Up"}
+                  {baseApp.translations().t("no_accoount", "userform")}
                 </Link>
               </Grid>
             </Grid>

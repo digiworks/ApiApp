@@ -33,7 +33,7 @@ const handleSubmit = (event) => {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label={baseApp.translations().t("email", "userform")}
               name="email"
               autoComplete="email"
               autoFocus
@@ -44,7 +44,7 @@ const handleSubmit = (event) => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Send
+              {baseApp.translations().t("send", "userform")}
             </Button>
           </Box>
         </React.Fragment>

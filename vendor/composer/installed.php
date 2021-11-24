@@ -34,7 +34,7 @@
             'type' => 'component',
             'install_path' => __DIR__ . '/../digiw/api-code',
             'aliases' => array(),
-            'reference' => '95c0ead8de7e866bc67e1fcb930d4bef1e714c2a',
+            'reference' => '8cdf450b6642bb1d7ebfdb26cdf361245330e514',
             'dev_requirement' => false,
         ),
         'digiworks/platform' => array(
@@ -262,8 +262,8 @@
         'psr/http-factory-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0',
-                1 => '^1.0',
+                0 => '^1.0',
+                1 => '1.0',
             ),
         ),
         'psr/http-message' => array(
@@ -311,8 +311,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0.0',
-                1 => '1.0|2.0',
+                0 => '1.0|2.0',
+                1 => '1.0.0',
             ),
         ),
         'ralouphie/getallheaders' => array(
@@ -520,12 +520,12 @@
             'dev_requirement' => false,
         ),
         'symfony/process' => array(
-            'pretty_version' => 'v5.3.11',
-            'version' => '5.3.11.0',
+            'pretty_version' => 'v5.3.12',
+            'version' => '5.3.12.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/process',
             'aliases' => array(),
-            'reference' => '6c99204de85d04ca17f16c466fc61896960b0636',
+            'reference' => 'e498803a6e95ede78e9d5646ad32a2255c033a6a',
             'dev_requirement' => false,
         ),
         'symfony/service-contracts' => array(
@@ -571,12 +571,12 @@
             ),
         ),
         'symfony/validator' => array(
-            'pretty_version' => 'v5.3.11',
-            'version' => '5.3.11.0',
+            'pretty_version' => 'v5.3.12',
+            'version' => '5.3.12.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/validator',
             'aliases' => array(),
-            'reference' => 'a94c595ba6ec7d9fd6492bd5d312ccef1cdcf0d4',
+            'reference' => '379ca8939ebcab78d835e188673396a9f8d6eee8',
             'dev_requirement' => false,
         ),
         'symfony/var-dumper' => array(

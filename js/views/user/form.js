@@ -21,9 +21,6 @@ function IndexPage() {
     const [waiting, setWaiting] = React.useState(false);
     const [emailerror, setEmailError] = React.useState(false);
 
-    baseApp.translations().loadResourceBundle("en", 'userform', {
-        Name: "Nome del soggetto",
-    }, true, true);
     const getModel = async (id) => {
         var data = {
             "Id": id
@@ -152,7 +149,7 @@ function IndexPage() {
                                     <Grid item xs={4}>
                                         <Box width={350}>
                                             <TextField id="Name" name="Name" 
-                                                       label = {baseApp.translations().t("Name", "userform")}
+                                                       label = {baseApp.translations().t("name", "userform")}
                                                        required 
                                                        variant="outlined" 
                                                        value={values.Name}  
@@ -169,7 +166,7 @@ function IndexPage() {
                                         <Box width={350}>
                                             <TextField id="surname" name="surname" 
                                                        required 
-                                                       label={baseApp.translations().t("Surname", "userform")} 
+                                                       label={baseApp.translations().t("surname", "userform")} 
                                                        variant="outlined" 
                                                        value={values.surname}  
                                                        onChange={handleChange("surname")}
@@ -192,7 +189,7 @@ function IndexPage() {
                                                 required
                                                 fullWidth
                                                 id="email"
-                                                label={baseApp.translations().t("Email Address", "userform")}
+                                                label={baseApp.translations().t("email", "userform")}
                                                 name="email"
                                                 value={values.email}
                                                 autoComplete="email" 
@@ -210,7 +207,7 @@ function IndexPage() {
                                                 multiline
                                                 maxRows={4}
                                                 id="description"
-                                                label={baseApp.translations().t("Description", "userform")}
+                                                label={baseApp.translations().t("description", "userform")}
                                                 name="description"
                                                 value={values.description}
                                                 autoComplete="description" 
@@ -239,7 +236,7 @@ function IndexPage() {
                                 </Box>
                                 
                                 <Stack pt={3} pr={1} direction="row" spacing={2} style={{display: "flex", justifyContent: "flex-end"}}>
-                                    <Button sx={{border: "1px dashed grey"}} id = "id_button_1" type="submit">Save</Button>
+                                    <Button sx={{border: "1px dashed grey"}} id = "id_button_1" type="submit">{baseApp.translations().t("save", "userform")}</Button>
                                 </Stack>
                             </Box>
             

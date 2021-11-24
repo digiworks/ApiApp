@@ -10,10 +10,10 @@ function IndexPage() {
        "Deactivated" : baseApp.translations().t("Deactivated", "userform")
     };
     var hd = [
-        {text: "Nome"},
-        {text: "Cognome"},
-        {text: "Email"},
-        {text: "Stato"}
+        {text:  baseApp.translations().t("name", "userform")},
+        {text:  baseApp.translations().t("surname", "userform")},
+        {text:  baseApp.translations().t("email", "userform")},
+        {text:  baseApp.translations().t("status", "userform")}
     ];
     
     const columns = [

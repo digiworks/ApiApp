@@ -27,8 +27,11 @@ function baseI18n(){
     this.loadResourceBundle = function (lng, ns, resources, deep, overwrite){
         this.i18n.addResourceBundle(lng, ns, resources, deep, overwrite);
     }
+    
+    this.changeLanguage = function (lng) {
+        if (lng)  this.i18n.changeLanguage(lng);
+    }
 }
-
 /**
  * 
  * @returns {BaseApp}
