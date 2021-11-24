@@ -1,4 +1,5 @@
 baseApp.translations().loadResourceBundle("en", "userform", {
+    add: "Add",
     name: "Name",
     surname: "Surname",
     email: "Email Address",
@@ -10,6 +11,7 @@ baseApp.translations().loadResourceBundle("en", "userform", {
     send: "Send",
     signin: "Sign In",
     forgotpassword: "Forgot password?",
+    forgotpassword_title: "Forgot password",
     signup: "Sign Up",
     no_accoount: "Don't have an account? Sign Up",
     already_account: "Already have an account? Sign in",
@@ -17,6 +19,7 @@ baseApp.translations().loadResourceBundle("en", "userform", {
 }, true, true);
 
 baseApp.translations().loadResourceBundle("it", "userform", {
+    add: "Aggiungi",
     name: "Nome",
     surname: "Cognome",
     email: "Indirizzo Email",
@@ -28,6 +31,7 @@ baseApp.translations().loadResourceBundle("it", "userform", {
     send: "Invia",
     signin: "Entra",
     forgotpassword: "Password dimenticata?",
+    forgotpassword_title: "Password dimenticata",
     signup: "Registrati",
     no_accoount: "Non hai un account? Registrati",
     already_account: "Hai gia' un account? Entra",

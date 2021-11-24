@@ -21,19 +21,23 @@ class FileApiController extends AppController {
     public function stream(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
 
         try {
+            $this->setRequest($request)->setResponse();
             $params = $request->getQueryParams();
             $type = isset($params['type']) && $params['type'] == '2' ? 'attachment' : 'inline';
             $fileSystem = ApiAppFactory::getApp()->getService(ServiceTypes::FILESYSTEM);
             $file = $fileSystem->getFile($params['file']);
-            $file_stream = $file->stream();
-            $expireOffset = ApiAppFactory::getApp()->getService(ServiceTypes::CONFIGURATIONS)->get('env.web.streamExpirationOffset', 0);
-            return $response->withHeader('Cache-Control', 'public')
-                            ->withHeader('Content-Type', $file->mime_content_type())
-                            ->withHeader('Content-Length', $file->filesize())
-                            ->withHeader('Content-Disposition', $type . '; filename=' . $file->basename())
-                            ->withHeader('Accept-Ranges', $file->filesize())
-                            ->withHeader('Expires', gmdate("D, d M Y H:i:s", time() + $expireOffset) . " GMT")
-                            ->withBody($file_stream);
+            if ($this->ifModifiedSiceRequest($file)) {
+                $file_stream = $file->stream();
+                $expireOffset = ApiAppFactory::getApp()->getService(ServiceTypes::CONFIGURATIONS)->get('env.web.streamExpirationOffset', 0);
+                return $response->withHeader('Cache-Control', 'public')
+                                ->withHeader('Content-Type', $file->mime_content_type())
+                                ->withHeader('Content-Length', $file->filesize())
+                                ->withHeader('Content-Disposition', $type . '; filename=' . $file->basename())
+                                ->withHeader('Accept-Ranges', $file->filesize())
+                                ->withHeader('Last-Modified', gmdate('D, d M Y H:i:s T', $file->filemtime()))
+                                ->withHeader('Expires', gmdate("D, d M Y H:i:s", time() + $expireOffset) . " GMT")
+                                ->withBody($file_stream);
+            }
         } catch (Exception $ex) {
             ApiAppFactory::getApp()->getLogger()->error("error", $ex->getMessage());
             ApiAppFactory::getApp()->getLogger()->error("error", $ex->getTraceAsString());
@@ -58,16 +62,18 @@ class FileApiController extends AppController {
                 $file = $fileSystem->getJs($request->getAttribute('path'));
             }
 
-
-            $file_stream = $file->stream();
-            $expireOffset = ApiAppFactory::getApp()->getService(ServiceTypes::CONFIGURATIONS)->get('env.web.jsExpirationOffset', 0);
-            return $response
-                            ->withHeader('Content-Type', 'x-javascript')
-                            ->withHeader('Content-Length', $file->filesize())
-                            ->withHeader('Cache-Control', 'max-age=' . $expireOffset . ', must-revalidate')
-                            ->withHeader('Expires', gmdate("D, d M Y H:i:s", time() + $expireOffset) . " GMT")
-                            ->withHeader('Pragma', "public")
-                            ->withBody($file_stream);
+            if ($this->ifModifiedSiceRequest($file)) {
+                $file_stream = $file->stream();
+                $expireOffset = ApiAppFactory::getApp()->getService(ServiceTypes::CONFIGURATIONS)->get('env.web.jsExpirationOffset', 0);
+                return $response
+                                ->withHeader('Content-Type', 'x-javascript')
+                                ->withHeader('Content-Length', $file->filesize())
+                                ->withHeader('Cache-Control', 'max-age=' . $expireOffset . ', must-revalidate')
+                                ->withHeader('Last-Modified', gmdate('D, d M Y H:i:s T', $file->filemtime()))
+                                ->withHeader('Expires', gmdate("D, d M Y H:i:s", time() + $expireOffset) . " GMT")
+                                ->withHeader('Pragma', "public")
+                                ->withBody($file_stream);
+            }
         } catch (Exception $ex) {
             ApiAppFactory::getApp()->getLogger()->error("error", $ex->getMessage());
             ApiAppFactory::getApp()->getLogger()->error("error", $ex->getTraceAsString());
@@ -92,19 +98,37 @@ class FileApiController extends AppController {
             } else {
                 $file = $fileSystem->getCss($request->getAttribute('path'));
             }
-            $file_stream = $file->stream();
-            $expireOffset = ApiAppFactory::getApp()->getService(ServiceTypes::CONFIGURATIONS)->get('env.web.cssExpirationOffset', 0);
-            return $response->withHeader('Content-Type', 'text/css')
-                            ->withHeader('Content-Length', $file->filesize())
-                            ->withHeader('Cache-Control', 'max-age=' . $expireOffset . ', must-revalidate')
-                            ->withHeader('Expires', gmdate("D, d M Y H:i:s", time() + $expireOffset) . " GMT")
-                            ->withHeader('Pragma', "public")
-                            ->withBody($file_stream);
+            if ($this->ifModifiedSiceRequest($file)) {
+                $file_stream = $file->stream();
+                $expireOffset = ApiAppFactory::getApp()->getService(ServiceTypes::CONFIGURATIONS)->get('env.web.cssExpirationOffset', 0);
+                return $response->withHeader('Content-Type', 'text/css')
+                                ->withHeader('Content-Length', $file->filesize())
+                                ->withHeader('Cache-Control', 'max-age=' . $expireOffset . ', must-revalidate')
+                                ->withHeader('Last-Modified', gmdate('D, d M Y H:i:s T', $file->filemtime()))
+                                ->withHeader('Expires', gmdate("D, d M Y H:i:s", time() + $expireOffset) . " GMT")
+                                ->withHeader('Pragma', "public")
+                                ->withBody($file_stream);
+            }
         } catch (Exception $ex) {
             ApiAppFactory::getApp()->getLogger()->error("error", $ex->getMessage());
             ApiAppFactory::getApp()->getLogger()->error("error", $ex->getTraceAsString());
         }
         return $response;
+    }
+
+    /**
+     * 
+     * @param File $file
+     * @return bool
+     */
+    private function ifModifiedSiceRequest($file): bool {
+        $ret = true;
+        if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) &&
+                strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) >= $file->filemtime()) {
+            $this->response->withStatus(304)->withHeader('Last-Modified', gmdate('D, d M Y H:i:s T', $file->filemtime()));
+            $ret = false;
+        }
+        return $ret;
     }
 
 }

@@ -90,7 +90,7 @@ function IndexPage() {
                 <CircularProgress color="inherit" />
             </Backdrop>
             <Box pb={3} pl={1}>
-                <Button sx={{ border: "1px dashed grey" }} id = "id_button_1" onClick={createuser}>Add</Button>
+                <Button sx={{ border: "1px dashed grey" }} id = "id_button_1" onClick={createuser}>{baseApp.translations().t("add", "userform")}</Button>
             </Box>
             <DataGridRest
                 restUrl = "/api/user/paginate"

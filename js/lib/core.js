@@ -12,7 +12,7 @@ function baseI18n(){
         this.i18n.use(initReactI18next);
         this.i18n.init({
           resources: {},
-          lng: "en", 
+          lng: "it", 
           interpolation: {
             escapeValue: false 
           }
