@@ -9,7 +9,11 @@
    href="/static/images/favicon/favicon-32x32.png">
    
     {{stylesheets}}
-    
+   
+<script type="text/javascript">
+    var envConf = {{envConf}}; 
+</script>
+   
     {{imports}}
 </head>
 

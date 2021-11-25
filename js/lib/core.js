@@ -32,6 +32,7 @@ function baseI18n(){
         if (lng)  this.i18n.changeLanguage(lng);
     }
 }
+
 /**
  * 
  * @returns {BaseApp}
@@ -52,6 +53,9 @@ function BaseApp() {
         if(this.isWeb()){
             this.localStorage = window.localStorage;
             this.sessionStorage = window.sessionStorage
+        }
+        if(conf.apiGateway !== "undefined"){
+            this.apiGateway = conf.apiGateway;
         }
     }
     
@@ -223,4 +227,4 @@ function BaseApp() {
 }
 
 const baseApp = new BaseApp();
-baseApp.init();
+baseApp.init(envConf);

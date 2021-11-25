@@ -10,7 +10,98 @@ function DatePickerInput({ openCalendar, value, handleValueChange }) {
 }
 
 
-function DataGridRest({restUrl, 
+const DataGridRestToolbar = (props) => {
+  const { numSelected, title } = props;
+
+  return (
+    <Toolbar
+      sx={{
+        pl: { sm: 2 },
+        pr: { xs: 1, sm: 1 },
+        ...(numSelected > 0 && {
+          bgcolor: (theme) =>
+            alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+        }),
+      }}
+    >
+      {numSelected > 0 ? (
+        <Typography
+          sx={{ flex: "1 1 100%" }}
+          color="inherit"
+          variant="subtitle1"
+          component="div"
+        >
+          {numSelected} selected
+        </Typography>
+      ) : (
+        <Typography
+          sx={{ flex: "1 1 100%" }}
+          variant="h6"
+          id="tableTitle"
+          component="div"
+        >
+          {title}
+        </Typography>
+      )}
+
+        
+          <IconButton>
+          <Icon>filter_list</Icon>
+          </IconButton>
+       
+    </Toolbar>
+  );
+};
+
+const  DataGridRestHead = (props) => {
+  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+  const createSortHandler = (property) => (event) => {
+    onRequestSort(event, property);
+  };
+
+  return (
+    <TableHead>
+      <TableRow>
+        <TableCell padding="checkbox">
+          <Checkbox
+            color="primary"
+            indeterminate={numSelected > 0 && numSelected < rowCount}
+            checked={rowCount > 0 && numSelected === rowCount}
+            onChange={onSelectAllClick}
+            inputProps={{
+              "aria-label": "select all desserts",
+            }}
+          />
+        </TableCell>
+        {headCells.map((headCell) => (
+          <TableCell
+            key={headCell.id}
+            align={headCell.numeric ? "right" : "left"}
+            padding={headCell.disablePadding ? "none" : "normal"}
+            sortDirection={orderBy === headCell.id ? order : false}
+          >
+            <TableSortLabel
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : "asc"}
+              onClick={createSortHandler(headCell.id)}
+            >
+              {headCell.label}
+              {orderBy === headCell.id ? (
+                <Box component="span" sx={visuallyHidden}>
+                  {order === "desc" ? "sorted descending" : "sorted ascending"}
+                </Box>
+              ) : null}
+            </TableSortLabel>
+          </TableCell>
+        ))}
+      </TableRow>
+    </TableHead>
+  );
+};
+
+function DataGridRest({
+                        title = "Grid",
+                        restUrl, 
                         headers, 
                         keyColumn , 
                         columns,
@@ -23,6 +114,12 @@ function DataGridRest({restUrl,
   const [rowsPerPage, setRowsPerPage] = React.useState(rowsPerPageInit);
   const [rows, setRows] = React.useState([]);
   const [totalElements, setTotalElements] = React.useState(0);
+  const [dense, setDense] = React.useState(false);
+  
+  
+  const handleChangeDense = (event) => {
+    setDense(event.target.checked);
+  };
   
   const addAction = (action, indexRow, indexAction, rowData) => {
         return (
@@ -80,7 +177,8 @@ function DataGridRest({restUrl,
   
   return (
         <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <DataGridRestToolbar title={title} />
+            <Table sx={{ minWidth: 650 }} aria-label="simple table" size={dense ? "small" : "medium"}>
                  <TableHead>
                     <TableRow>
                         {( 
@@ -120,7 +218,12 @@ function DataGridRest({restUrl,
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
               />
+            <FormControlLabel
+                sx={{pl:3}}
+                control={<Switch checked={dense} onChange={handleChangeDense} />}
+                label="Dense padding"
+            />
         </TableContainer>
-            );
+    );
 }
 
