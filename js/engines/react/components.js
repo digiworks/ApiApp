@@ -53,47 +53,61 @@ const DataGridRestToolbar = (props) => {
   );
 };
 
-const  DataGridRestHead = (props) => {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+const  DataGridRestHead = ({
+                            withSelectCheckBox = false,
+                            onSelectAllClick, 
+                            order = "asc", 
+                            orderBy, 
+                            numSelected = 0, 
+                            rowCount, 
+                            onRequestSort, 
+                            headers = [],
+                            actions = []
+                        }) => {
+  
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
+  };
+  
+  const createSelectAlltHandler = (property) => (event) => {
+    onSelectAllClick(event, property);
   };
 
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              "aria-label": "select all desserts",
-            }}
-          />
-        </TableCell>
-        {headCells.map((headCell) => (
+      {(withSelectCheckBox ?
+            <TableCell padding="checkbox">
+              <Checkbox
+                color="primary"
+                indeterminate={numSelected > 0 && numSelected < rowCount}
+                checked={rowCount > 0 && numSelected === rowCount}
+                onChange={createSelectAlltHandler}
+                inputProps={{
+                  "aria-label": "select all desserts",
+                }}
+              /> 
+            </TableCell>
+        : null)}
+        {(headers).map((headCell, index) => (
           <TableCell
-            key={headCell.id}
+            key={"th" + index.toString()}
             align={headCell.numeric ? "right" : "left"}
             padding={headCell.disablePadding ? "none" : "normal"}
-            sortDirection={orderBy === headCell.id ? order : false}
+            sortDirection={orderBy === ("th" + index.toString()) ? order : false}
           >
             <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : "asc"}
-              onClick={createSortHandler(headCell.id)}
+              active={orderBy === ("th" + index.toString())}
+              direction={orderBy === ("th" + index.toString()) ? order : "asc"}
+              onClick={createSortHandler("th" + index.toString())}
             >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
-                </Box>
-              ) : null}
+              {orderBy === ("th" + index.toString()) ? (
+                <Tooltip title={order === "desc" ? "sorted descending" : "sorted ascending"}><span>{headCell.text}</span></Tooltip>
+              ) : headCell.text}
             </TableSortLabel>
           </TableCell>
         ))}
+        {actions.length ? <TableCell component="th" align="right" key="thactions"></TableCell> : null}
       </TableRow>
     </TableHead>
   );
@@ -108,7 +122,10 @@ function DataGridRest({
                         actions = [],
                         refresh = false,
                         rowsPerPageInit = 5, 
-                        rowsPerPageOptions = [5, 10, 25, 50, 100, 150, 200, 300]
+                        rowsPerPageOptions = [5, 10, 25, 50, 100, 150, 200, 300],
+                        orderByHeader = "",
+                        orderDirection = "asc",
+                        onRequestSort
         }){
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(rowsPerPageInit);
@@ -179,16 +196,13 @@ function DataGridRest({
         <TableContainer component={Paper}>
             <DataGridRestToolbar title={title} />
             <Table sx={{ minWidth: 650 }} aria-label="simple table" size={dense ? "small" : "medium"}>
-                 <TableHead>
-                    <TableRow>
-                        {( 
-                           headers
-                          ).map((row, index) => (
-                        <TableCell component="th"  key={"th" + index.toString()}>{row.text}</TableCell>
-                        ))}
-                        {actions.length ? <TableCell component="th" align="right" key="thactions"></TableCell>: ""}
-                    </TableRow>
-                </TableHead>
+                <DataGridRestHead 
+                    headers = {headers} 
+                    actions = {actions}
+                    order={orderDirection}
+                    orderBy={orderByHeader}
+                    onRequestSort={onRequestSort}
+                />
                 <TableBody>
                          {(
                            rows

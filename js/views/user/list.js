@@ -3,17 +3,24 @@ function IndexPage() {
     const [open, setOpen] = React.useState(false);
     const [data, setData] = React.useState([]);
     const [refresh, setRefresh] = React.useState(false);
-    
+    const [order, setOrder] = React.useState('asc');
+    const [orderBy, setOrderBy] = React.useState("th1");
+   
+  const handleRequestSort = (event, property) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
+  };
     
    const labels = { 
        "Active" : baseApp.translations().t("Active", "userform"),
        "Deactivated" : baseApp.translations().t("Deactivated", "userform")
     };
     var hd = [
-        {text:  baseApp.translations().t("name", "userform")},
-        {text:  baseApp.translations().t("surname", "userform")},
-        {text:  baseApp.translations().t("email", "userform")},
-        {text:  baseApp.translations().t("status", "userform")}
+        {text:  baseApp.translations().t("name", "userform"), numeric: 0, disablePadding: 0},
+        {text:  baseApp.translations().t("surname", "userform"), numeric: 0, disablePadding: 0},
+        {text:  baseApp.translations().t("email", "userform"), numeric: 0, disablePadding: 0},
+        {text:  baseApp.translations().t("status", "userform"), numeric: 0, disablePadding: 0}
     ];
     
     const columns = [
@@ -99,6 +106,9 @@ function IndexPage() {
                 columns = {columns}
                 actions = {actions}
                 refresh = {refresh}
+                orderByHeader = {orderBy}
+                orderDirection = {order}
+                onRequestSort={handleRequestSort}
             />
             <Dialog
               open={open}
