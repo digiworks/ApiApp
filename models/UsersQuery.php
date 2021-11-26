@@ -10,7 +10,7 @@ class UsersQuery extends BaseUsersQuery {
         return $this->create()->filterByDeletedAt()->find();
     }
 
-    public function listPaginate($page = 1, $maxPerPage = 10, string $order = "asc", string $orderBy = "") {
+    public function listPaginate($page = 1, $maxPerPage = 10, string $order = "asc", string $orderBy = "", $filter = []) {
         $query = $this->create()->filterByDeletedAt();
         if (!empty($orderBy)) {
             $query->orderBy($orderBy, $order);

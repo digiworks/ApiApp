@@ -12,10 +12,12 @@ function DatePickerInput({ openCalendar, value, handleValueChange }) {
 
 const DataGridRestToolbar = (props) => {
   const { numSelected, title } = props;
-
+  const acordion_icon = <Icon>filter_list</Icon>;
+  
   return (
     <Toolbar
       sx={{
+        pb: { sm: 3 },
         pl: { sm: 2 },
         pr: { xs: 1, sm: 1 },
         ...(numSelected > 0 && {
@@ -26,7 +28,7 @@ const DataGridRestToolbar = (props) => {
     >
       {numSelected > 0 ? (
         <Typography
-          sx={{ flex: "1 1 100%" }}
+          sx={{ flex: "1 1 30%" }}
           color="inherit"
           variant="subtitle1"
           component="div"
@@ -35,7 +37,7 @@ const DataGridRestToolbar = (props) => {
         </Typography>
       ) : (
         <Typography
-          sx={{ flex: "1 1 100%" }}
+          sx={{ flex: "1 1 30%" }}
           variant="h6"
           id="tableTitle"
           component="div"
@@ -44,11 +46,22 @@ const DataGridRestToolbar = (props) => {
         </Typography>
       )}
 
-        
-          <IconButton>
-          <Icon>filter_list</Icon>
-          </IconButton>
-       
+        <Box sx={{mt: 3, flex: "1 1 100%"}} pr={3}>
+            <Accordion><AccordionSummary expandIcon={acordion_icon} aria-controls="panel1a-content" id="panel1a-header"> 
+                    <Typography></Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <Grid container spacing={2}>
+                        <Grid item xs={4}>
+                            <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+                        </Grid>
+                    </Grid>
+                    <Stack pt={3} pr={1} direction="row" spacing={2} style={{display: "flex", justifyContent: "flex-end"}}>
+                        <Button sx={{border: "1px dashed grey"}} id = "id_button_1" >{baseApp.translations().t("Filter", "datagridrest")}</Button>
+                    </Stack>
+                </AccordionDetails>
+            </Accordion>
+        </Box>
     </Toolbar>
   );
 };
