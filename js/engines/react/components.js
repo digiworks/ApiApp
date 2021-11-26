@@ -91,6 +91,7 @@ const  DataGridRestHead = ({
         : null)}
         {(headers).map((headCell, index) => (
           <TableCell
+            component="th"
             key={headCell.field}
             align={headCell.numeric ? "right" : "left"}
             padding={headCell.disablePadding ? "none" : "normal"}
@@ -140,7 +141,7 @@ function DataGridRest({
   
   const addAction = (action, indexRow, indexAction, rowData) => {
         return (
-            <Tooltip title={action.tooltip}>
+            <Tooltip title={action.tooltip} key={"tlp" + indexRow.toString() + "_" + indexAction.toString()}>
             <span>
                 <Button label={action.tooltip} onClick={(event) => {action.onClick(event,rowData);}} key={"bt" + indexRow.toString() + "_" + indexAction.toString()}>
                     <Icon>{action.icon}</Icon>
