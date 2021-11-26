@@ -84,24 +84,24 @@ const  DataGridRestHead = ({
                 checked={rowCount > 0 && numSelected === rowCount}
                 onChange={createSelectAlltHandler}
                 inputProps={{
-                  "aria-label": "select all desserts",
+                  "aria-label": "select all desserts"
                 }}
               /> 
             </TableCell>
         : null)}
         {(headers).map((headCell, index) => (
           <TableCell
-            key={"th" + index.toString()}
+            key={headCell.field}
             align={headCell.numeric ? "right" : "left"}
             padding={headCell.disablePadding ? "none" : "normal"}
-            sortDirection={orderBy === ("th" + index.toString()) ? order : false}
+            sortDirection={orderBy === headCell.field ? order : false}
           >
             <TableSortLabel
-              active={orderBy === ("th" + index.toString())}
-              direction={orderBy === ("th" + index.toString()) ? order : "asc"}
-              onClick={createSortHandler("th" + index.toString())}
+              active={orderBy === headCell.field}
+              direction={orderBy === headCell.field ? order : "asc"}
+              onClick={createSortHandler(headCell.field)}
             >
-              {orderBy === ("th" + index.toString()) ? (
+              {orderBy === headCell.field ? (
                 <Tooltip title={order === "desc" ? "sorted descending" : "sorted ascending"}><span>{headCell.text}</span></Tooltip>
               ) : headCell.text}
             </TableSortLabel>
@@ -115,6 +115,7 @@ const  DataGridRestHead = ({
 
 function DataGridRest({
                         title = "Grid",
+                        denseType = false,
                         restUrl, 
                         headers, 
                         keyColumn , 
@@ -131,8 +132,7 @@ function DataGridRest({
   const [rowsPerPage, setRowsPerPage] = React.useState(rowsPerPageInit);
   const [rows, setRows] = React.useState([]);
   const [totalElements, setTotalElements] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
-  
+  const [dense, setDense] = React.useState(denseType);
   
   const handleChangeDense = (event) => {
     setDense(event.target.checked);
@@ -140,10 +140,14 @@ function DataGridRest({
   
   const addAction = (action, indexRow, indexAction, rowData) => {
         return (
-            <Button label={action.tooltip} onClick={(event) => {action.onClick(event,rowData);}} key={"bt" + indexRow.toString() + "_" + indexAction.toString()}>
-                <Icon>{action.icon}</Icon>
-                {action.text}
-            </Button>
+            <Tooltip title={action.tooltip}>
+            <span>
+                <Button label={action.tooltip} onClick={(event) => {action.onClick(event,rowData);}} key={"bt" + indexRow.toString() + "_" + indexAction.toString()}>
+                    <Icon>{action.icon}</Icon>
+                    {action.text}
+                </Button>
+            </span>
+            </Tooltip>
         );
   };
   
@@ -171,11 +175,13 @@ function DataGridRest({
     setPage(0);
   };
   
- let getData = async (page: number, size: number) => {
+ let getData = async (page: number, size: number, order: string, orderBy: string) => {
     
     let url = restUrl +
         `?per_page=`+ size +
-        `&page=` + (page + 1);
+        `&page=` + (page + 1) + 
+        `&order=` + order + 
+        `&orderBy=` + orderBy;
     const response = await fetch(url);
     const result = await response.json();
     setTotalElements(result.totalCount);
@@ -183,12 +189,12 @@ function DataGridRest({
   };
         
   React.useEffect(() => {
-        getData(page, rowsPerPage);
-  }, [page, rowsPerPage]);
+        getData(page, rowsPerPage, orderDirection, orderByHeader);
+  }, [page, rowsPerPage, orderDirection, orderByHeader ]);
   
   React.useEffect(() => {
      if(refresh){
-        getData(page, rowsPerPage);
+        getData(page, rowsPerPage, orderDirection, orderByHeader);
     }
   }, [refresh]);
   
