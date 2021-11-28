@@ -21,7 +21,7 @@ class FileApiController extends AppController {
     public function stream(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
 
         try {
-            $this->setRequest($request)->setResponse();
+            $this->setRequest($request)->setResponse($response);
             $params = $request->getQueryParams();
             $type = isset($params['type']) && $params['type'] == '2' ? 'attachment' : 'inline';
             $fileSystem = ApiAppFactory::getApp()->getService(ServiceTypes::FILESYSTEM);
@@ -54,6 +54,7 @@ class FileApiController extends AppController {
      */
     public function js(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
         try {
+            $this->setRequest($request)->setResponse($response);
             $fileSystem = ApiAppFactory::getApp()->getService(ServiceTypes::FILESYSTEM);
             $params = $request->getQueryParams();
             if (isset($params['file'])) {
@@ -90,7 +91,7 @@ class FileApiController extends AppController {
      */
     public function css(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
         try {
-
+            $this->setRequest($request)->setResponse($response);
             $fileSystem = ApiAppFactory::getApp()->getService(ServiceTypes::FILESYSTEM);
             $params = $request->getQueryParams();
             if (isset($params['file'])) {

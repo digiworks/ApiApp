@@ -1,6 +1,7 @@
 <?php
 
 use code\applications\ApiAppFactory;
+use code\debugger\Debugger;
 use code\logger\Logger;
 use code\mailer\Mailer;
 use code\middlewares\FilterMiddleware;
@@ -70,7 +71,8 @@ return Arr::mergeRecursive(
                         ServiceTypes::DATABASE => DataBase::class,
                         ServiceTypes::RENDER => RenderManager::class,
                         ServiceTypes::MAILER => Mailer::class, //Optional service
-                        ServiceTypes::SESSION => Session::class //Optional service
+                        ServiceTypes::SESSION => Session::class, //Optional service
+                        ServiceTypes::DEBUGGER => Debugger::class //Optional service
                     ],
                     "middlewares" => [
                         "JsonBodyParserMiddleware" => [
