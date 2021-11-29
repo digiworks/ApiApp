@@ -62,7 +62,8 @@ class UserController extends AppController {
     }
 
     public function userslist(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
-
+        \code\debugger\Debugger::startTrace();
+        \code\debugger\Debugger::bufferLog("TEST");
         try {
             $currentView = 'js/views/user/list.js';
             $this->setRequest($request)->setResponse($response)->setCurrentView($currentView)->render();
@@ -70,6 +71,7 @@ class UserController extends AppController {
             ApiAppFactory::getApp()->getLogger()->error("error", $ex->getMessage());
             ApiAppFactory::getApp()->getLogger()->error("error", $ex->getTraceAsString());
         }
+        \code\debugger\Debugger::stopTrace( );
         return $response;
     }
 
