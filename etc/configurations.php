@@ -63,6 +63,36 @@ return Arr::mergeRecursive(
                             "baseJsFolderPath" => COREPATH_JS,
                             "baseCssFolderPath" => COREPATH_CSS,
                             "baseMailsFolderPath" => COREPATH_MAILS
+                        ],
+                        "debugger" => [ // if service Debugger enabled
+                            'url_key' => 'debug', // the key to pass to the url to turn on debug
+                            'url_pass' => 'true', // the pass to turn on debug
+                            'replace_error_handler' => true, // replace default php error handler
+                            'error_reporting' => E_ALL, // error reporting flag
+                            'catch_exceptions' => true, // sets exception handler to be this class method
+                            'check_referer' => false, // check referer for key and pass ( good for ajax debugging )
+                            'die_on_error' => true, // die if fatal error occurs ( with this class error handler )
+                            'debug_console' => false, // only for Chrome,show messages in console ( phpConsole needed )
+                            'allowed_ips' => null, // restrict access with ip's
+                            'session_start' => false, // start session for persistent debugging
+                            'show_interface' => true, // show the interface ( false to debug in console only )
+                            'set_time_limit' => null, // set php execution time limit
+                            'memory_limit' => null, // set php memory size	
+                            'show_messages' => true, // show messages panel
+                            'show_globals' => true, // show global variables in vars panel
+                            'show_sql' => true, // show sql panel
+                            'show_w3c' => true, // show the w3c panel
+                            'minified_html' => true, // compress html for a lighter output
+                            'trace_depth' => 10, // maximum depth for the backtrace
+                            'max_dump_depth' => 6, // maximum depth for the dump function	
+                            'panel_top' => '0px', // panel top position
+                            'panel_right' => '0px', // panel right position
+                            'default_category' => 'General', // default category for the messages
+                            'enable_inspector' => true, // enable variables inspector, use declare(ticks=n); in code block
+                            'code_coverage' => true, // enable code coverage analysis, use "full" to start globally
+                            'trace_functions' => true, // enable function calls tracing, use "full" to start globally
+                            'declare_ticks' => true,
+                            'exclude_categories' => array('Event Manager', 'Autoloader') // exclude categories from the output
                         ]
                     ],
                     "services" => [
