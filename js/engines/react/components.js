@@ -11,9 +11,15 @@ function DatePickerInput({ openCalendar, value, handleValueChange }) {
 
 
 const DataGridRestToolbar = (props) => {
-  const { numSelected, title } = props;
+  const { numSelected, title, filterFields, onRequestFilter } = props;
   const acordion_icon = <Icon>filter_list</Icon>;
-  
+  const createFilterHandler = (event) => {
+    onRequestFilter(event);
+  };
+  const handleFilterChange = id => event => {
+        filterFields[id].value = event.target.value;
+    };
+        
   return (
     <Toolbar
       sx={{
@@ -45,23 +51,32 @@ const DataGridRestToolbar = (props) => {
           {title}
         </Typography>
       )}
-
+      { filterFields.length  > 0 ? (
         <Box sx={{mt: 3, flex: "1 1 100%"}} pr={3}>
             <Accordion><AccordionSummary expandIcon={acordion_icon} aria-controls="panel1a-content" id="panel1a-header"> 
-                    <Typography></Typography>
+                    <Typography>Filter</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <Grid container spacing={2}>
+                    {(filterFields).map((headCell, index) => (
                         <Grid item xs={4}>
-                            <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+                            {(function () {
+                                switch (headCell.type) {
+                                    case 'text':
+                                        return (<TextField id={headCell.id} label={headCell.label} variant="outlined"  onChange={handleFilterChange(index)}/>);
+                                        break;
+                                }
+                            })()}
                         </Grid>
+                        ))}
                     </Grid>
                     <Stack pt={3} pr={1} direction="row" spacing={2} style={{display: "flex", justifyContent: "flex-end"}}>
-                        <Button sx={{border: "1px dashed grey"}} id = "id_button_1" >{baseApp.translations().t("Filter", "datagridrest")}</Button>
+                        <Button sx={{border: "1px dashed grey"}} id = "id_button_1" onClick ={createFilterHandler}>{baseApp.translations().t("Filter", "datagridrest")}</Button>
                     </Stack>
                 </AccordionDetails>
             </Accordion>
         </Box>
+        ) : null}
     </Toolbar>
   );
 };
@@ -135,12 +150,14 @@ function DataGridRest({
                         keyColumn , 
                         columns,
                         actions = [],
+                        filterFields = [],
                         refresh = false,
                         rowsPerPageInit = 5, 
                         rowsPerPageOptions = [5, 10, 25, 50, 100, 150, 200, 300],
                         orderByHeader = "",
                         orderDirection = "asc",
-                        onRequestSort
+                        onRequestSort,
+                        onRequestFilter
         }){
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(rowsPerPageInit);
@@ -214,7 +231,7 @@ function DataGridRest({
   
   return (
         <TableContainer component={Paper}>
-            <DataGridRestToolbar title={title} />
+            <DataGridRestToolbar title={title} filterFields={filterFields} onRequestFilter = {onRequestFilter}/>
             <Table sx={{ minWidth: 650 }} aria-label="simple table" size={dense ? "small" : "medium"}>
                 <DataGridRestHead 
                     headers = {headers} 

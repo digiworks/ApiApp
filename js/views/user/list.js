@@ -1,3 +1,6 @@
+/* User List
+ *---------
+*/
 function IndexPage() {
     const [waiting, setWaiting] = React.useState(false);
     const [open, setOpen] = React.useState(false);
@@ -5,7 +8,14 @@ function IndexPage() {
     const [refresh, setRefresh] = React.useState(false);
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState("Name");
+    const [filters, setFilters] = React.useState([
+        {type: "text", id: "fltName", label: "Name", value: "" }
+    ]);
    
+  const handleRequestFilter = (event) => {
+      if(baseApp.isWeb()) alert(filters[0].value);
+  };
+  
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -87,7 +97,6 @@ function IndexPage() {
       baseApp.redirect(path);
     };
     
-    
     return (
         <div>
             <Backdrop
@@ -105,6 +114,8 @@ function IndexPage() {
                 keyColumn = "Id"
                 columns = {columns}
                 actions = {actions}
+                filterFields = {filters}
+                onRequestFilter = {handleRequestFilter}
                 refresh = {refresh}
                 orderByHeader = {orderBy}
                 orderDirection = {order}
