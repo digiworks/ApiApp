@@ -114,9 +114,10 @@ class UserApiController extends AppController {
         $per_page = $params['per_page'];
         $order = isset($params['order']) ? $params['order'] : 'asc';
         $orderBy = isset($params['orderBy']) ? $params['orderBy'] : '';
+        $filter = isset($params['filter']) ? json_decode($params['filter']) : [];
         $query = new UsersQuery();
-        $data = $query->listPaginate($page, $per_page, $order, $orderBy);
-        $totalCount = $query->getCount();
+        $data = $query->listPaginate($page, $per_page, $order, $orderBy, $filter);
+        $totalCount = $query->getCount($filter);
         $result = [
             'data' => $data,
             'page' => $page,

@@ -13,12 +13,23 @@ function DatePickerInput({ openCalendar, value, handleValueChange }) {
 const DataGridRestToolbar = (props) => {
   const { numSelected, title, filterFields, onRequestFilter } = props;
   const acordion_icon = <Icon>filter_list</Icon>;
-  const createFilterHandler = (event) => {
-    onRequestFilter(event);
+  const [originFilterFields, setOriginFilterFields] = React.useState(filterFields.map(obj => ({...obj})));
+  
+   const handleClearFilter = (event) => {
+        filterFields.map((elem, index) => {
+          elem.value = originFilterFields[index].value;
+          document.getElementById(elem.id).value = originFilterFields[index].value;
+      });
+      
   };
+  
   const handleFilterChange = id => event => {
         filterFields[id].value = event.target.value;
     };
+    
+  const createFilterHandler = (event) => {
+    onRequestFilter(event);
+  };
         
   return (
     <Toolbar
@@ -57,9 +68,9 @@ const DataGridRestToolbar = (props) => {
                     <Typography>Filter</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Grid container spacing={2}>
+                    <Grid container spacing={2} key="filter_grid">
                     {(filterFields).map((headCell, index) => (
-                        <Grid item xs={4}>
+                        <Grid item xs={4}  key={headCell.field}>
                             {(function () {
                                 switch (headCell.type) {
                                     case 'text':
@@ -71,6 +82,7 @@ const DataGridRestToolbar = (props) => {
                         ))}
                     </Grid>
                     <Stack pt={3} pr={1} direction="row" spacing={2} style={{display: "flex", justifyContent: "flex-end"}}>
+                        <Button sx={{border: "1px dashed grey"}} id = "id_button_0" onClick ={handleClearFilter}>{baseApp.translations().t("Clear", "datagridrest")}</Button>
                         <Button sx={{border: "1px dashed grey"}} id = "id_button_1" onClick ={createFilterHandler}>{baseApp.translations().t("Filter", "datagridrest")}</Button>
                     </Stack>
                 </AccordionDetails>
@@ -155,15 +167,29 @@ function DataGridRest({
                         rowsPerPageInit = 5, 
                         rowsPerPageOptions = [5, 10, 25, 50, 100, 150, 200, 300],
                         orderByHeader = "",
-                        orderDirection = "asc",
-                        onRequestSort,
-                        onRequestFilter
+                        orderDirection = "asc"
         }){
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(rowsPerPageInit);
   const [rows, setRows] = React.useState([]);
   const [totalElements, setTotalElements] = React.useState(0);
   const [dense, setDense] = React.useState(denseType);
+  const [order, setOrder] = React.useState(orderDirection);
+  const [orderBy, setOrderBy] = React.useState(orderByHeader);
+  const [filters, setFilters] = React.useState(filterFields);
+  const [waiting, setWaiting] = React.useState(false);
+  
+  
+  const handleRequestFilter = (event) => {
+      getData(page, rowsPerPage, order, orderBy);
+      setPage(0);
+  };
+  
+  const handleRequestSort = (event, property) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
+  };
   
   const handleChangeDense = (event) => {
     setDense(event.target.checked);
@@ -208,37 +234,50 @@ function DataGridRest({
   
  let getData = async (page: number, size: number, order: string, orderBy: string) => {
     
+    setWaiting(true);
+    var filtersValues = [];
+    if(filters.length){
+        filters.map((elem) => {filtersValues.push({['field']: elem.field, ['value']:elem.value})});
+    }
     let url = restUrl +
         `?per_page=`+ size +
         `&page=` + (page + 1) + 
         `&order=` + order + 
-        `&orderBy=` + orderBy;
+        `&orderBy=` + orderBy +
+        `&filter=` + JSON.stringify(filtersValues);
     const response = await fetch(url);
     const result = await response.json();
     setTotalElements(result.totalCount);
     setRows(result.data);
+    setWaiting(false);
   };
         
   React.useEffect(() => {
-        getData(page, rowsPerPage, orderDirection, orderByHeader);
-  }, [page, rowsPerPage, orderDirection, orderByHeader ]);
+        getData(page, rowsPerPage, order, orderBy);
+  }, [page, rowsPerPage, order, orderBy ]);
   
   React.useEffect(() => {
      if(refresh){
-        getData(page, rowsPerPage, orderDirection, orderByHeader);
+        getData(page, rowsPerPage, order, orderBy);
     }
   }, [refresh]);
   
   return (
         <TableContainer component={Paper}>
-            <DataGridRestToolbar title={title} filterFields={filterFields} onRequestFilter = {onRequestFilter}/>
+            <Backdrop
+                sx={{color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1}}
+                open={waiting}
+                >
+                <CircularProgress color="success"/>
+            </Backdrop>
+            <DataGridRestToolbar title={title} filterFields={filterFields} onRequestFilter = {handleRequestFilter}/>
             <Table sx={{ minWidth: 650 }} aria-label="simple table" size={dense ? "small" : "medium"}>
                 <DataGridRestHead 
                     headers = {headers} 
                     actions = {actions}
-                    order={orderDirection}
-                    orderBy={orderByHeader}
-                    onRequestSort={onRequestSort}
+                    order={order}
+                    orderBy={orderBy}
+                    onRequestSort={handleRequestSort}
                 />
                 <TableBody>
                          {(

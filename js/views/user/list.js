@@ -6,21 +6,11 @@ function IndexPage() {
     const [open, setOpen] = React.useState(false);
     const [data, setData] = React.useState([]);
     const [refresh, setRefresh] = React.useState(false);
-    const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState("Name");
-    const [filters, setFilters] = React.useState([
-        {type: "text", id: "fltName", label: "Name", value: "" }
-    ]);
-   
-  const handleRequestFilter = (event) => {
-      if(baseApp.isWeb()) alert(filters[0].value);
-  };
-  
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
-  };
+    const filters = [
+        {type: "text", id: "fltName", label:  baseApp.translations().t("name", "userform"), value: "", field: "Name" },
+        {type: "text", id: "fltsurname", label:  baseApp.translations().t("surname", "userform"), value: "", field: "surname" },
+        {type: "text", id: "fltemail", label: baseApp.translations().t("email", "userform"), value: "", field: "email" }
+    ];
     
    const labels = { 
        "Active" : baseApp.translations().t("Active", "userform"),
@@ -115,11 +105,9 @@ function IndexPage() {
                 columns = {columns}
                 actions = {actions}
                 filterFields = {filters}
-                onRequestFilter = {handleRequestFilter}
                 refresh = {refresh}
-                orderByHeader = {orderBy}
-                orderDirection = {order}
-                onRequestSort={handleRequestSort}
+                orderByHeader = {"Name"}
+                orderDirection = {"asc"}
                 denseType = {true}
             />
             <Dialog
