@@ -14,6 +14,7 @@ const DataGridRestToolbar = (props) => {
   const { numSelected, title, filterFields, onRequestFilter } = props;
   const acordion_icon = <Icon>filter_list</Icon>;
   const [originFilterFields, setOriginFilterFields] = React.useState(filterFields.map(obj => ({...obj})));
+  const [orAndSwith, setOrAndSwith] = React.useState(false);
   
    const handleClearFilter = (event) => {
         filterFields.map((elem, index) => {
@@ -31,6 +32,10 @@ const DataGridRestToolbar = (props) => {
     onRequestFilter(event);
   };
         
+  const handleOrAndChange = event => {
+    setOrAndSwith (event.target.checked);
+  };
+  
   return (
     <Toolbar
       sx={{
@@ -85,6 +90,30 @@ const DataGridRestToolbar = (props) => {
                         <Button sx={{border: "1px dashed grey"}} id = "id_button_0" onClick ={handleClearFilter}>{baseApp.translations().t("Clear", "datagridrest")}</Button>
                         <Button sx={{border: "1px dashed grey"}} id = "id_button_1" onClick ={createFilterHandler}>{baseApp.translations().t("Filter", "datagridrest")}</Button>
                     </Stack>
+                    <FormControlLabel
+                        control={
+                          <Switch
+                            checked={orAndSwith}
+                            onChange={handleOrAndChange}
+                            value="checked"
+                            color="primary"
+                          />
+                        }
+                        labelPlacement="start"
+                        label={orAndSwith ? "And" : "Or"}
+                      />
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            checked={orAndSwith}
+                            onChange={handleOrAndChange}
+                            value="checked"
+                            color="primary"
+                          />
+                        }
+                        labelPlacement="start"
+                        label={orAndSwith ? "Begin with" : "Inside"}
+                      />
                 </AccordionDetails>
             </Accordion>
         </Box>
