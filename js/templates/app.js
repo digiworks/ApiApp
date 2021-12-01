@@ -92,24 +92,6 @@ function App() {
           </ListItemIcon>
           <ListItemText primary={baseApp.translations().t("Users", "app")} />
         </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <Icon >people</Icon>
-          </ListItemIcon>
-          <ListItemText primary="Customers" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <Icon >bar_chart</Icon>
-          </ListItemIcon>
-          <ListItemText primary="Reports" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <Icon >layers</Icon>
-          </ListItemIcon>
-          <ListItemText primary="Integrations" />
-        </ListItem>
       </div>
     );
 

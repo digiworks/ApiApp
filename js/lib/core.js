@@ -95,6 +95,38 @@ function BaseApp() {
         return result;
     }
     
+    this.get = function (url, params){
+        var responseValues = {};
+        this.httpClient.get(this.buildApiUrl(url),
+        {
+            "params": params
+        })
+        .then(function (response) {
+            console.log(response);
+            responseValues = response;
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+        .then(function () {
+            /* always executed */
+        });  
+      return responseValues;
+    }
+    
+    this.post = function (url, data, json = true){
+        var responseValues = {};
+        this.httpClient.post(this.buildApiUrl(url),(json ? JSON.stringify(data) : data))
+        .then(function (response) {
+            console.log(response);
+            responseValues = response;
+        })
+         .catch(function (error) {
+            console.log(error);
+        });
+        return responseValues;
+    }
+    
     this.urlStream = function (url){
         return this.buildApiUrl("api/file/stream") + "?file=" + url +"&type=1";
     }
@@ -103,7 +135,7 @@ function BaseApp() {
     {
         var object = {};
         formdata.forEach((value, key) => {
-            // Reflect.has in favor of: object.hasOwnProperty(key)
+            /* Reflect.has in favor of: object.hasOwnProperty(key) */
             if(!Reflect.has(object, key)){
                 object[key] = value;
                 return;
