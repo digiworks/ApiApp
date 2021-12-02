@@ -43,6 +43,7 @@ return Arr::mergeRecursive(
                     "env" => [
                         "jwt_secret" => "AASDGFggsya12!23LklkjlljiIIlkjll@@l",
                         "version" => "0.1.0",
+                        "debug" => false,
                         "admin_mail" => "",
                         "support_mail" => "",
                         "smtp" => [
@@ -164,7 +165,7 @@ return Arr::mergeRecursive(
                             //['lib' => 'https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom-server.browser.development.min.js','tranlsator'=> ''],
                             ['lib' => 'js/engines/react/react-dom/17.0.2/umd/react-dom-server.browser.development.min.js', 'tranlsator' => '', 'use' => 'server'],
                             ['lib' => 'js/engines/react/react-dom/17.0.2/umd/react-dom.development.min.js', 'tranlsator' => '', 'use' => 'client'],
-                            //['lib' => 'https://cdn.jsdelivr.net/npm/simple-react-validator@1.6.1/dist/simple-react-validator.js','tranlsator'=> ''],
+                            
                             ['lib' => 'js/engines/react/lib/validator@1.0.0/form-validator.js', 'tranlsator' => ''],
                             ['lib' => 'js/engines/react/lib/validator@1.0.0/locale/it.js', 'tranlsator' => ''],
                             ['lib' => 'js/engines/react/i18next@21.4.0/dist/umd/i18next.js', 'tranlsator' => ''],
@@ -178,6 +179,7 @@ return Arr::mergeRecursive(
                             //min：['lib' => 'https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/umd/semi-ui-react.min.js','tranlsator'=> ''],
                             //normal: ['lib' => 'https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/umd/semi-ui-react.js','tranlsator'=> ''],
                             //['lib' => 'js/engines/react/semiui.js','tranlsator'=> ''],
+                            
                             //['lib' => 'https://cdnjs.cloudflare.com/ajax/libs/react-table/6.11.5/react-table.js','tranlsator'=> ''],
                             ['lib' => 'js/engines/react/react-table/6.11.5/react-table.js', 'tranlsator' => ''],
                             // DatePicker and dependencies
@@ -193,13 +195,20 @@ return Arr::mergeRecursive(
                             ['lib' => "js/engines/react/reactmultidatepicker.js", 'tranlsator' => ''],
                             //['lib' => 'https://cdn.jsdelivr.net/npm/react-hook-form@7.17.5/dist/index.umd.js','tranlsator'=> ''],
                             //['lib' => 'js/engines/react/react-hook-form/7.17.5/dist/index.umd.js','tranlsator'=> ''],
-                            ['lib' => "js/engines/react/components.js", 'tranlsator' => 'text/babel']
+                            ['lib' => "js/engines/react/components.js", 'tranlsator' => 'text/babel'],
+                            
+                            ['lib' => 'js/engines/react/react-transition-group@2.4.0/dist/react-transition-group.js','tranlsator'=> ''],
+                            ['lib' => 'js/engines/react/primereact@7.0.1/primereact.all.js','tranlsator'=> ''],
+                            ['lib' => 'js/engines/react/primereact@7.0.1/primereact.js','tranlsator'=> ''],
                         ],
                         "stylesheets" => [
                             "googleapis-css/css.css",
                             "material-icons/icon.css",
                             "react/react-table/6.11.5/react-table.css",
-                            "apexcharts@3.30.0/dist/apexcharts.css"
+                            "apexcharts@3.30.0/dist/apexcharts.css",
+                            "primereact@7.0.1/resources/themes/lara-light-indigo/theme.css",
+                            "primereact@7.0.1/resources/primereact.min.css",
+                            "primeicons@5.0.0/primeicons.css"
                             //"https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/css/semi.css"
                         ],
                         "translator" => [

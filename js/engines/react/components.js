@@ -15,6 +15,7 @@ const DataGridRestToolbar = (props) => {
   const acordion_icon = <Icon>filter_list</Icon>;
   const [originFilterFields, setOriginFilterFields] = React.useState(filterFields.map(obj => ({...obj})));
   const [orAndSwith, setOrAndSwith] = React.useState(false);
+  const [beginInsideSwith, setBeginInsideSwith] = React.useState(false);
   
    const handleClearFilter = (event) => {
         filterFields.map((elem, index) => {
@@ -34,6 +35,10 @@ const DataGridRestToolbar = (props) => {
         
   const handleOrAndChange = event => {
     setOrAndSwith (event.target.checked);
+  };
+  
+   const handleBeginInsideChange = event => {
+    setBeginInsideSwith (event.target.checked);
   };
   
   return (
@@ -105,14 +110,14 @@ const DataGridRestToolbar = (props) => {
                       <FormControlLabel
                         control={
                           <Switch
-                            checked={orAndSwith}
-                            onChange={handleOrAndChange}
+                            checked={beginInsideSwith}
+                            onChange={handleBeginInsideChange}
                             value="checked"
                             color="primary"
                           />
                         }
                         labelPlacement="start"
-                        label={orAndSwith ? "Begin with" : "Inside"}
+                        label={beginInsideSwith ? "Inside" : "Begin with"}
                       />
                 </AccordionDetails>
             </Accordion>

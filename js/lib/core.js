@@ -45,8 +45,10 @@ function BaseApp() {
     this.i18n = new baseI18n();
     this.httpClient = axios;
    
-   /* url of api gateway or empty if application is the gateway*/
+    /* url of api gateway or empty if application is the gateway*/
     this.apiGateway = "";
+    /* true for activate debug*/
+    this.debug = false;
     
     this.init = function (conf = {}){
         this.i18n.init();
@@ -56,6 +58,9 @@ function BaseApp() {
         }
         if(conf.apiGateway !== "undefined"){
             this.apiGateway = conf.apiGateway;
+        }
+        if(conf.debug !== "undefined"){
+            this.debug = conf.debug;
         }
     }
     
@@ -90,7 +95,9 @@ function BaseApp() {
         .catch((error) => {
             result.message = error;
             result.status = "error";
-            console.error("Error:", error);
+            if(this.debug){
+                console.error("Error:", error);
+            }
         });
         return result;
     }
@@ -102,11 +109,15 @@ function BaseApp() {
             "params": params
         })
         .then(function (response) {
-            console.log(response);
+            if(this.debug){
+                console.log(response);
+            }
             responseValues = response;
         })
         .catch(function (error) {
-            console.log(error);
+            if(this.debug){
+                console.log(error);
+            }
         })
         .then(function () {
             /* always executed */
@@ -118,11 +129,15 @@ function BaseApp() {
         var responseValues = {};
         this.httpClient.post(this.buildApiUrl(url),(json ? JSON.stringify(data) : data))
         .then(function (response) {
-            console.log(response);
+            if(this.debug){
+                console.log(response);
+            }
             responseValues = response;
         })
          .catch(function (error) {
-            console.log(error);
+             if(this.debug){
+                console.log(error);
+             }
         });
         return responseValues;
     }
