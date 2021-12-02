@@ -199,7 +199,7 @@ return Arr::mergeRecursive(
                             
                             ['lib' => 'js/engines/react/react-transition-group@2.4.0/dist/react-transition-group.js','tranlsator'=> ''],
                             ['lib' => 'js/engines/react/primereact@7.0.1/primereact.all.js','tranlsator'=> ''],
-                            ['lib' => 'js/engines/react/primereact@7.0.1/primereact.js','tranlsator'=> ''],
+                            ['lib' => 'js/engines/react/primereact.js','tranlsator'=> ''],
                         ],
                         "stylesheets" => [
                             "googleapis-css/css.css",
