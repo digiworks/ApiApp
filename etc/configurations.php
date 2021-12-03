@@ -181,8 +181,9 @@ return Arr::mergeRecursive(
                             //['lib' => 'js/engines/react/semiui.js','tranlsator'=> ''],
                             
                             //['lib' => 'https://cdnjs.cloudflare.com/ajax/libs/react-table/6.11.5/react-table.js','tranlsator'=> ''],
-                            ['lib' => 'js/engines/react/react-table/6.11.5/react-table.js', 'tranlsator' => ''],
-                            // DatePicker and dependencies
+                            //['lib' => 'js/engines/react/react-table/6.11.5/react-table.js', 'tranlsator' => ''],
+                            
+                            // // DatePicker and dependencies
                             //['lib' => "https://cdn.jsdelivr.net/npm/date-object@latest/dist/umd/date-object.min.js",'tranlsator'=> ''],
                             ['lib' => "js/engines/react/date-object/dist/umd/date-object.min.js", 'tranlsator' => ''],
                             //['lib' => "https://cdn.jsdelivr.net/npm/react-element-popper@latest/build/browser.min.js",'tranlsator'=> ''],
@@ -206,7 +207,7 @@ return Arr::mergeRecursive(
                             "material-icons/icon.css",
                             "react/react-table/6.11.5/react-table.css",
                             "apexcharts@3.30.0/dist/apexcharts.css",
-                            "primereact@7.0.1/resources/themes/lara-light-indigo/theme.css",
+                            "primereact@7.0.1/resources/themes/md-light-indigo/theme.css",
                             "primereact@7.0.1/resources/primereact.min.css",
                             "primeicons@5.0.0/primeicons.css"
                             //"https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/css/semi.css"

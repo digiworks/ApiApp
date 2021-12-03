@@ -89,6 +89,9 @@ function BaseApp() {
         })
         .then(response => response.json())
         .then(data => {
+            if(this.debug && data.debug){
+                console.log(data.debug);
+            }
             result.message = data;
             result.status = "success";
         })

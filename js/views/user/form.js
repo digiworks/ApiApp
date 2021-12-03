@@ -137,7 +137,6 @@ function IndexPage() {
                                 onSubmit={submit}
                                 component="form"
                                 autoComplete="off"
-                                sx={{bgcolor: "#cfe8fc"}}
                                 >
                                 <TextField
                                     name="Id"
@@ -146,6 +145,25 @@ function IndexPage() {
                                     variant="standard"
                                     />
                                 <Grid container spacing={2}>
+                                    <Grid item xs={12}>
+                                        <Box 
+                                        display="flex"
+                                        alignItems="center"
+                                        >
+                                            <Avatar alt="Remy Sharp" src={baseApp.urlStream("images/avatar/1.jpg")} sx={{ width: 128, height: 128 }} />
+                                            <Button
+                                                variant="contained"
+                                                component="label"
+                                                sx={{ml: 1}}
+                                            >
+                                            {baseApp.translations().t("upload_image", "userform")}
+                                            <input
+                                              type="file"
+                                              hidden
+                                            />
+                                            </Button>
+                                        </Box>
+                                    </Grid>
                                     <Grid item xs={4}>
                                         <Box width={350}>
                                             <TextField id="Name" name="Name" 
@@ -227,15 +245,78 @@ function IndexPage() {
                                             aria-controls="panel1a-content" 
                                             id="panel1a-header"
                                             >
-                                            <Typography>Dati</Typography>
+                                            <Typography>{baseApp.translations().t("Permissions", "userform")}</Typography>
                                         </AccordionSummary>
                                         <AccordionDetails>
+                                            <Grid container>
+                                                <Grid item xs>
+                                                  <FormControl sx={{ m: 1, minWidth: 120 }}>
+                                                        <InputLabel id="groupid-label">{baseApp.translations().t("Group", "userform")}</InputLabel>
+                                                        <Select
+                                                            id="groupid"
+                                                            labelId="groupid-label"
+                                                            label={baseApp.translations().t("Group", "userform")}
+                                                            value=""
+                                                        >
+                                                        <MenuItem value="">
+                                                          <em>None</em>
+                                                        </MenuItem>
+                                                        <MenuItem value={10}>Twenty</MenuItem>
+                                                        <MenuItem value={21}>Twenty one</MenuItem>
+                                                        <MenuItem value={22}>Twenty one and a half</MenuItem>
+                                                      </Select>
+                                                  </FormControl>
+                                                </Grid>
+                                                <Divider orientation="vertical" flexItem>
+                                                  {baseApp.translations().t("Roles", "userform")}
+                                                </Divider>
+                                                <Grid item xs>
+                                                    <FormControl sx={{ m: 1, minWidth: 120 }}>
+                                                    <Stack>
+                                                        <FormControlLabel
+                                                            control={
+                                                              <Switch
+                                                                
+                                                                value="checked"
+                                                                color="primary"
+                                                              />
+                                                            }
+                                                            labelPlacement="start"
+                                                            label={"Permesso"}
+                                                        />
+                                                        <FormControlLabel
+                                                            control={
+                                                              <Switch
+                                                                
+                                                                value="checked"
+                                                                color="primary"
+                                                              />
+                                                            }
+                                                            labelPlacement="start"
+                                                            label={"Permesso"}
+                                                        />
+                                                        <FormControlLabel
+                                                            control={
+                                                              <Switch
+                                                                
+                                                                value="checked"
+                                                                color="primary"
+                                                              />
+                                                            }
+                                                            labelPlacement="start"
+                                                            label={"Permesso"}
+                                                        />
+                                                    </Stack>
+                                                    </FormControl>
+                                                </Grid>
+                                             </Grid>
                                             
                                         </AccordionDetails>
                                     </Accordion>
                                 </Box>
                                 
                                 <Stack pt={3} pr={1} direction="row" spacing={2} style={{display: "flex", justifyContent: "flex-end"}}>
+                                    <Button sx={{border: "1px dashed grey"}} id = "id_button_2" >{baseApp.translations().t("cancel", "userform")}</Button>
                                     <Button sx={{border: "1px dashed grey"}} id = "id_button_1" type="submit">{baseApp.translations().t("save", "userform")}</Button>
                                 </Stack>
                             </Box>

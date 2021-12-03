@@ -94,6 +94,7 @@ const {
         SvgIcon,
         Popover,
         Switch,
+        InputLabel,
         visuallyHidden
     } = MaterialUI;
 

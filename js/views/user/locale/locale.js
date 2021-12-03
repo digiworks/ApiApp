@@ -15,7 +15,12 @@ baseApp.translations().loadResourceBundle("en", "userform", {
     signup: "Sign Up",
     no_accoount: "Don't have an account? Sign Up",
     already_account: "Already have an account? Sign in",
-    save: "Save"
+    save: "Save",
+    cancel: "Cancel",
+    Permissions: "Permissions",
+    Group: "Group",
+    Roles: "<Roles>",
+    upload_image: "Upload Image"
 }, true, true);
 
 baseApp.translations().loadResourceBundle("it", "userform", {
@@ -35,6 +40,11 @@ baseApp.translations().loadResourceBundle("it", "userform", {
     signup: "Registrati",
     no_accoount: "Non hai un account? Registrati",
     already_account: "Hai gia' un account? Entra",
-    save: "Salva"
+    save: "Salva",
+    cancel: "Annulla",
+    Permissions: "Permessi",
+    Group: "Gruppo",
+    Roles: "<Ruoli>",
+    upload_image: "Carica Immagine"
 }, true, true);
 
