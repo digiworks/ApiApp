@@ -46,6 +46,9 @@ return Arr::mergeRecursive(
                         "debug" => false,
                         "admin_mail" => "",
                         "support_mail" => "",
+                        "seo" =>[
+                            
+                        ],
                         "smtp" => [
                             'type' => 'smtp',
                             'host' => 'smtp.mailtrap.io',

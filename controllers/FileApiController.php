@@ -26,14 +26,14 @@ class FileApiController extends AppController {
             $type = isset($params['type']) && $params['type'] == '2' ? 'attachment' : 'inline';
             $fileSystem = ApiAppFactory::getApp()->getService(ServiceTypes::FILESYSTEM);
             $file = $fileSystem->getFile($params['file']);
-            if ($this->ifModifiedSiceRequest($file)) {
+            if ($this->ifModifiedSinceRequest($file)) {
                 $file_stream = $file->stream();
                 $expireOffset = ApiAppFactory::getApp()->getService(ServiceTypes::CONFIGURATIONS)->get('env.web.streamExpirationOffset', 0);
                 return $response->withHeader('Cache-Control', 'public')
                                 ->withHeader('Content-Type', $file->mime_content_type())
-                                ->withHeader('Content-Length', $file->filesize())
+                                ->withHeader('Content-Length', $file->filesize()->filesize())
                                 ->withHeader('Content-Disposition', $type . '; filename=' . $file->basename())
-                                ->withHeader('Accept-Ranges', $file->filesize())
+                                ->withHeader('Accept-Ranges', $file->filesize()->filesize())
                                 ->withHeader('Last-Modified', gmdate('D, d M Y H:i:s T', $file->filemtime()))
                                 ->withHeader('Expires', gmdate("D, d M Y H:i:s", time() + $expireOffset) . " GMT")
                                 ->withBody($file_stream);
@@ -63,12 +63,12 @@ class FileApiController extends AppController {
                 $file = $fileSystem->getJs($request->getAttribute('path'));
             }
 
-            if ($this->ifModifiedSiceRequest($file)) {
+            if ($this->ifModifiedSinceRequest($file)) {
                 $file_stream = $file->stream();
                 $expireOffset = ApiAppFactory::getApp()->getService(ServiceTypes::CONFIGURATIONS)->get('env.web.jsExpirationOffset', 0);
                 return $response
                                 ->withHeader('Content-Type', 'x-javascript')
-                                ->withHeader('Content-Length', $file->filesize())
+                                ->withHeader('Content-Length', $file->filesize()->filesize())
                                 ->withHeader('Cache-Control', 'max-age=' . $expireOffset . ', must-revalidate')
                                 ->withHeader('Last-Modified', gmdate('D, d M Y H:i:s T', $file->filemtime()))
                                 ->withHeader('Expires', gmdate("D, d M Y H:i:s", time() + $expireOffset) . " GMT")
@@ -99,11 +99,11 @@ class FileApiController extends AppController {
             } else {
                 $file = $fileSystem->getCss($request->getAttribute('path'));
             }
-            if ($this->ifModifiedSiceRequest($file)) {
+            if ($this->ifModifiedSinceRequest($file)) {
                 $file_stream = $file->stream();
                 $expireOffset = ApiAppFactory::getApp()->getService(ServiceTypes::CONFIGURATIONS)->get('env.web.cssExpirationOffset', 0);
                 return $response->withHeader('Content-Type', 'text/css')
-                                ->withHeader('Content-Length', $file->filesize())
+                                ->withHeader('Content-Length', $file->filesize()->filesize())
                                 ->withHeader('Cache-Control', 'max-age=' . $expireOffset . ', must-revalidate')
                                 ->withHeader('Last-Modified', gmdate('D, d M Y H:i:s T', $file->filemtime()))
                                 ->withHeader('Expires', gmdate("D, d M Y H:i:s", time() + $expireOffset) . " GMT")
@@ -122,7 +122,7 @@ class FileApiController extends AppController {
      * @param File $file
      * @return bool
      */
-    private function ifModifiedSiceRequest($file): bool {
+    private function ifModifiedSinceRequest($file): bool {
         $ret = true;
         if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) &&
                 strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) >= $file->filemtime()) {

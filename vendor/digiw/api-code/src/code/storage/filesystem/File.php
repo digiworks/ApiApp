@@ -2,9 +2,12 @@
 
 namespace code\storage\filesystem;
 
+use code\exceptions\UnableToRetrieveMetadata;
+use code\storage\filesystem\mimetypes\FinfoMimeTypeDetector;
+use code\storage\filesystem\mimetypes\MimeTypeDetector;
 use Slim\Psr7\Stream;
 
-class File {
+class File implements StorageItemInterface {
 
     const MODE_APPEND = "a";
     const MODE_WRITE = "wb";
@@ -13,6 +16,11 @@ class File {
     private $path;
     private $fileHandle;
     private $mode = 'rb';
+
+    /**
+     * @var MimeTypeDetector
+     */
+    private $mimeTypeDetector;
 
     public function getPath() {
         return $this->path;
@@ -38,8 +46,9 @@ class File {
         $this->mode = $mode;
     }
 
-    public function __construct($path) {
+    public function __construct($path, MimeTypeDetector $mimeTypeDetector = null) {
         $this->path = $path;
+        $this->mimeTypeDetector = $mimeTypeDetector ?: new FinfoMimeTypeDetector();
     }
 
     public function open($mode = null) {
@@ -58,15 +67,15 @@ class File {
         return basename($this->path);
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function mime_content_type() {
-        return mime_content_type($this->path);
+        return $this->mimeType();
     }
 
-    public function filesize() {
-        return filesize($this->path);
-    }
-
-    public function delete() {
+    public function delete(): void {
         if (!is_null($this->fileHandle)) {
             $this->close();
         }
@@ -89,7 +98,7 @@ class File {
      * @param string $output
      * @return int|false
      */
-    public function write(string $output) {
+    public function write(string $output): int {
         return fwrite($this->fileHandle, $output, strlen($output));
     }
 
@@ -100,6 +109,70 @@ class File {
      */
     public function seek(int $offset, int $whence = SEEK_SET) {
         return fseek($this->fileHandle, $offset, $whence);
+    }
+
+    /**
+     * 
+     * @return type
+     */
+    public function filemtime() {
+        return filemtime($this->path);
+    }
+
+    public function move(string $destination): bool {
+        
+    }
+
+    public function copy($destination): bool {
+        
+    }
+
+    /**
+     * 
+     * @return FileAttributes
+     * @throws type
+     */
+    public function mimeType(): FileAttributes {
+        error_clear_last();
+        $mimeType = $this->mimeTypeDetector->detectMimeTypeFromFile($this->path);
+
+        if ($mimeType === null) {
+            throw UnableToRetrieveMetadata::mimeType($this->path, error_get_last()['message'] ?? '');
+        }
+
+        return new FileAttributes($this->path, null, null, null, $mimeType);
+    }
+
+    /**
+     * 
+     * @return FileAttributes
+     * @throws type
+     */
+    public function lastModified(): FileAttributes {
+        error_clear_last();
+        $lastModified = @filemtime($this->path);
+
+        if ($lastModified === false) {
+            throw UnableToRetrieveMetadata::lastModified($this->path, error_get_last()['message'] ?? '');
+        }
+
+        return new FileAttributes($this->path, null, null, $lastModified);
+    }
+
+    /**
+     * 
+     * @return FileAttributes
+     * @throws type
+     */
+    public function filesize(): FileAttributes {
+        $fileSize = 0;
+        error_clear_last();
+
+        if (is_file($this->path) && ($fileSize = @filesize($this->path)) !== false) {
+            return new FileAttributes($this->path, $fileSize);
+        }
+
+        throw UnableToRetrieveMetadata::fileSize($this->path, error_get_last()['message'] ?? '');
     }
 
 }

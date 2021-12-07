@@ -2,7 +2,7 @@
 
 namespace code\user;
 
-abstract class AppUser {
+abstract class AppUser implements AppUserInterface {
 
     public abstract function getPassword(): string;
 
@@ -13,6 +13,10 @@ abstract class AppUser {
     public function passwordVerify(string $value) {
 
         return password_verify($value, $this->getPassword());
+    }
+
+    public function isAllowedTo() {
+        return true;
     }
 
 }

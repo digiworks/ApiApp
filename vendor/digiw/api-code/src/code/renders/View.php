@@ -2,11 +2,13 @@
 
 namespace code\renders;
 
-class View extends RenderTypes {
+class View extends RenderTranslated {
 
     private $buffered;
 
     public function __construct($viewFile) {
+        parent::__construct($viewFile);
+        $this->getTRanslationFiles($viewFile);
         $this->addPart($viewFile);
     }
 
@@ -40,10 +42,6 @@ class View extends RenderTypes {
      */
     private function clientView() {
         return ($this->compress($this->buffered));
-    }
-
-    protected function getTRanslationFiles($viewFile) {
-        
     }
 
 }

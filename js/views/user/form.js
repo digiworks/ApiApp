@@ -98,7 +98,13 @@ function IndexPage() {
             setValues({...values, [name]: event.target.value});
             validator.checkField(name, event.target.value);
         };
-
+    const handleCancel = () => {
+        setWaiting(true);
+        let path = "/userslist";
+        baseApp.redirect(path);
+    };
+    
+    
     return (
             <div>
                 <React.Fragment>
@@ -316,7 +322,7 @@ function IndexPage() {
                                 </Box>
                                 
                                 <Stack pt={3} pr={1} direction="row" spacing={2} style={{display: "flex", justifyContent: "flex-end"}}>
-                                    <Button sx={{border: "1px dashed grey"}} id = "id_button_2" >{baseApp.translations().t("cancel", "userform")}</Button>
+                                    <Button sx={{border: "1px dashed grey"}}  onMouseDown={handleCancel} id = "id_button_2" >{baseApp.translations().t("cancel", "userform")}</Button>
                                     <Button sx={{border: "1px dashed grey"}} id = "id_button_1" type="submit">{baseApp.translations().t("save", "userform")}</Button>
                                 </Stack>
                             </Box>

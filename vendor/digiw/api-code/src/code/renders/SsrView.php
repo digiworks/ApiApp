@@ -3,11 +3,11 @@
 namespace code\renders;
 
 use code\applications\ApiAppFactory;
+use code\configuration\Configurations;
 use code\service\ServiceTypes;
+use code\utility\string\Str;
 
 class SsrView extends Loader {
-
-    const API_GATEWAY_CONFIGURATIONS = "env.apiGateway";
 
     private $buffered;
     private $imports = "";
@@ -58,13 +58,15 @@ class SsrView extends Loader {
      * @return string
      */
     public function render() {
+
         $placeholders = [
             '{{stylesheets}}' => $this->stylesheets,
             '{{imports}}' => $this->imports,
             '{{javascript}}' => $this->scriptClient,
             '{{serverside}}' => $this->scriptServer,
             '{{launchScript}}' => $this->getLaunchScript(),
-            '{{typeScript}}' => $this->clientTypeScript
+            '{{typeScript}}' => $this->clientTypeScript,
+            '{{envConf}}' => json_encode(ApiAppFactory::getApp()->getService(ServiceTypes::CONFIGURATIONS)->createJSEnvinroment())
         ];
         return strtr($this->buffered, $placeholders);
     }
@@ -96,7 +98,7 @@ class SsrView extends Loader {
      */
     private function buildClientImports(array $imports) {
 
-        $apiGtw = ApiAppFactory::getApp()->getService(ServiceTypes::CONFIGURATIONS)->get(static::API_GATEWAY_CONFIGURATIONS);
+        $apiGtw = ApiAppFactory::getApp()->getService(ServiceTypes::CONFIGURATIONS)->get(Configurations::API_GATEWAY_CONFIGURATIONS);
         $import_scripts = "";
         foreach ($imports as $import) {
             $type = "";
@@ -104,8 +106,12 @@ class SsrView extends Loader {
                 if (!empty($import['tranlsator'])) {
                     $type = 'type="' . $import['tranlsator'] . '"';
                 }
-                $script = '<script ' . $type . ' src="' . $apiGtw . '/api/file/js/' . $import['lib'] . '"></script>';
-                //$script = '<script ' . $type . ' src="'. $apiGtw . '/' . $import['lib'] . '"></script>';
+                if (Str::startsWith($import['lib'], "http", false)) {
+                    $script = '<script ' . $type . ' src="' . $import['lib'] . '"></script>';
+                } else {
+                    $script = '<script ' . $type . ' src="' . $apiGtw . '/api/file/js/' . $import['lib'] . '"></script>';
+                    //$script = '<script ' . $type . ' src="'. $apiGtw . '/' . $import['lib'] . '"></script>';
+                }
                 $import_scripts .= $script . PHP_EOL;
             }
         }
@@ -122,7 +128,11 @@ class SsrView extends Loader {
 
         $stylesheet_scripts = "";
         foreach ($stylesheets as $stylesheet) {
-            $script = '<link rel="stylesheet" href="/api/file/css/' . $stylesheet . '"/>';
+            if (Str::startsWith($stylesheet, "http", false)) {
+                $script = '<link rel="stylesheet" href="' . $stylesheet . '"/>';
+            } else {
+                $script = '<link rel="stylesheet" href="/api/file/css/' . $stylesheet . '"/>';
+            }
             $stylesheet_scripts .= $script . PHP_EOL;
         }
 

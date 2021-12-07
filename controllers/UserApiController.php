@@ -24,9 +24,6 @@ class UserApiController extends AppController {
      */
     public function save(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
 
-//        ob_start();
-//        var_dump($request->getParsedBody());
-//        error_log(ob_get_clean(), 4);
         $data = $request->getParsedBody();
         $user = new Users();
         if (!empty($data["Id"])) {
