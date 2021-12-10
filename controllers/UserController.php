@@ -61,6 +61,13 @@ class UserController extends AppController {
         return $this->getResponse();
     }
 
+    /**
+     * 
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param array $args
+     * @return ResponseInterface
+     */
     public function userslist(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
         \code\debugger\Debugger::startTrace();
         \code\debugger\Debugger::bufferLog("TEST");
@@ -75,6 +82,13 @@ class UserController extends AppController {
         return $this->getResponse();
     }
 
+    /**
+     * 
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param array $args
+     * @return ResponseInterface
+     */
     public function formuser(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
 
         $currentView = 'js/views/user/form.js';
@@ -82,6 +96,13 @@ class UserController extends AppController {
         return $this->getResponse();
     }
 
+    /**
+     * 
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param array $args
+     * @return ResponseInterface
+     */
     public function signup(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
 
         $currentView = 'js/views/user/signup.js';
@@ -89,6 +110,13 @@ class UserController extends AppController {
         return $this->getResponse();
     }
 
+    /**
+     * 
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param array $args
+     * @return ResponseInterface
+     */
     public function signin(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
 
         $currentView = 'js/views/user/signin.js';
@@ -96,6 +124,13 @@ class UserController extends AppController {
         return $this->getResponse();
     }
 
+    /**
+     * 
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param array $args
+     * @return ResponseInterface
+     */
     public function forgot(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
 
         $currentView = 'js/views/user/forgot.js';

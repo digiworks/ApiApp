@@ -1,4 +1,5 @@
 <?php
+
 namespace controllers;
 
 use code\applications\ApiAppFactory;
@@ -7,9 +8,15 @@ use code\service\ServiceTypes;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
+class HomeController extends AppController {
 
-class HomeController extends AppController{
-
+    /**
+     * 
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param array $args
+     * @return ResponseInterface
+     */
     public function home(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
 
         $currentView = 'js/views/user/signin.js';
