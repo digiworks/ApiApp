@@ -35,7 +35,7 @@ define('COREPATH_PUBLIC', COREPATH_ROOT . DIRECTORY_SEPARATOR . 'www');
 define('COREPATH_STATIC', COREPATH_ROOT . DIRECTORY_SEPARATOR . 'static');
 define('COREPATH_JS', COREPATH_ROOT . DIRECTORY_SEPARATOR . '');
 define('COREPATH_CSS', COREPATH_STATIC . DIRECTORY_SEPARATOR . 'css');
-define('COREPATH_MIGRATIONS', COREPATH_ROOT . DIRECTORY_SEPARATOR . COREPATH_ETC. 'generated-migrations');
+define('COREPATH_MIGRATIONS', COREPATH_ROOT . DIRECTORY_SEPARATOR . COREPATH_ETC . 'generated-migrations');
 define('COREPATH_MAILS', COREPATH_ROOT . DIRECTORY_SEPARATOR . 'mails');
 
 return Arr::mergeRecursive(
@@ -46,8 +46,7 @@ return Arr::mergeRecursive(
                         "debug" => false,
                         "admin_mail" => "",
                         "support_mail" => "",
-                        "seo" =>[
-                            
+                        "seo" => [
                         ],
                         "smtp" => [
                             'type' => 'smtp',
@@ -68,7 +67,7 @@ return Arr::mergeRecursive(
                             "baseCssFolderPath" => COREPATH_CSS,
                             "baseMailsFolderPath" => COREPATH_MAILS
                         ],
-                        "debugger" => [ // if service Debugger enabled
+                        "debugger" => [// if service Debugger enabled
                             'url_key' => 'debug', // the key to pass to the url to turn on debug
                             'url_pass' => 'true', // the pass to turn on debug
                             'replace_error_handler' => true, // replace default php error handler
@@ -97,6 +96,26 @@ return Arr::mergeRecursive(
                             'trace_functions' => true, // enable function calls tracing, use "full" to start globally
                             'declare_ticks' => true,
                             'exclude_categories' => array('Event Manager', 'Autoloader') // exclude categories from the output
+                        ],
+                        "response" => [
+                            "frameLevel" => 2,
+                            "frameAllowFrom" => '',
+                            "xssLevel" => 2,
+                            "xssReport" => '',
+                            "hstsMaxAge" => 31536000,
+                            "hstsIncludeSubdomains" => true,
+                            "contentTypeLevel" => 1,
+                            "cspDirectives" => [
+                                'default-src' => "'self' 'unsafe-inline' gstatic.com *.gstatic.com",
+                                'connect-src' => "'self'",
+                                'img-src' => "'self' 'unsafe-inline'",
+                                'script-src' => "'self' 'unsafe-inline'",
+                                'style-src' => "'self' 'unsafe-inline' gstatic.com *.gstatic.com"
+                            ],
+                            "hpkpPins" => [],
+                            "hpkpMaxAge" => 10000,
+                            "hpkpIncludeSubdomains" => true,
+                            "hpkpReportUri" => ''
                         ]
                     ],
                     "services" => [
@@ -119,31 +138,31 @@ return Arr::mergeRecursive(
                             $app = ApiAppFactory::getApp();
 
                             return new JwtAuthentication([
-                                "secret" => $app->getService(ServiceTypes::CONFIGURATIONS)->get('env.jwt_secret'),
-                                "algorithm" => ["HS256", "HS384"],
-                                'logger' => $app->getLogger()->getLogger('info'),
-                                'attribute' => "payload",
-                                "rules" => [
-                                    new RequestPathRule([
-                                        "path" => "/",
-                                        "ignore" => [
-                                            "/login", 
-                                            "/signup", 
-                                            "/forgot", 
-                                            "/api/user/token", 
-                                            "/api/user/register",
-                                            "/api/file/js",
-                                            "/api/file/css"
-                                            ]
-                                        ]),
-                                    ],
-                                    "error" => function ($response, $arguments) {
-                                        return $response->withHeader('Location', '/login')->withStatus(302);
-                                        //new UnauthorizedResponse($arguments["message"], 401);
-                                    },
-                                    "before" =>  function ($response, $arguments) {
-                                         ApiAppFactory::getApp()->addParams($arguments);
-                                    },
+                        "secret" => $app->getService(ServiceTypes::CONFIGURATIONS)->get('env.jwt_secret'),
+                        "algorithm" => ["HS256", "HS384"],
+                        'logger' => $app->getLogger()->getLogger('info'),
+                        'attribute' => "payload",
+                        "rules" => [
+                            new RequestPathRule([
+                                "path" => "/",
+                                "ignore" => [
+                                    "/login",
+                                    "/signup",
+                                    "/forgot",
+                                    "/api/user/token",
+                                    "/api/user/register",
+                                    "/api/file/js",
+                                    "/api/file/css"
+                                ]
+                                    ]),
+                        ],
+                        "error" => function ($response, $arguments) {
+                            return $response->withHeader('Location', '/login')->withStatus(302);
+                            //new UnauthorizedResponse($arguments["message"], 401);
+                        },
+                        "before" => function ($response, $arguments) {
+                            ApiAppFactory::getApp()->addParams($arguments);
+                        },
                             ]);
                         },
                         "EscaperMiddleware" => [
@@ -162,13 +181,11 @@ return Arr::mergeRecursive(
                             ['lib' => 'js/engines/react/date-fns/1.30.1/date_fns.js', 'tranlsator' => ''],
                             ['lib' => 'js/engines/axios@0.24.0/dist/axios.js', 'tranlsator' => ''],
                             ['lib' => 'js/engines/apexcharts@3.30.0/dist/apexcharts.js', 'tranlsator' => '', 'use' => 'client'], // work only in browser
-                            
                             //['lib' => 'https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js','tranlsator'=> ''],
                             ['lib' => 'js/engines/react/17.0.2/umd/react.development.js', 'tranlsator' => ''],
                             //['lib' => 'https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom-server.browser.development.min.js','tranlsator'=> ''],
                             ['lib' => 'js/engines/react/react-dom/17.0.2/umd/react-dom-server.browser.development.min.js', 'tranlsator' => '', 'use' => 'server'],
                             ['lib' => 'js/engines/react/react-dom/17.0.2/umd/react-dom.development.min.js', 'tranlsator' => '', 'use' => 'client'],
-                            
                             ['lib' => 'js/engines/react/lib/validator@1.0.0/form-validator.js', 'tranlsator' => ''],
                             ['lib' => 'js/engines/react/lib/validator@1.0.0/locale/it.js', 'tranlsator' => ''],
                             ['lib' => 'js/engines/react/i18next@21.4.0/dist/umd/i18next.js', 'tranlsator' => ''],
@@ -182,10 +199,8 @@ return Arr::mergeRecursive(
                             //min：['lib' => 'https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/umd/semi-ui-react.min.js','tranlsator'=> ''],
                             //normal: ['lib' => 'https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/umd/semi-ui-react.js','tranlsator'=> ''],
                             //['lib' => 'js/engines/react/semiui.js','tranlsator'=> ''],
-                            
                             //['lib' => 'https://cdnjs.cloudflare.com/ajax/libs/react-table/6.11.5/react-table.js','tranlsator'=> ''],
                             //['lib' => 'js/engines/react/react-table/6.11.5/react-table.js', 'tranlsator' => ''],
-                            
                             // // DatePicker and dependencies
                             //['lib' => "https://cdn.jsdelivr.net/npm/date-object@latest/dist/umd/date-object.min.js",'tranlsator'=> ''],
                             ['lib' => "js/engines/react/date-object/dist/umd/date-object.min.js", 'tranlsator' => ''],
@@ -200,10 +215,9 @@ return Arr::mergeRecursive(
                             //['lib' => 'https://cdn.jsdelivr.net/npm/react-hook-form@7.17.5/dist/index.umd.js','tranlsator'=> ''],
                             //['lib' => 'js/engines/react/react-hook-form/7.17.5/dist/index.umd.js','tranlsator'=> ''],
                             ['lib' => "js/engines/react/components.js", 'tranlsator' => 'text/babel'],
-                            
-                            ['lib' => 'js/engines/react/react-transition-group@2.4.0/dist/react-transition-group.js','tranlsator'=> ''],
-                            ['lib' => 'js/engines/react/primereact@7.0.1/primereact.all.js','tranlsator'=> ''],
-                            ['lib' => 'js/engines/react/primereact.js','tranlsator'=> ''],
+                            ['lib' => 'js/engines/react/react-transition-group@2.4.0/dist/react-transition-group.js', 'tranlsator' => ''],
+                            ['lib' => 'js/engines/react/primereact@7.0.1/primereact.all.js', 'tranlsator' => ''],
+                            ['lib' => 'js/engines/react/primereact.js', 'tranlsator' => ''],
                         ],
                         "stylesheets" => [
                             "googleapis-css/css.css",
@@ -213,7 +227,7 @@ return Arr::mergeRecursive(
                             "primereact@7.0.1/resources/themes/md-light-indigo/theme.css",
                             "primereact@7.0.1/resources/primereact.min.css",
                             "primeicons@5.0.0/primeicons.css"
-                            //"https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/css/semi.css"
+                        //"https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/css/semi.css"
                         ],
                         "translator" => [
                             "class" => BabelTranslator::class
@@ -233,7 +247,6 @@ return Arr::mergeRecursive(
                         ]
                     ],
                     "components" => [
-                        
                     ]
                 ],
                 require 'routes.php',

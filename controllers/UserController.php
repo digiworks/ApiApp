@@ -20,12 +20,12 @@ class UserController extends AppController {
     public function table(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
         try {
             $currentView = 'js/views/table.js';
-            $this->setRequest($request)->setResponse($response)->setCurrentView($currentView)->render();
+            $this->setRequest($request)->setResponse($response)->setCurrentView($currentView)->buildViewResponse()->render();
         } catch (Exception $ex) {
             ApiAppFactory::getApp()->getLogger()->error("error", $ex->getMessage());
             ApiAppFactory::getApp()->getLogger()->error("error", $ex->getTraceAsString());
         }
-        return $response;
+        return $this->getResponse();
     }
 
     /**
@@ -38,7 +38,7 @@ class UserController extends AppController {
     public function listuser(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
 
         $currentView = 'js/views/listuser.js';
-        $this->setRequest($request)->setResponse($response)->setCurrentView($currentView)->render();
+        $this->setRequest($request)->setResponse($response)->setCurrentView($currentView)->buildViewResponse()->render();
         return $this->getResponse();
     }
 
@@ -53,12 +53,12 @@ class UserController extends AppController {
 
         try {
             $currentView = 'js/views/index.js';
-            $this->setRequest($request)->setResponse($response)->setCurrentView($currentView)->render();
+            $this->setRequest($request)->setResponse($response)->setCurrentView($currentView)->buildViewResponse()->render();
         } catch (Exception $ex) {
             ApiAppFactory::getApp()->getLogger()->error("error", $ex->getMessage());
             ApiAppFactory::getApp()->getLogger()->error("error", $ex->getTraceAsString());
         }
-        return $response;
+        return $this->getResponse();
     }
 
     public function userslist(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
@@ -66,40 +66,40 @@ class UserController extends AppController {
         \code\debugger\Debugger::bufferLog("TEST");
         try {
             $currentView = 'js/views/user/list.js';
-            $this->setRequest($request)->setResponse($response)->setCurrentView($currentView)->render();
+            $this->setRequest($request)->setResponse($response)->setCurrentView($currentView)->buildViewResponse()->render();
         } catch (Exception $ex) {
             ApiAppFactory::getApp()->getLogger()->error("error", $ex->getMessage());
             ApiAppFactory::getApp()->getLogger()->error("error", $ex->getTraceAsString());
         }
         \code\debugger\Debugger::stopTrace( );
-        return $response;
+        return $this->getResponse();
     }
 
     public function formuser(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
 
         $currentView = 'js/views/user/form.js';
-        $this->setRequest($request)->setResponse($response)->setCurrentView($currentView)->render();
+        $this->setRequest($request)->setResponse($response)->setCurrentView($currentView)->buildViewResponse()->render();
         return $this->getResponse();
     }
 
     public function signup(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
 
         $currentView = 'js/views/user/signup.js';
-        $this->setRequest($request)->setResponse($response)->useTheme("login")->setCurrentView($currentView)->render();
+        $this->setRequest($request)->setResponse($response)->useTheme("login")->setCurrentView($currentView)->buildViewResponse()->render();
         return $this->getResponse();
     }
 
     public function signin(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
 
         $currentView = 'js/views/user/signin.js';
-        $this->setRequest($request)->setResponse($response)->useTheme("login")->setCurrentView($currentView)->render();
+        $this->setRequest($request)->setResponse($response)->useTheme("login")->setCurrentView($currentView)->buildViewResponse()->render();
         return $this->getResponse();
     }
 
     public function forgot(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
 
         $currentView = 'js/views/user/forgot.js';
-        $this->setRequest($request)->setResponse($response)->useTheme("login")->setCurrentView($currentView)->render();
+        $this->setRequest($request)->setResponse($response)->useTheme("login")->setCurrentView($currentView)->buildViewResponse()->render();
         return $this->getResponse();
     }
 
