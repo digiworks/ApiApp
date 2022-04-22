@@ -15,8 +15,8 @@ fetch v8
 cd v8
 
 # (optional) If you'd like to build a certain version:
-git checkout 8.0.426.30
-gclient sync
+git checkout 8.9.255.25
+gclient sync -D
 
 # Setup GN
 tools/dev/v8gen.py -vv x64.release -- is_component_build=true use_custom_libcxx=false
@@ -25,7 +25,8 @@ tools/dev/v8gen.py -vv x64.release -- is_component_build=true use_custom_libcxx=
 ninja -C out.gn/x64.release/
 
 # Install to /opt/v8/
-sudo mkdir -p /opt/v8/{lib,include}
+sudo mkdir -p /opt/v8/lib
+sudo mkdir -p /opt/v8/include
 sudo cp out.gn/x64.release/lib*.so out.gn/x64.release/*_blob.bin \
   out.gn/x64.release/icudtl.dat /opt/v8/lib/
 sudo cp -R include/* /opt/v8/include/
@@ -37,7 +38,7 @@ for A in /opt/v8/lib/*.so; do sudo patchelf --set-rpath '$ORIGIN' $A; done
 
 
 cd /tmp
-git clone https://github.com/phpv8/v8js.git
+git clone https://github.com/amuluowin/v8js.git
 cd v8js
 phpize
 ./configure --with-v8js=/opt/v8 LDFLAGS="-lstdc++" CPPFLAGS="-DV8_COMPRESS_POINTERS"
@@ -51,4 +52,4 @@ sudo a2ensite default-ssl
 
 sudo a2enmod ssl
 
-sudo  a2enmod rewrite
+sudo a2enmod rewrite

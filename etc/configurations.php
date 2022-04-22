@@ -181,11 +181,16 @@ return Arr::mergeRecursive(
                             ['lib' => 'js/engines/react/date-fns/1.30.1/date_fns.js', 'tranlsator' => ''],
                             ['lib' => 'js/engines/axios@0.24.0/dist/axios.js', 'tranlsator' => ''],
                             ['lib' => 'js/engines/apexcharts@3.30.0/dist/apexcharts.js', 'tranlsator' => '', 'use' => 'client'], // work only in browser
+                            
                             //['lib' => 'https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js','tranlsator'=> ''],
-                            ['lib' => 'js/engines/react/17.0.2/umd/react.development.js', 'tranlsator' => ''],
+                            //['lib' => 'js/engines/react/17.0.2/umd/react.development.js', 'tranlsator' => ''],
+                            ['lib' => 'js/engines/react/18.0.0/umd/react.development.js', 'tranlsator' => ''],
                             //['lib' => 'https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom-server.browser.development.min.js','tranlsator'=> ''],
-                            ['lib' => 'js/engines/react/react-dom/17.0.2/umd/react-dom-server.browser.development.min.js', 'tranlsator' => '', 'use' => 'server'],
-                            ['lib' => 'js/engines/react/react-dom/17.0.2/umd/react-dom.development.min.js', 'tranlsator' => '', 'use' => 'client'],
+                            //['lib' => 'js/engines/react/react-dom/17.0.2/umd/react-dom-server.browser.development.min.js', 'tranlsator' => '', 'use' => 'server'],
+                            //['lib' => 'js/engines/react/react-dom/17.0.2/umd/react-dom.development.min.js', 'tranlsator' => '', 'use' => 'client'],
+                            ['lib' => 'js/engines/react/react-dom/18.0.0/umd/react-dom-server-legacy.browser.development.min.js', 'tranlsator' => '', 'use' => 'server'],
+                            ['lib' => 'js/engines/react/react-dom/18.0.0/umd/react-dom.development.min.js', 'tranlsator' => '', 'use' => 'client'],
+                            
                             ['lib' => 'js/engines/react/lib/validator@1.0.0/form-validator.js', 'tranlsator' => ''],
                             ['lib' => 'js/engines/react/lib/validator@1.0.0/locale/it.js', 'tranlsator' => ''],
                             ['lib' => 'js/engines/react/i18next@21.4.0/dist/umd/i18next.js', 'tranlsator' => ''],
@@ -193,7 +198,8 @@ return Arr::mergeRecursive(
                             ['lib' => 'js/engines/react/react-dnd@14.0.4/dist/umd/ReactDnD.js', 'tranlsator' => ''],
                             ['lib' => 'js/lib/core.js', 'tranlsator' => ''],
                             //['lib' => 'https://unpkg.com/@mui/material@5.0.4/umd/material-ui.development.js','tranlsator'=> ''],
-                            ['lib' => 'js/engines/react/material@5.0.6/umd/material-ui.development.js', 'tranlsator' => ''],
+                            //['lib' => 'js/engines/react/material@5.0.6/umd/material-ui.development.js', 'tranlsator' => ''],
+                            ['lib' => 'js/engines/react/material@5.6.2/umd/material-ui.development.js', 'tranlsator' => ''],
                             ['lib' => 'js/engines/react/mui.js', 'tranlsator' => ''],
                             // Semi-Ui                   
                             //min：['lib' => 'https://unpkg.com/@douyinfe/semi-ui@2.0.0/dist/umd/semi-ui-react.min.js','tranlsator'=> ''],

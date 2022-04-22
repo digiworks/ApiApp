@@ -3,19 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/sviluppo/php/ApiApp/js/lib/core.js</file>
-            <file>file:/C:/sviluppo/php/ApiApp/js/views/user/signin.js</file>
-            <file>file:/C:/sviluppo/php/ApiApp/controllers/AclApiController.php</file>
-            <file>file:/C:/sviluppo/php/ApiApp/js/views/user/list.js</file>
-            <file>file:/C:/sviluppo/php/ApiApp/js/views/user/locale/locale.js</file>
-            <file>file:/C:/sviluppo/php/ApiApp/models/UserPermissionsQuery.php</file>
-            <file>file:/C:/sviluppo/php/ApiApp/controllers/UserApiController.php</file>
-            <file>file:/C:/sviluppo/php/ApiApp/controllers/FileApiController.php</file>
+            <file>file:/C:/sviluppo/php/ApiApp/js/lib/ssr.js</file>
             <file>file:/C:/sviluppo/php/ApiApp/etc/configurations.php</file>
+            <file>file:/C:/sviluppo/php/ApiApp/setupv8.sh</file>
+            <file>file:/C:/sviluppo/php/ApiApp/commands</file>
             <file>file:/C:/sviluppo/php/ApiApp/js/engines/react/components.js</file>
-            <file>file:/C:/sviluppo/php/ApiApp/js/views/user/form.js</file>
-            <file>file:/C:/sviluppo/php/ApiApp/etc/routes.php</file>
-            <file>file:/C:/sviluppo/php/ApiApp/js/views/index.js</file>
+            <file>file:/C:/sviluppo/php/ApiApp/controllers/UserController.php</file>
+            <file>file:/C:/sviluppo/php/ApiApp/js/templates/app.js</file>
+            <file>file:/C:/sviluppo/php/ApiApp/js/engines/react/mui.js</file>
+            <file>file:/C:/sviluppo/php/ApiApp/js/engines/react/primereact.js</file>
         </group>
     </open-files>
 </project-private>
