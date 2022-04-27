@@ -76,10 +76,6 @@ function BaseApp() {
     }
 
     this.buildApiUrl = function (url) {
-        if (this.indexPageApiGateway)
-        {
-            return this.indexPageApiGateway + url;
-        }
         return this.apiGateway + url;
     }
 
@@ -93,6 +89,7 @@ function BaseApp() {
         }
         await fetch(this.buildApiUrl(url), {
             method: "POST",
+            mode: 'cors',
             headers: headers,
             body: JSON.stringify(data)
         })
