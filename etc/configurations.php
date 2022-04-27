@@ -128,6 +128,18 @@ return Arr::mergeRecursive(
                         ServiceTypes::DEBUGGER => Debugger::class //Optional service
                     ],
                     "middlewares" => [
+                        "CorsMiddleware" => function () { 
+                    		$middleware = new Tuupola\Middleware\CorsMiddleware(
+                    		[
+                    		    "origin" => ["*"],
+				    "methods" => ["GET", "POST", "PUT", "PATCH", "DELETE"],
+				    "headers.allow" => ["Authorization", "If-Match", "If-Unmodified-Since", "Content-Type"],
+				    "headers.expose" => ["Etag"],
+				    "credentials" => true,
+				    "cache" => 86400
+                    		]);
+                    		return $middleware;
+                    	},
                         "JsonBodyParserMiddleware" => [
                             "class" => JsonBodyParserMiddleware::class
                         ],

@@ -1,15 +1,15 @@
-function IndexPage() {
+function IndexPage(props) {
 const [waiting, setWaiting] = React.useState(false);
 const [error, setError] = React.useState(false);
 const [values, setValues] = React.useState({
     showPassword: false
 });
- 
+
 const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     /*setWaiting(true);*/
-    var result = await baseApp.fetch("/api/user/token", baseApp.formDataToObject(data));
+    var result = await baseApp.fetch(props.apiGateway + "/api/user/token", baseApp.formDataToObject(data));
     if(result.status == "success"){
         if(result.message.message ==  "ok"){
             if(baseApp.isWeb()){
@@ -94,7 +94,7 @@ const handleLink = (event) => {
                {baseApp.translations().t("signin", "userform")}
              </Typography>
         </Box>
-          <Box component="form"  autoComplete="off" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+          <Box component="form"  autoComplete="off" onSubmit={handleSubmit.bind(this)} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
