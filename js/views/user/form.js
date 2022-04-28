@@ -1,4 +1,4 @@
-function IndexPage() {
+function IndexPage(props) {
     var id_field = "id";
 
     const [values, setValues] = React.useState({
@@ -26,7 +26,7 @@ function IndexPage() {
             "Id": id
         };
         var model = [];
-        var result = await baseApp.fetch("/api/user/get", data);
+        var result = await baseApp.fetch(props.apiGateway + "/api/user/get", data);
         if (result.status == "success") {
             if (result.message['message'] == "found") {
                 model = result.message['model'];
@@ -49,7 +49,7 @@ function IndexPage() {
             validator.hideMessages();
             setWaiting(true);
             const data = new FormData(e.currentTarget);
-            var result = await baseApp.fetch("/api/user/save", baseApp.formDataToObject(data));
+            var result = await baseApp.fetch(props.apiGateway + "/api/user/save", baseApp.formDataToObject(data));
             if (result.status == "success") {
                 let path = "/userslist";
                 baseApp.redirect(path);

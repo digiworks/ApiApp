@@ -1,4 +1,4 @@
-function IndexPage() {
+function IndexPage(props) {
     const [waiting, setWaiting] = React.useState(false);
     const [error, setError] = React.useState(false);
     const [errorMsg, setErrorMsg] = React.useState("");
@@ -27,7 +27,7 @@ function IndexPage() {
             validator.hideMessages();
             setWaiting(true);
             const data = new FormData(event.currentTarget);
-            var result = await baseApp.fetch("/api/user/register", baseApp.formDataToObject(data));
+            var result = await baseApp.fetch(props.apiGateway + "/api/user/register", baseApp.formDataToObject(data));
             if (result.status == "success") {
                 if(result.message.message == "present"){
                     setErrorMsg(presentMsg);

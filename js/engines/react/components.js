@@ -279,8 +279,9 @@ function DataGridRest({
         `&order=` + order + 
         `&orderBy=` + orderBy +
         `&filter=` + JSON.stringify(filtersValues);
-    const response = await fetch(url);
-    const result = await response.json();
+    const response = await baseApp.getFetch(url);
+    const result = await response.message;
+    
     setTotalElements(result.totalCount);
     setRows(result.data);
     setWaiting(false);

@@ -19,6 +19,7 @@ use code\storage\filesystem\FileSystem;
 use code\utility\Arr;
 use Symfony\Component\Mime\Email;
 use Tuupola\Middleware\JwtAuthentication;
+use Tuupola\Middleware\JwtAuthentication\RequestMethodRule;
 use Tuupola\Middleware\JwtAuthentication\RequestPathRule;
 
 define('COREPATH_ROOT', realpath(__DIR__ . DIRECTORY_SEPARATOR . '..'));
@@ -167,6 +168,7 @@ return Arr::mergeRecursive(
                                     "/api/file/css"
                                 ]
                                     ]),
+                            new RequestMethodRule([ "ignore" => ["OPTIONS"]]),
                         ],
                         "error" => function ($response, $arguments) {
                             return $response->withHeader('Location', '/login')->withStatus(302);

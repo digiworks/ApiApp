@@ -1,4 +1,4 @@
-function IndexPage() {
+function IndexPage(props) {
 
 
 

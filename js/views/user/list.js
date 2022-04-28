@@ -1,7 +1,7 @@
 /* User List
  *---------
 */
-function IndexPage() {
+function IndexPage(props) {
     const [waiting, setWaiting] = React.useState(false);
     const [open, setOpen] = React.useState(false);
     const [data, setData] = React.useState([]);
@@ -38,7 +38,7 @@ function IndexPage() {
       setOpen(false);
       if(baseApp.isWeb()){
             setWaiting(true);
-            var result = await baseApp.fetch("/api/user/delete",data);
+            var result = await baseApp.fetch(props.apiGateway + "/api/user/delete",data);
             
             if(result.status == "success"){
                  setWaiting(false);
@@ -99,7 +99,7 @@ function IndexPage() {
                 <Button sx={{ border: "1px dashed grey" }} id = "id_button_1" onClick={createuser}>{baseApp.translations().t("add", "userform")}</Button>
             </Box>
             <DataGridRest
-                restUrl = "/api/user/paginate"
+                restUrl = {props.apiGateway + "/api/user/paginate"}
                 headers = {hd}
                 keyColumn = "Id"
                 columns = {columns}

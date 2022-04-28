@@ -1,4 +1,4 @@
-function IndexPage() {
+function IndexPage(props) {
 const [waiting, setWaiting] = React.useState(false);
      
 const handleSubmit = (event) => {

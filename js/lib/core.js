@@ -93,21 +93,51 @@ function BaseApp() {
             headers: headers,
             body: JSON.stringify(data)
         })
-                .then(response => response.json())
-                .then(data => {
-                    if (this.debug && data.debug) {
-                        console.log(data.debug);
-                    }
-                    result.message = data;
-                    result.status = "success";
-                })
-                .catch((error) => {
-                    result.message = error;
-                    result.status = "error";
-                    if (this.debug) {
-                        console.error("Error:", error);
-                    }
-                });
+        .then(response => response.json())
+        .then(data => {
+            if (this.debug && data.debug) {
+                console.log(data.debug);
+            }
+            result.message = data;
+            result.status = "success";
+        })
+        .catch((error) => {
+            result.message = error;
+            result.status = "error";
+            if (this.debug) {
+                console.error("Error:", error);
+            }
+        });
+        return result;
+    }
+    
+    this.getFetch = async function (url) {
+        var result = {status: "", message: ""};
+        headers = {
+        };
+        if (this.sessionStore().jwt) {
+            headers["Authorization"] = "Bearer " + this.readJWT().token;
+        }
+        await fetch(this.buildApiUrl(url), {
+            method: "GET",
+            mode: 'cors',
+            headers: headers
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (this.debug && data.debug) {
+                console.log(data.debug);
+            }
+            result.message = data;
+            result.status = "success";
+        })
+        .catch((error) => {
+            result.message = error;
+            result.status = "error";
+            if (this.debug) {
+                console.error("Error:", error);
+            }
+        });
         return result;
     }
 
