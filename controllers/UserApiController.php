@@ -35,7 +35,7 @@ class UserApiController extends AppController {
         }
         unset($data["Id"]);
         $user->fromArray($data);
-        $user->setStatus($data["Status"] == "on" ? 1 : 0);
+        $user->setStatus(isset($data["Status"]) && $data["Status"] == "on" ? 1 : 0);
         $user->save();
         $response->getBody()->write(json_encode(['succesful']));
         return $response;
