@@ -38,6 +38,7 @@ define('COREPATH_JS', COREPATH_ROOT . DIRECTORY_SEPARATOR . '');
 define('COREPATH_CSS', COREPATH_STATIC . DIRECTORY_SEPARATOR . 'css');
 define('COREPATH_MIGRATIONS', COREPATH_ROOT . DIRECTORY_SEPARATOR . COREPATH_ETC . 'generated-migrations');
 define('COREPATH_MAILS', COREPATH_ROOT . DIRECTORY_SEPARATOR . 'mails');
+define('COREPATH_WEB', COREPATH_ROOT . DIRECTORY_SEPARATOR . 'web');
 
 return Arr::mergeRecursive(
                 [
@@ -63,6 +64,7 @@ return Arr::mergeRecursive(
                             "jsExpirationOffset" => 86400,
                             "cssExpirationOffset" => 84600,
                             "streamExpirationOffset" => 86400,
+                            "baseRootFolderPath" => COREPATH_ROOT,
                             "baseStaticFolderPath" => COREPATH_STATIC,
                             "baseJsFolderPath" => COREPATH_JS,
                             "baseCssFolderPath" => COREPATH_CSS,

@@ -25,7 +25,7 @@ class FileApiController extends AppController {
             $params = $request->getQueryParams();
             $type = isset($params['type']) && $params['type'] == '2' ? 'attachment' : 'inline';
             $fileSystem = ApiAppFactory::getApp()->getService(ServiceTypes::FILESYSTEM);
-            $file = $fileSystem->getFile($params['file']);
+            $file = $fileSystem->getStaticFile($params['file']);
             if ($this->ifModifiedSinceRequest($file)) {
                 $file_stream = $file->stream();
                 $expireOffset = ApiAppFactory::getApp()->getService(ServiceTypes::CONFIGURATIONS)->get('env.web.streamExpirationOffset', 0);
