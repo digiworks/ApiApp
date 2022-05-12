@@ -69,9 +69,13 @@ function BaseApp() {
     }
     }
 
-    this.redirect = function (goto) {
+    this.redirect = function (goto, gateway = "") {
         if (goto != "" && this.isWeb()) {
-            window.location = goto;
+            if(gateway != ""){
+            	window.location = "/renderview?url=" + encodeURIComponent(goto);
+            }else{
+            	window.location = goto;
+            }
         }
     }
 

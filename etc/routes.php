@@ -3,7 +3,9 @@
 return [
     "routes" => [
         // Views Routes
-
+        
+        ["route" => "/renderview", "method" => "GET", "controller" => "\code\controllers\AppController:renderview"],
+                
         ["route" => "/", "method" => "GET", "controller" => "\controllers\HomeController:home"],
         ["route" => "/login", "method" => "GET", "controller" => "\controllers\UserController:signin"],
         ["route" => "/signup", "method" => "GET", "controller" => "\controllers\UserController:signup"],
