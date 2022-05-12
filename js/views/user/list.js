@@ -65,7 +65,7 @@ function IndexPage(props) {
                    /*setData(rowData);*/
                    setWaiting(true);
                    let path = "/formuser?id=" + rowData.Id;
-                   baseApp.redirect(path);
+                   baseApp.redirect(path, props.apiGateway);
                }
            }
        },
@@ -84,7 +84,7 @@ function IndexPage(props) {
       e.preventDefault();
       setWaiting(true);
       let path = "/formuser";
-      baseApp.redirect(path);
+      baseApp.redirect(path, props.apiGateway);
     };
     
     return (

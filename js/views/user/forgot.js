@@ -12,7 +12,7 @@ const handleSubmit = (event) => {
 
 const handleSigneIn = (event) => {
     setWaiting(true);
-    baseApp.redirect(event.target.href);
+    baseApp.redirect(event.target.href, props.apiGateway);
 };
     
     return (

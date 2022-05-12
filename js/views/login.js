@@ -10,7 +10,7 @@ class IndexPage extends React.Component {
     e.preventDefault();
     alert("it works!");
     let path = "/login";
-    redirect(path);
+    redirect(path, props.apiGateway);
   }
     render() {
         /*dateFns.format(new Date(), "'Today is a' eeee");*/

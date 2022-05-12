@@ -1,4 +1,4 @@
-function IndexPage() {
+function IndexPage(props) {
   const [formats, setFormats] = React.useState(function (){ return (["bold", "italic"]);});
   const [open, setOpen] = React.useState(false);
   const today = new Date();
@@ -14,7 +14,7 @@ function IndexPage() {
   const handleAgree = () => {
     setOpen(false);
     let path = "/table";
-    baseApp.redirect(path);
+    baseApp.redirect(path, props.apiGateway);
   };
 
   const handleFormat = function(event, newFormats){

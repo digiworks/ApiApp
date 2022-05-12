@@ -72,7 +72,7 @@ function BaseApp() {
     this.redirect = function (goto, gateway = "") {
         if (goto != "" && this.isWeb()) {
             if(gateway != ""){
-            	window.location = "/renderview?url=" + encodeURIComponent(goto);
+            	window.location = "/v?url=" + encodeURIComponent(goto);
             }else{
             	window.location = goto;
             }
@@ -240,7 +240,15 @@ function BaseApp() {
 
     this.queryString = function () {
         const windowUrl = window.location.search;
-        return new URLSearchParams(windowUrl);
+        qparams = new URLSearchParams(windowUrl);
+        if(qparams.get("url")){
+            newwindowUrl =  qparams.get("url");
+            indexParms = newwindowUrl.indexOf("?");
+            if(indexParms >= 0){
+                qparams = new URLSearchParams(newwindowUrl.substr(indexParms));
+            }
+        } 
+        return qparams;
     }
 
     this.formValidator = function () {

@@ -35,7 +35,7 @@ function IndexPage(props) {
                     setWaiting(false);
                 }else{
                     let path = "/login";
-                    baseApp.redirect(path);
+                    baseApp.redirect(path, props.apiGateway);
                 }
             } else {
                 if (result.status == "error")
@@ -52,7 +52,7 @@ function IndexPage(props) {
     
     const handleSigneIn = (event) => {
         setWaiting(true);
-        baseApp.redirect(event.target.href);
+        baseApp.redirect(event.target.href, props.apiGateway);
     };
     
     

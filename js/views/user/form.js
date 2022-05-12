@@ -52,7 +52,7 @@ function IndexPage(props) {
             var result = await baseApp.fetch(props.apiGateway + "/api/user/save", baseApp.formDataToObject(data));
             if (result.status == "success") {
                 let path = "/userslist";
-                baseApp.redirect(path);
+                baseApp.redirect(path, props.apiGateway);
             } else {
                 if (result.status == "error")
                 {
@@ -101,7 +101,7 @@ function IndexPage(props) {
     const handleCancel = () => {
         setWaiting(true);
         let path = "/userslist";
-        baseApp.redirect(path);
+        baseApp.redirect(path, props.apiGateway);
     };
     
     

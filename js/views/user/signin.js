@@ -17,7 +17,7 @@ const handleSubmit = async (event) => {
 
             }
             let path = "/dashboard";
-            baseApp.redirect(path);
+            baseApp.redirect(path, props.apiGateway);
         }else{
             setError(true);
             setWaiting(false);

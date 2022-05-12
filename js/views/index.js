@@ -29,13 +29,13 @@ class IndexPage extends React.Component {
         e.preventDefault();
         alert("it works!");
         let path = `/`;
-        redirect(path);
+        redirect(path, props.apiGateway);
       }
     gotlistuser(e)
     {
       e.preventDefault();
       let path = "/listuser";
-      redirect(path);
+      redirect(path, props.apiGateway);
     }
     render() {
         
