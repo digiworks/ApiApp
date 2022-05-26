@@ -2,11 +2,11 @@
 <html>
 <head>
     <link rel="shortcut icon"                    
-   href="api/file/stream?file=images/favicon/favicon-32x32.png&type=1">                                                    
+   href="/api/file/stream?file=images/favicon/favicon-32x32.png&type=1">                                                    
                                                                                             
   <link rel="icon"                             
    type="image/vnd.microsoft.icon"                                                          
-   href="api/file/stream?file=images/favicon/favicon-32x32.png&type=1">
+   href="/api/file/stream?file=images/favicon/favicon-32x32.png&type=1">
    
     {{stylesheets}}
    

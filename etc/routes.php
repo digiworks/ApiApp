@@ -4,7 +4,7 @@ return [
     "routes" => [
         
         // System Routes
-        ["route" => "/v", "method" => "GET", "controller" => "\code\controllers\AppController:renderview"],
+        //["route" => "/v", "method" => "GET", "controller" => "\code\controllers\AppController:renderview"],
         ["route" => "/api/file/stream", "method" => "GET", "controller" => "\controllers\FileApiController:stream"],
         ["route" => "/api/file/js/{path:.*}", "method" => "GET", "controller" => "\controllers\FileApiController:js"],
         ["route" => "/api/file/css/{path:.*}", "method" => "GET", "controller" => "\controllers\FileApiController:css"],
