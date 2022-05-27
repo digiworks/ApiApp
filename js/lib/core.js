@@ -71,11 +71,7 @@ function BaseApp() {
 
     this.redirect = function (goto, gateway = "") {
         if (goto != "" && this.isWeb()) {
-            if(gateway != ""){
-            	window.location = "/v?url=" + encodeURIComponent(goto);
-            }else{
-            	window.location = goto;
-            }
+            window.location = goto;
         }
     }
 
