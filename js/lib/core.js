@@ -143,8 +143,14 @@ function BaseApp() {
 
     this.get = function (url, params) {
         var responseValues = {};
+        headers = {
+        };
+        if (this.sessionStore().jwt) {
+            headers["Authorization"] = "Bearer " + this.readJWT().token;
+        }
         this.httpClient.get(this.buildApiUrl(url),
                 {
+                    "headers": headers,
                     "params": params
                 })
                 .then(function (response) {
@@ -166,7 +172,12 @@ function BaseApp() {
 
     this.post = function (url, data, json = true) {
         var responseValues = {};
-        this.httpClient.post(this.buildApiUrl(url), (json ? JSON.stringify(data) : data))
+        headers = {
+        };
+        if (this.sessionStore().jwt) {
+            headers["Authorization"] = "Bearer " + this.readJWT().token;
+        }
+        this.httpClient.post(this.buildApiUrl(url), (json ? JSON.stringify(data) : data), { "headers": headers})
                 .then(function (response) {
                     if (this.debug) {
                         console.log(response);
