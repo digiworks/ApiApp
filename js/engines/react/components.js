@@ -6,7 +6,7 @@ function DatePickerInput({ openCalendar, value, handleValueChange }) {
       value={value}
       onChange={handleValueChange}
     />
-  )
+  );
 }
 
 
