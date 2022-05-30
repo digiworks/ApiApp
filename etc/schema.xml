@@ -14,6 +14,15 @@
     <column name="created_by" type="integer" required="false"/>
     <column name="updated_by" type="integer" required="false"/>
     <column name="deleted_by" type="integer" required="false"/>
+    <index name="idx_name">
+        <index-column name="name" />
+    </index>
+    <index name="idx_surname">
+        <index-column name="surname" />
+    </index>
+    <index name="idx_email">
+        <index-column name="email" />
+    </index>
   </table>
   
   <table name="usergroups" phpName="UserGroups" schema = "public">
