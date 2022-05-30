@@ -206,7 +206,7 @@ return Arr::mergeRecursive(
                             //['lib' => 'js/engines/react/react-dom/17.0.2/umd/react-dom.development.min.js', 'tranlsator' => '', 'use' => 'client'],
                             ['lib' => 'js/engines/react/react-dom/18.0.0/umd/react-dom-server-legacy.browser.development.min.js', 'tranlsator' => '', 'use' => 'server'],
                             ['lib' => 'js/engines/react/react-dom/18.0.0/umd/react-dom.development.min.js', 'tranlsator' => '', 'use' => 'client'],
-                            
+                            ['lib' => 'js/engines/react/prop-types/15.8.1/prop-types.js', 'tranlsator' => ''],
                             ['lib' => 'js/engines/react/lib/validator@1.0.0/form-validator.js', 'tranlsator' => ''],
                             ['lib' => 'js/engines/react/lib/validator@1.0.0/locale/it.js', 'tranlsator' => ''],
                             ['lib' => 'js/engines/react/i18next@21.4.0/dist/umd/i18next.js', 'tranlsator' => ''],
