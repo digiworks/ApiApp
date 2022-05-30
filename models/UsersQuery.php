@@ -42,9 +42,6 @@ class UsersQuery extends BaseUsersQuery {
             }
             $query->mergeWith($criteria);
         }
-        if (!empty($orderBy)) {
-            $query->orderBy($orderBy, $order);
-        }
         return $query;
     }
 
