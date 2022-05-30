@@ -76,7 +76,13 @@ function BaseApp() {
     }
 
     this.buildApiUrl = function (url) {
-        return this.apiGateway + url;
+        $apiGtw = "";
+        if(this.indexPageApiGateway.length > 0){
+            $apiGtw = this.indexPageApiGateway;
+        }else if(this.apiGateway.length > 0){
+            $apiGtw = this.apiGateway;
+        }
+        return $apiGtw + url;
     }
 
     this.fetch = async function (url, data) {
@@ -113,8 +119,7 @@ function BaseApp() {
     
     this.getFetch = async function (url) {
         var result = {status: "", message: ""};
-        headers = {
-        };
+        headers ={"Access-Control-Allow-Origin": "*"};
         if (this.sessionStore().jwt) {
             headers["Authorization"] = "Bearer " + this.readJWT().token;
         }
@@ -143,8 +148,7 @@ function BaseApp() {
 
     this.get = function (url, params) {
         var responseValues = {};
-        headers = {
-        };
+        headers ={"Access-Control-Allow-Origin": "*"};
         if (this.sessionStore().jwt) {
             headers["Authorization"] = "Bearer " + this.readJWT().token;
         }
@@ -172,8 +176,7 @@ function BaseApp() {
 
     this.post = function (url, data, json = true) {
         var responseValues = {};
-        headers = {
-        };
+        headers ={"Access-Control-Allow-Origin": "*"};
         if (this.sessionStore().jwt) {
             headers["Authorization"] = "Bearer " + this.readJWT().token;
         }
