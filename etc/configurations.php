@@ -136,7 +136,7 @@ return Arr::mergeRecursive(
                     		[
                     		    "origin" => ["*"],
 				    "methods" => ["GET", "POST", "PUT", "PATCH", "DELETE"],
-				    "headers.allow" => ["Authorization", "If-Match", "If-Unmodified-Since", "Content-Type", ""],
+				    "headers.allow" => ["Authorization", "If-Match", "If-Unmodified-Since", "Content-Type", "Access-Control-Allow-Origin"],
 				    "headers.expose" => ["Etag"],
 				    "credentials" => true,
 				    "cache" => 86400
