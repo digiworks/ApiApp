@@ -77,10 +77,14 @@ function BaseApp() {
 
     this.buildApiUrl = function (url) {
         $apiGtw = "";
-        if(this.indexPageApiGateway.length > 0){
-            $apiGtw = this.indexPageApiGateway;
-        }else if(this.apiGateway.length > 0){
-            $apiGtw = this.apiGateway;
+        var pattern = /^((http|https|ftp):\/\/)/;
+
+        if(!pattern.test(url)) {
+            if(this.indexPageApiGateway.length > 0){
+                $apiGtw = this.indexPageApiGateway;
+            }else if(this.apiGateway.length > 0){
+                $apiGtw = this.apiGateway;
+            }
         }
         return $apiGtw + url;
     }
