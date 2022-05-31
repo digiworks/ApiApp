@@ -197,6 +197,7 @@ return Arr::mergeRecursive(
                             ['lib' => 'js/engines/react/date-fns/1.30.1/date_fns.js', 'tranlsator' => ''],
                             ['lib' => 'js/engines/axios@0.24.0/dist/axios.js', 'tranlsator' => ''],
                             ['lib' => 'js/engines/apexcharts@3.30.0/dist/apexcharts.js', 'tranlsator' => '', 'use' => 'client'], // work only in browser
+                            ['lib' => 'js/engines/lodash/4.17.21/lodash.js', 'tranlsator' => ''],
                             
                             //['lib' => 'https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js','tranlsator'=> ''],
                             //['lib' => 'js/engines/react/17.0.2/umd/react.development.js', 'tranlsator' => ''],
