@@ -146,13 +146,13 @@ function BaseApp() {
         return result;
     }
 
-    this.get = function (url, params) {
+    this.get = async function (url, params) {
         var responseValues = {};
         headers ={"Access-Control-Allow-Origin": "*"};
         if (this.sessionStore().jwt) {
             headers["Authorization"] = "Bearer " + this.readJWT().token;
         }
-        this.httpClient.get(this.buildApiUrl(url),
+        await this.httpClient.get(this.buildApiUrl(url),
                 {
                     "headers": headers,
                     "params": params
@@ -174,13 +174,13 @@ function BaseApp() {
         return responseValues;
     }
 
-    this.post = function (url, data, json = true) {
+    this.post = async function (url, data, json = true) {
         var responseValues = {};
         headers ={"Access-Control-Allow-Origin": "*"};
         if (this.sessionStore().jwt) {
             headers["Authorization"] = "Bearer " + this.readJWT().token;
         }
-        this.httpClient.post(this.buildApiUrl(url), (json ? JSON.stringify(data) : data), { "headers": headers})
+        await this.httpClient.post(this.buildApiUrl(url), (json ? JSON.stringify(data) : data), { "headers": headers})
                 .then(function (response) {
                     if (this.debug) {
                         console.log(response);
