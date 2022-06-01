@@ -30,7 +30,7 @@ function App() {
                 alignItems: "center"
               }}
             >
-                <IndexPage apiGateway={baseApp.indexPageApiGateway}/>
+                <IndexPage apiGateway={baseApp.indexPageApiGateway} pageParams ={pageParams}/>
             </Box>
             <Copyright sx={{ mt: 5 }} />
             </Container>

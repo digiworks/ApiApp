@@ -179,7 +179,7 @@ function BaseApp() {
     }
 
     this.post = async function (url, data, json = true) {
-        var responseValues = {};
+        var result = {status: "", message: ""};
         headers ={"Access-Control-Allow-Origin": "*"};
         if (this.sessionStore().jwt) {
             headers["Authorization"] = "Bearer " + this.readJWT().token;
@@ -189,14 +189,17 @@ function BaseApp() {
                     if (this.debug) {
                         console.log(response);
                     }
-                    responseValues = response;
+                    result.message = response.data;
+                    result.status = "success";
                 })
                 .catch(function (error) {
                     if (this.debug) {
                         console.log(error);
                     }
+                    result.message = error;
+                    result.status = "error";
                 });
-        return responseValues;
+        return result;
     }
 
     this.urlStream = function (url) {

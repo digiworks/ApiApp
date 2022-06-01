@@ -181,7 +181,7 @@ function App() {
         >
          <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <IndexPage apiGateway={baseApp.indexPageApiGateway}/>
+            <IndexPage apiGateway={baseApp.indexPageApiGateway} pageParams ={pageParams}/>
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
