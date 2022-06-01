@@ -184,6 +184,9 @@ function BaseApp() {
         if (this.sessionStore().jwt) {
             headers["Authorization"] = "Bearer " + this.readJWT().token;
         }
+        if(json){
+            headers["Content-Type"] = "application/json";
+        }
         await this.httpClient.post(this.buildApiUrl(url), (json ? JSON.stringify(data) : data), { "headers": headers})
                 .then(function (response) {
                     if (this.debug) {
